@@ -2,7 +2,7 @@
 
 // Start session
 
-if(!isset($_SESSION)) start_session();
+if(!isset($_SESSION)) session_start();
 
 //Load environment variable
 
