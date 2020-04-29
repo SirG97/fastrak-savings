@@ -17,7 +17,7 @@ $appName = getenv('APP_NAME');
 </head>
 <body>
     <h1 class=''><?php echo $appName; ?></h1>
-    <button class="btn btn-primary">Hello</button>
+    <button class="btn btn-primary"><?php var_dump (in_array('mod_rewrite', apache_get_modules())) ?></button>
 
     <script src="js/app.js"></script>
 </body>
