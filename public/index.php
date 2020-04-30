@@ -2,9 +2,6 @@
 
 require_once __DIR__.'/../bootstrap/init.php';
 
-$appName = getenv('APP_NAME');
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +13,8 @@ $appName = getenv('APP_NAME');
     <link rel="stylesheet" href="css/all.css">
 </head>
 <body>
-    <h1 class=''><?php echo $appName; ?></h1>
-    <button class="btn btn-primary">Hello</button>
+
+    <button class="btn btn-primary"></button>
 
     <script src="js/app.js"></script>
 </body>
