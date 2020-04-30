@@ -12,6 +12,9 @@ require_once __DIR__.'/../app/config/_env.php';
 // Instantiate database class
 new App\Classes\Database();
 
+//Set custom error handler
+set_error_handler([new App\Classes\ErrorHandler(), 'handleErrors']);
+
 //require the routes file
 require_once __DIR__. '/../app/Routing/routes.php';
 
