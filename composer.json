@@ -5,7 +5,8 @@
         "illuminate/container": "5.8.36",
         "illuminate/database": "5.8.36",
         "altorouter/altorouter": "^2.0",
-        "symfony/routing": "^5.0"
+        "symfony/routing": "^5.0",
+        "phpmailer/phpmailer": "^6.1"
     },
     "autoload":{
         "psr-4":{
@@ -15,5 +16,8 @@
     },
     "config":{
         "optimize-autoloader":true
+    },
+    "require-dev": {
+        "filp/whoops": "^2.7"
     }
 }

@@ -14,10 +14,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 </head>
 <body>
 
-    <button class="btn btn-primary"></button>
-<?php $user = Capsule::table('users')->get();
-    var_dump($user);
-?>
+
     <script src="js/app.js"></script>
 </body>
 </html>
