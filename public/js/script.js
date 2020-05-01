@@ -1,7 +1,4 @@
-import '../../node_modules/jquery/dist/jquery.js';
-import '../../node_modules/popper.js';
-import '../../node_modules/bootstrap/dist/js/bootstrap.js';
-
+    
 document.addEventListener('DOMContentLoaded', (event) => {
     const hamburger = document.getElementById('hamburger');
     const main = document.getElementById('main');
@@ -18,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     main.addEventListener('click', () =>{
         // if(sidebar.classList.contains('nav-sidebar-open')){
-        sidebar.classList.remove('nav-sidebar-open');
-
+            sidebar.classList.remove('nav-sidebar-open');
+        
     });
 });
