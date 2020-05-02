@@ -1,6 +1,8 @@
 <?php $__env->startSection('title', 'Dashboard'); ?>
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
+        <?php echo e(\App\Classes\Redirect::to('/')); ?>
+
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">

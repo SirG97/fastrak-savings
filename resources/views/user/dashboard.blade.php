@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div class="container-fluid">
+        {{ \App\Classes\Redirect::to('/') }}
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">

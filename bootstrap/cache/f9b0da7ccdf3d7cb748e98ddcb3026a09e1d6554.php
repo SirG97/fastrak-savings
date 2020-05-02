@@ -110,7 +110,7 @@
         <div class="icon-block blue-bg">
             <i class="fas fa-fw fa-tachometer-alt"></i>
         </div>
-        <span class="header-page-title-text">Dashboard<?php echo e(\App\Classes\CSRFToken::verifyCSRFToken('llawI4F4K9IqjfKmvVpDD67+qa+5dJhPJG+dqptHrtE=')); ?></span>
+        <span class="header-page-title-text">Dashboard</span>
     </div>
 
     <div class="header-nav">
