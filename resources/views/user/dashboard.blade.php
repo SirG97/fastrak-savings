@@ -92,7 +92,7 @@
                 <div class="col-md-8">
                     <div class="custom-panel card py-2">
                         <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                            Lastest Transactions
+                            Latest Transactions
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover ">

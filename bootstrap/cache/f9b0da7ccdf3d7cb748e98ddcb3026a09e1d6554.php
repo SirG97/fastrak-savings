@@ -29,7 +29,7 @@
                             <span class="company-icon d-flex justify-content-center">
                              <i class="fas fa-fw fa-shield-alt align-self-center"></i>
                             </span>
-                        <span class="company_text font-weight-bold"><?php echo e($admin); ?></span>
+                        <span class="company_text font-weight-bold">Noble</span>
                     </a>
                 </div>
             </div>
@@ -110,7 +110,7 @@
         <div class="icon-block blue-bg">
             <i class="fas fa-fw fa-tachometer-alt"></i>
         </div>
-        <span class="header-page-title-text">Dashboard</span>
+        <span class="header-page-title-text">Dashboard<?php echo e(\App\Classes\CSRFToken::verifyCSRFToken('llawI4F4K9IqjfKmvVpDD67+qa+5dJhPJG+dqptHrtE=')); ?></span>
     </div>
 
     <div class="header-nav">
