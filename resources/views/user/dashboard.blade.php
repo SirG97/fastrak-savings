@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div class="container-fluid">
+
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">
@@ -92,7 +93,7 @@
                 <div class="col-md-8">
                     <div class="custom-panel card py-2">
                         <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                            Lastest Transactions
+                            Latest Transactions
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover ">
@@ -182,5 +183,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <form action="/dashboard" method="POST">
+                    <input type="text" name="name" value="Edu">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
         </div>
 @endsection()

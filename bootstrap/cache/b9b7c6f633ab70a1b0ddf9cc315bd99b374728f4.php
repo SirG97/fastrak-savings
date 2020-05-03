@@ -1,6 +1,7 @@
 <?php $__env->startSection('title', 'Dashboard'); ?>
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
+       
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">
@@ -91,7 +92,7 @@
                 <div class="col-md-8">
                     <div class="custom-panel card py-2">
                         <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                            Lastest Transactions
+                            Latest Transactions
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover ">
@@ -181,6 +182,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <form action="/dashboard" method="POST">
+                    <input type="text" name="name" value="Edu">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
         </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.layout.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\noble\resources\views/user/dashboard.blade.php ENDPATH**/ ?>

@@ -29,7 +29,7 @@
                             <span class="company-icon d-flex justify-content-center">
                              <i class="fas fa-fw fa-shield-alt align-self-center"></i>
                             </span>
-                        <span class="company_text font-weight-bold">GigaHotels Admin</span>
+                        <span class="company_text font-weight-bold">Noble</span>
                     </a>
                 </div>
             </div>

@@ -7,5 +7,6 @@ $router = new Altorouter();
 $router->map('GET', '/', '\App\Controllers\IndexController@show', 'home');
 
 $router->map('GET', '/dashboard', '\App\Controllers\DashboardController@show', 'dashboard');
+$router->map('POST', '/dashboard', '\App\Controllers\DashboardController@get', 'dt');
 
 
