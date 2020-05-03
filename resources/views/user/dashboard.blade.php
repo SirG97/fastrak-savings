@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div class="container-fluid">
-        {{ \App\Classes\Redirect::to('/') }}
+
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">
@@ -183,5 +183,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <form action="/dashboard" method="POST">
+                    <input type="text" name="name" value="Edu">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
         </div>
 @endsection()
