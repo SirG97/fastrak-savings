@@ -185,7 +185,8 @@
             </div>
             <div class="row">
                 <form action="/dashboard" method="POST">
-                    <input type="text" name="name" value="Edu">
+                    <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
+                    <input type="text" name="surname" value="Edu">
                     <button type="submit">Submit</button>
                 </form>
             </div>

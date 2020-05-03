@@ -14,10 +14,10 @@ class IndexController extends BaseController{
             'body' => 'testing email stuff'
         ];
         $mail = new Mail;
-        if($mail->send($data)){
-            echo 'Mail Sent successfully<br>';
-        }else{
-            echo 'This mail shit is fucked up';
-        }
+//        if($mail->send($data)){
+//            echo 'Mail Sent successfully<br>';
+//        }else{
+//            echo 'This mail shit is fucked up';
+//        }
     }
 }

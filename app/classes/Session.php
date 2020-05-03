@@ -26,6 +26,7 @@ class Session{
     public static function remove($name){
         if(self::has($name)){
             unset($_SESSION[$name]);
+
         }
     }
 }

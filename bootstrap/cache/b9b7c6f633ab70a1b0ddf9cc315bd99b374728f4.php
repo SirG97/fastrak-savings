@@ -1,7 +1,7 @@
 <?php $__env->startSection('title', 'Dashboard'); ?>
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-       
+
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">
@@ -184,7 +184,8 @@
             </div>
             <div class="row">
                 <form action="/dashboard" method="POST">
-                    <input type="text" name="name" value="Edu">
+                    <input type="hidden" name="token" value="<?php echo e(\App\Classes\CSRFToken::_token()); ?>">
+                    <input type="text" name="surname" value="Edu">
                     <button type="submit">Submit</button>
                 </form>
             </div>
