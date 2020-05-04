@@ -19,6 +19,50 @@ class AuthController{
 
     }
 
+    public function login(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+
+                $rules = [
+                    'email' => ['required' => true, 'email' => true],
+                    'password' => ['required' => true,'maxLength' => 40]
+
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    return view('user/login', ['errors' => $errors]);
+                }
+
+                $user = User::where('email', $request->email)->first();
+                 if($user){
+                     if(!password_verify($request->password, $user->password)){
+                        Session::add('error', 'incorrect password');
+                        return view('user/login');
+                     }else{
+                         Session::add('SESSION_USER_ID', $user->userid);
+                         Session::add('SESSION_USERNAME', $user->firstname);
+
+                         Redirect::to('/dashboard');
+                     }
+                 }else{
+                     Session::add('error', 'username not found');
+                     return view('user/login');
+                 }
+
+                Session::add('success', 'user created successfully');
+
+                Redirect::to('/dashboard');
+
+            }
+
+            throw new \Exception('Token mismatch');
+        }
+
+    }
+
     public function showRegister(){
 
         return view('user/register', ['success' => '','errors' => []]);
@@ -63,6 +107,6 @@ class AuthController{
 
             throw new \Exception('Token mismatch');
         }
-        return 'This is serious';
+
     }
 }
