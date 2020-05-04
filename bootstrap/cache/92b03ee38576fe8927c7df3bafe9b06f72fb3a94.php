@@ -1,12 +1,11 @@
-@extends('user.layout.auth')
-@section('title', 'Register')
-@section('content')
+<?php $__env->startSection('title', 'Register'); ?>
+<?php $__env->startSection('content'); ?>
 
     <form action="/register" method="POST" id="form">
         <div class="formheadercontainer">
             <span class="formheadertext">Create your account</span>
         </div>
-        <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
+        <input type="hidden" name="token" value="<?php echo e(\App\Classes\CSRFToken::_token()); ?>">
         <div class="form-group">
             <label for="email" class="font-weight-bold">Email</label>
             <input type="email" class="form-control" value="" id="email" name="email">
@@ -35,4 +34,5 @@
             <a href="/login">Already have an account? Login</a>
         </div>
     </form>
-@endsection()
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layout.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\noble\resources\views/user/register.blade.php ENDPATH**/ ?>

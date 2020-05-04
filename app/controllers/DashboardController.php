@@ -5,7 +5,6 @@ namespace App\controllers;
 
 use App\classes\CSRFToken;
 use App\classes\Request;
-use App\Classes\Session;
 use App\classes\Validation;
 
 class DashboardController extends BaseController{

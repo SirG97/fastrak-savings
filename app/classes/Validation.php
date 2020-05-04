@@ -19,6 +19,7 @@ class Validation{
         'number' => 'The :attribute field can contain only numbers',
         'email' => 'The email address is not valid',
         'unique' => 'The :attribute is already taken',
+        'confirmed' => 'The password do not match'
     ];
 
     private static function setErrorMessages($error, $key = null){
@@ -142,6 +143,13 @@ class Validation{
             }
         }
 
+        return true;
+    }
+
+    public static function confirmed($column, $value, $policy){
+        if($value != null && !empty(trim($value))){
+            return $policy === $value;
+        }
         return true;
     }
 
