@@ -155,7 +155,6 @@ body {
 	display: none;
 	position: absolute;
 	min-width: 220px;
-	background-color: red;
 	top: 105%;
 	right: 18px;
 	z-index: 4;
@@ -246,6 +245,99 @@ header{
     background-color: #fafcff;
 }
 
+
+/*STYLES FOR LOGIN PAGE*/
+
+
+.login-wrapper{
+    height: 100vh;
+    align-items: center;
+}
+
+.login-box{
+    height: auto;
+    background: white none repeat scroll 0% 0%;
+    border-radius: 6px;
+    box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+    width: 100%;
+    max-width: 448px;
+    padding: 40px;
+}
+
+.formheadertext{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1a1f36;
+
+}
+
+.formheadercontainer{
+    margin-bottom: 15px;
+}
+
+.fpassword{
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.loginregtext{
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#form > label{
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group{
+    font-size: 14px;
+}
+
+.text-logo{
+    color: #5469D4;
+    font-size: 35px;
+}
+
+#searchbox{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+#search{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+.cool-border{
+    border-top: 1px solid #e3e8ee !important;
+    border-bottom: 1px solid #e3e8ee !important;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+/*STYLES FOR LOGIN PAGE ENDS*/
+
 @media screen and (min-width: 768px){
     .main{
         padding: 80px 40px 124px 0px;
@@ -331,5 +423,7 @@ header{
 	top: 0px;
 	pointer-events: none;
 } */
+
+
 
 

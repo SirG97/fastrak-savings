@@ -6,7 +6,9 @@
         "illuminate/database": "5.8.36",
         "altorouter/altorouter": "^2.0",
         "symfony/routing": "^5.0",
-        "phpmailer/phpmailer": "^6.1"
+        "phpmailer/phpmailer": "^6.1",
+      "ext-json": "*",
+      "ext-openssl": "*"
     },
     "autoload":{
         "psr-4":{
