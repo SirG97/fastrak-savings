@@ -245,6 +245,22 @@ header{
     background-color: #fafcff;
 }
 
+#searchbox{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+#search{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+.cool-border{
+    border-top: 1px solid #e3e8ee !important;
+}
+
 @media screen and (min-width: 768px){
     .main{
         padding: 80px 40px 124px 0px;

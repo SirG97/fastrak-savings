@@ -303,6 +303,39 @@ header{
     font-size: 35px;
 }
 
+#searchbox{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+#search{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+.cool-border{
+    border-top: 1px solid #e3e8ee !important;
+    border-bottom: 1px solid #e3e8ee !important;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
 /*STYLES FOR LOGIN PAGE ENDS*/
 
 @media screen and (min-width: 768px){

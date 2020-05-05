@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin :: @yield('title')</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/fontawesome-all.css">
+    <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
                             <span class="company-icon d-flex justify-content-center">
                              <i class="fas fa-fw fa-shield-alt align-self-center"></i>
                             </span>
-                        <span class="company_text font-weight-bold">Noble</span>
+                        <span class="company_text font-weight-bold">Akawo</span>
                     </a>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="nav_section">
             <div class="nav_section_content">
                 <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
+                    <a href="/dashboard" class="nav_link nav_flex">
                            <span class="nav_link_icon">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                            </span>
@@ -45,48 +45,47 @@
                     </a>
                 </div>
                 <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
+                    <a href="/customers" class="nav_link nav_flex">
                             <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-user"></i>
+                             <i class="fas fa-fw fa-users"></i>
                             </span>
-                        <span class="nav_link_text">Profile</span>
-                    </a>
-                </div>
-                <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
-                        <span class="nav_link_icon">
-                         <i class="fas fa-fw fa-users"></i>
-                        </span>
                         <span class="nav_link_text">Customers</span>
                     </a>
                 </div>
                 <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
+                    <a href="/customer" class="nav_link nav_flex">
+                        <span class="nav_link_icon">
+                         <i class="fas fa-fw fa-user-plus"></i>
+                        </span>
+                        <span class="nav_link_text">New Customer</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/contributions" class="nav_link nav_flex">
                             <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-money-bill-alt"></i>
+                             <i class="fas fa-fw fa-coins"></i>
                             </span>
-                        <span class="nav_link_text">Payments</span>
+                        <span class="nav_link_text">Contributions</span>
                     </a>
                 </div>
+{{--                <div class="nav_item prelative">--}}
+{{--                    <a href="" class="nav_link nav_flex">--}}
+{{--                         <span class="nav_link_icon">--}}
+{{--                          <i class="fas fa-fw fa-ticket-alt"></i>--}}
+{{--                         </span>--}}
+{{--                        <span class="nav_link_text">Tickets</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div class="nav_item prelative">--}}
+{{--                    <a href="" class="nav_link nav_flex">--}}
+{{--                            <span class="nav_link_icon">--}}
+{{--                             <i class="fas fa-fw fa-envelope"></i>--}}
+{{--                            </span>--}}
+{{--                        <span class="nav_link_text">Messages</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
                 <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
-                         <span class="nav_link_icon">
-                          <i class="fas fa-fw fa-ticket-alt"></i>
-                         </span>
-                        <span class="nav_link_text">Tickets</span>
-                    </a>
-
-                </div>
-                <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
-                            <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-envelope"></i>
-                            </span>
-                        <span class="nav_link_text">Messages</span>
-                    </a>
-                </div>
-                <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
+                    <a href="/settings" class="nav_link nav_flex">
                             <span class="nav_link_icon">
                              <i class="fas fa-fw fa-cogs"></i>
                             </span>
@@ -94,7 +93,7 @@
                     </a>
                 </div>
                 <div class="nav_item prelative">
-                    <a href="" class="nav_link nav_flex">
+                    <a href="/logout" class="nav_link nav_flex">
                          <span class="nav_link_icon">
                           <i class="fas fa-fw fa-sign-out-alt"></i>
                          </span>
@@ -108,9 +107,9 @@
 <header class="d-flex">
     <div class="header-page-title mr-auto">
         <div class="icon-block blue-bg">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw @yield('icon')"></i>
         </div>
-        <span class="header-page-title-text">Dashboard</span>
+        <span class="header-page-title-text">@yield('title')</span>
     </div>
 
     <div class="header-nav">

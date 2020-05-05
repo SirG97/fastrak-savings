@@ -1,8 +1,8 @@
 @extends('user.layout.base')
 @section('title', 'Dashboard')
+@section('icon', 'fa-tachometer-alt')
 @section('content')
     <div class="container-fluid">
-
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="custom-panel card py-2">
@@ -183,13 +183,5 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <form action="/dashboard" method="POST">
-                    <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
-                    <input type="text" name="surname" value="Edu">
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-
         </div>
 @endsection()

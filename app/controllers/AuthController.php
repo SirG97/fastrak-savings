@@ -109,4 +109,16 @@ class AuthController{
         }
 
     }
+
+    public function showsettings(){
+        return view('user/settings');
+    }
+
+    public function settings(){
+
+    }
+
+    public function logout(){
+
+    }
 }
