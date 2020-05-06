@@ -9,19 +9,21 @@
                     <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
                        Add new customer
                     </div>
+                    <form action="/customer" method="POST">
                     <div class="container">
                         <div class="row cool-border trx-bg-head py-3">
                             <div class="col-md-8 offset-md-2">
-                                <form>
+                                @include('includes/message')
                                     <div class="form-row">
+                                        <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
                                         <div class="col-md-4 mb-3">
                                             <label for="firstname">First name</label>
-                                            <input type="text" class="form-control" id="firstname" value="Mark" required>
+                                            <input type="text" class="form-control" id="firstname" name="firstname" value="" required>
 
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="surname">Last name</label>
-                                            <input type="text" class="form-control" id="surname" value="Otto" required>
+                                            <label for="surname">Surname</label>
+                                            <input type="text" class="form-control" id="surname" name="surname" value="" required>
 
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -50,11 +52,11 @@
                                             <label for="state">State</label>
                                             <select class="custom-select" id="state" name="state" required>
                                                 <option selected value="Anambra">Anambra</option>
-                                                <option>Delta</option>
-                                                <option>Enugu</option>
-                                                <option>Ebonyi</option>
-                                                <option>Imo</option>
-                                                <option>Abia</option>
+                                                <option value="Delta">Delta</option>
+                                                <option value="Enugu">Enugu</option>
+                                                <option value="Ebonyi">Ebonyi</option>
+                                                <option value="Imo">Imo</option>
+                                                <option value="Abia">Abia</option>
                                             </select>
                                         </div>
 
@@ -62,8 +64,15 @@
                                     <div class="form-row">
                                         <div class="col-md-5 mb-3">
                                             <label for="amount">Daily amount</label>
-                                            <input type="text" class="form-control"  name="phone" id="amount" required>
-
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">&#8358</span>
+                                                </div>
+                                                <input type="text" name="amount" value="500"  class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-7 mb-3">
@@ -81,13 +90,14 @@
                                         </div>
                                     </div>
 
-                                </form>
+
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer py-2 mt-2 mr-3 d-flex justify-content-end">
-                        <div class="btn btn-primary btn-sm px-3">Save</div>
+                        <button type="submit" class="btn btn-primary btn-sm px-3">Save</button>
                     </div>
+                </form>
                 </div>
             </div>
 

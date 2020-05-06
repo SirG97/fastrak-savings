@@ -9,25 +9,23 @@
 </div>
 <?php elseif(App\Classes\Session::has('error')): ?>
     <div class="alert alert-danger  alert-dismissible" role="alert">
-        <?php echo e(App\Classes\Session::get('error')); ?>
+        <?php echo e(App\Classes\Session::flash('error')); ?>
 
     </div>
-    <?php echo e(App\Classes\Session::remove('error')); ?>
 
 <?php endif; ?>
 
 
-<?php if($success != false ): ?>
+<?php if(isset($success) && !empty($success)): ?>
     <div class="alert alert-success  alert-dismissible" role="alert">
         <?php echo e($success); ?>
 
     </div>
 <?php elseif(App\Classes\Session::has('success')): ?>
     <div class="alert alert-success  alert-dismissible" role="alert">
-        <?php echo e(App\Classes\Session::get('success')); ?>
+        <?php echo e(App\Classes\Session::flash('success')); ?>
 
     </div>
-        <?php echo e(App\Classes\Session::remove('success')); ?>
 
 <?php endif; ?>
 </div>
