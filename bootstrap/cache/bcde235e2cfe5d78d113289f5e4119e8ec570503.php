@@ -16,7 +16,7 @@
 <?php endif; ?>
 
 
-<?php if($success != false ): ?>
+<?php if(isset($success) && !empty($success)): ?>
     <div class="alert alert-success  alert-dismissible" role="alert">
         <?php echo e($success); ?>
 

@@ -15,7 +15,7 @@
 @endif
 
 
-@if($success != false )
+@if(isset($success) && !empty($success))
     <div class="alert alert-success  alert-dismissible" role="alert">
         {{ $success }}
     </div>
