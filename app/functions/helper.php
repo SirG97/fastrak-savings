@@ -1,4 +1,7 @@
 <?php
+
+use App\classes\Session;
+use App\models\User;
 use Philo\Blade\Blade;
 function view($path, array $data = []){
     // specify the path to the view and cache path
@@ -22,4 +25,16 @@ function make($filename, $data){
     ob_end_clean();
 
     return $content;
+}
+
+function isAuthenticated(){
+    return Session::has('SESSION_USER_ID') ? true : false;
+}
+
+function user(){
+    if(isAuthenticated()){
+        return User::findOrFail(Session::has('SESSION_USER_ID'));
+    }
+
+    return false;
 }

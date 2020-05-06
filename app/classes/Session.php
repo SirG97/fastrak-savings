@@ -29,4 +29,17 @@ class Session{
 
         }
     }
+
+    public static function flash($name, $value = ''){
+        if(self::has($name)){
+            $oldvalue = self::get($name);
+            self::remove($name);
+
+            return $oldvalue;
+        }else{
+            self::add($name, $value);
+        }
+
+        return null;
+    }
 }

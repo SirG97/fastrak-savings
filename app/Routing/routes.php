@@ -14,7 +14,7 @@ $router->map('GET', '/login', '\App\Controllers\AuthController@show', 'login');
 $router->map('POST', '/login', '\App\Controllers\AuthController@login', 'auth');
 $router->map('GET', '/settings', '\App\Controllers\AuthController@showsettings', 'show_settings');
 $router->map('POST', '/settings', '\App\Controllers\AuthController@settings', 'settings');
-$router->map('POST', '/logout', '\App\Controllers\AuthController@logout', 'logout');
+$router->map('GET', '/logout', '\App\Controllers\AuthController@logout', 'logout');
 
 $router->map('GET', '/dashboard', '\App\Controllers\DashboardController@show', 'dashboard');
 $router->map('POST', '/dashboard', '\App\Controllers\DashboardController@store', 'dt');

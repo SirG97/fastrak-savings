@@ -13,6 +13,14 @@ use App\models\User;
 
 
 class AuthController{
+
+    public function __construct()
+    {
+        if(isAuthenticated()){
+            Redirect::to('/dashboard');
+        }
+    }
+
     public function show(){
 
         return view('user/login', ['success' => '','errors' => []]);
@@ -62,6 +70,7 @@ class AuthController{
         }
 
     }
+
 
     public function showRegister(){
 
@@ -119,6 +128,12 @@ class AuthController{
     }
 
     public function logout(){
-
+        if(isAuthenticated()){
+            Session::remove('SESSION_USER_ID');
+            Session::remove('SESSION_USERNAME');
+            session_destroy();
+            session_regenerate_id(true);
+        }
+        Redirect::to('/login');
     }
 }

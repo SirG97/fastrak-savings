@@ -9,9 +9,9 @@
 </div>
 @elseif(App\Classes\Session::has('error'))
     <div class="alert alert-danger  alert-dismissible" role="alert">
-        {{ App\Classes\Session::get('error') }}
+        {{ App\Classes\Session::flash('error') }}
     </div>
-    {{ App\Classes\Session::remove('error') }}
+
 @endif
 
 
@@ -21,8 +21,8 @@
     </div>
 @elseif(App\Classes\Session::has('success'))
     <div class="alert alert-success  alert-dismissible" role="alert">
-        {{ App\Classes\Session::get('success') }}
+        {{ App\Classes\Session::flash('success') }}
     </div>
-        {{ App\Classes\Session::remove('success') }}
+
 @endif
 </div>

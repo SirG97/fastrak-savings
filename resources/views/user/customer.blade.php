@@ -62,8 +62,15 @@
                                     <div class="form-row">
                                         <div class="col-md-5 mb-3">
                                             <label for="amount">Daily amount</label>
-                                            <input type="text" class="form-control"  name="phone" id="amount" required>
-
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">&#8358</span>
+                                                </div>
+                                                <input type="text" name="amount" value="500"  class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-7 mb-3">
