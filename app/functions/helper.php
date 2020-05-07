@@ -3,6 +3,10 @@
 use App\classes\Session;
 use App\models\User;
 use Philo\Blade\Blade;
+use voku\helper\Paginator;
+use Carbon\Carbon;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 function view($path, array $data = []){
     // specify the path to the view and cache path
     $view = __DIR__.'/../../resources/views';
@@ -37,4 +41,16 @@ function user(){
     }
 
     return false;
+}
+
+function paginate($num_of_record, $total_record, $table, $object){
+    $d = [];
+
+    $pages = new Paginator($num_of_record, 'p');
+    $pages->set_total($total_record);
+
+    $data = Capsule::select("SELECT * FROM ". $table . " ". $pages->get_limit());
+    $d = $object->transform($data);
+
+    return [$d, $pages->page_links()];
 }

@@ -14,6 +14,10 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
     );
 
     public static $prefixLengthsPsr4 = array (
+        'v' => 
+        array (
+            'voku\\helper\\' => 12,
+        ),
         'W' => 
         array (
             'Whoops\\' => 7,
@@ -41,6 +45,7 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         array (
             'Illuminate\\View\\' => 16,
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Pagination\\' => 22,
             'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Database\\' => 20,
@@ -63,6 +68,10 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
     );
 
     public static $prefixDirsPsr4 = array (
+        'voku\\helper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voku/pagination/src/voku/helper',
+        ),
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
@@ -127,6 +136,10 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
         ),
+        'Illuminate\\Pagination\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/pagination',
+        ),
         'Illuminate\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/filesystem',
@@ -170,8 +183,22 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         'App\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/controllers/BaseController.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
         'App\\RouteDispatcher' => __DIR__ . '/../..' . '/app/Routing/RouteDispatcher.php',
+        'App\\classes\\CSRFToken' => __DIR__ . '/../..' . '/app/classes/CSRFToken.php',
         'App\\classes\\Database' => __DIR__ . '/../..' . '/app/classes/Database.php',
+        'App\\classes\\ErrorHandler' => __DIR__ . '/../..' . '/app/classes/ErrorHandler.php',
         'App\\classes\\Mail' => __DIR__ . '/../..' . '/app/classes/Mail.php',
+        'App\\classes\\Redirect' => __DIR__ . '/../..' . '/app/classes/Redirect.php',
+        'App\\classes\\Request' => __DIR__ . '/../..' . '/app/classes/Request.php',
+        'App\\classes\\Session' => __DIR__ . '/../..' . '/app/classes/Session.php',
+        'App\\classes\\Validation' => __DIR__ . '/../..' . '/app/classes/Validation.php',
+        'App\\controllers\\AuthController' => __DIR__ . '/../..' . '/app/controllers/AuthController.php',
+        'App\\controllers\\CustomerController' => __DIR__ . '/../..' . '/app/controllers/CustomerController.php',
+        'App\\controllers\\DashboardController' => __DIR__ . '/../..' . '/app/controllers/DashboardController.php',
+        'App\\controllers\\SettingsController' => __DIR__ . '/../..' . '/app/controllers/SettingsController.php',
+        'App\\controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
+        'App\\models\\Contribution' => __DIR__ . '/../..' . '/app/models/Contribution.php',
+        'App\\models\\Customer' => __DIR__ . '/../..' . '/app/models/Customer.php',
+        'App\\models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
         'Carbon\\CarbonInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterface.php',
@@ -478,6 +505,11 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         'Illuminate\\Filesystem\\FilesystemAdapter' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemAdapter.php',
         'Illuminate\\Filesystem\\FilesystemManager' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemManager.php',
         'Illuminate\\Filesystem\\FilesystemServiceProvider' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemServiceProvider.php',
+        'Illuminate\\Pagination\\AbstractPaginator' => __DIR__ . '/..' . '/illuminate/pagination/AbstractPaginator.php',
+        'Illuminate\\Pagination\\LengthAwarePaginator' => __DIR__ . '/..' . '/illuminate/pagination/LengthAwarePaginator.php',
+        'Illuminate\\Pagination\\PaginationServiceProvider' => __DIR__ . '/..' . '/illuminate/pagination/PaginationServiceProvider.php',
+        'Illuminate\\Pagination\\Paginator' => __DIR__ . '/..' . '/illuminate/pagination/Paginator.php',
+        'Illuminate\\Pagination\\UrlWindow' => __DIR__ . '/..' . '/illuminate/pagination/UrlWindow.php',
         'Illuminate\\Support\\AggregateServiceProvider' => __DIR__ . '/..' . '/illuminate/support/AggregateServiceProvider.php',
         'Illuminate\\Support\\Arr' => __DIR__ . '/..' . '/illuminate/support/Arr.php',
         'Illuminate\\Support\\Carbon' => __DIR__ . '/..' . '/illuminate/support/Carbon.php',
@@ -791,6 +823,8 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'voku\\helper\\Paginator' => __DIR__ . '/..' . '/voku/pagination/src/voku/helper/Paginator.php',
+        'voku\\helper\\PaginatorHelper' => __DIR__ . '/..' . '/voku/pagination/src/voku/helper/PaginatorHelper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

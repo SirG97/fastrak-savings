@@ -15,6 +15,11 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                @include('includes/message')
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="custom-panel card py-2">
                     <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
                         Customers
@@ -28,8 +33,8 @@
                                 <th scope="col">Surname</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Pledged Amount</th>
-                                <th scope="col"></th>
+                                <th scope="col">Daily Amount</th>
+                                <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody class="table-style">
@@ -37,17 +42,17 @@
                             @if(!empty($customers) && count($customers) > 0)
                                 @foreach($customers as $customer)<tr>
                                     <td scope="row">
-                                        @if($customer->status === 1)
+                                        @if($customer['status'] === 1)
                                             <i class="fas fa-fw fa-check-circle text-success"></i>
                                         @else
                                             <i class="fas fa-fw fa-exclamation-triangle text-warning"></i>
                                         @endif
                                     </td>
-                                    <td>{{ $customer->firstname }}</td>
-                                    <td>{{ $customer->surname }}</td>
-                                    <td>{{ $customer->phone }}</td>
-                                    <td>{{ $customer->email }}</td>
-                                    <td>{{ $customer->amount }}</td>
+                                    <td>{{ $customer['firstname'] }}</td>
+                                    <td>{{ $customer['surname'] }}</td>
+                                    <td>{{ $customer['phone'] }}</td>
+                                    <td>{{ $customer['email'] }}</td>
+                                    <td>{{ $customer['amount'] }}</td>
                                     <td class="table-action d-flex flex-nowrap"><i class="fas fa-fw fa-eye text-success" title="View customer details"></i> &nbsp; &nbsp;
                                         <i class="fas fa-fw fa-edit text-primary" title="Edit customer details"></i> &nbsp; &nbsp;
                                         <i class="fas fa-fw fa-trash text-danger" title="Delete customer details"></i>
@@ -64,6 +69,9 @@
                             @endif
                             </tbody>
                         </table>
+                    </div>
+                    <div class="panel-footer py-1 mt-0 mr-3 d-flex justify-content-end">
+                        {!! $links !!}
                     </div>
 
                 </div>

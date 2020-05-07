@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'voku\\helper\\' => array($vendorDir . '/voku/pagination/src/voku/helper'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
@@ -22,6 +23,7 @@ return array(
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Illuminate\\View\\' => array($vendorDir . '/illuminate/view'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
+    'Illuminate\\Pagination\\' => array($vendorDir . '/illuminate/pagination'),
     'Illuminate\\Filesystem\\' => array($vendorDir . '/illuminate/filesystem'),
     'Illuminate\\Events\\' => array($vendorDir . '/illuminate/events'),
     'Illuminate\\Database\\' => array($vendorDir . '/illuminate/database'),

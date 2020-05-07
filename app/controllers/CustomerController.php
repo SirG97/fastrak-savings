@@ -13,9 +13,15 @@ use App\models\Customer;
 
 
 class CustomerController extends BaseController{
+    public $table_name = 'customers';
+
     public function show(){
-        $customers = Customer::all();
-        return view('user/customers', compact('customers'));
+        $total = Customer::all()->count();
+//        $customers = Customer::all();
+        $object = new Customer();
+
+        list($customers, $links) = paginate(10, $total, $this->table_name, $object);
+        return view('user/customers', compact('customers', 'links'));
     }
 
     public function showcustomerform(){
@@ -62,7 +68,7 @@ class CustomerController extends BaseController{
 
                     Request::refresh();
 
-                    Session::add('success', 'user created successfully');
+                    Session::add('success', 'New customer created successfully');
 
                     Redirect::to('/customers');
                     exit();
