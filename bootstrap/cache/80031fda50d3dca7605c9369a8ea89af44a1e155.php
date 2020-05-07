@@ -16,56 +16,51 @@
             <div class="col-md-12">
                 <div class="custom-panel card py-2">
                     <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                        Latest Contributions
+                        Customers
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="trx-bg-head text-secondary py-3 px-3">
                             <tr>
                                 <th scope="col">Status</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Pledged Amount</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table-style">
 
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-times-circle text-danger"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
+                            <?php if(!empty($customers) && count($customers) > 0): ?>
+                                <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><tr>
+                                    <td scope="row">
+                                        <?php if($customer->status === 1): ?>
+                                            <i class="fas fa-fw fa-check-circle text-success"></i>
+                                        <?php else: ?>
+                                            <i class="fas fa-fw fa-exclamation-triangle text-warning"></i>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?php echo e($customer->firstname); ?></td>
+                                    <td><?php echo e($customer->surname); ?></td>
+                                    <td><?php echo e($customer->phone); ?></td>
+                                    <td><?php echo e($customer->email); ?></td>
+                                    <td><?php echo e($customer->amount); ?></td>
+                                    <td class="table-action d-flex flex-nowrap"><i class="fas fa-fw fa-eye text-success" title="View customer details"></i> &nbsp; &nbsp;
+                                        <i class="fas fa-fw fa-edit text-primary" title="Edit customer details"></i> &nbsp; &nbsp;
+                                        <i class="fas fa-fw fa-trash text-danger" title="Delete customer details"></i>
+                                    </td>
+
+
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                                <tr>
+                                   No customers yet
+
+                                </tr>
+                            <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

@@ -17,56 +17,51 @@
             <div class="col-md-12">
                 <div class="custom-panel card py-2">
                     <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                        Latest Contributions
+                        Customers
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="trx-bg-head text-secondary py-3 px-3">
                             <tr>
                                 <th scope="col">Status</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Pledged Amount</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table-style">
 
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-times-circle text-danger"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
+                            @if(!empty($customers) && count($customers) > 0)
+                                @foreach($customers as $customer)<tr>
+                                    <td scope="row">
+                                        @if($customer->status === 1)
+                                            <i class="fas fa-fw fa-check-circle text-success"></i>
+                                        @else
+                                            <i class="fas fa-fw fa-exclamation-triangle text-warning"></i>
+                                        @endif
+                                    </td>
+                                    <td>{{ $customer->firstname }}</td>
+                                    <td>{{ $customer->surname }}</td>
+                                    <td>{{ $customer->phone }}</td>
+                                    <td>{{ $customer->email }}</td>
+                                    <td>{{ $customer->amount }}</td>
+                                    <td class="table-action d-flex flex-nowrap"><i class="fas fa-fw fa-eye text-success" title="View customer details"></i> &nbsp; &nbsp;
+                                        <i class="fas fa-fw fa-edit text-primary" title="Edit customer details"></i> &nbsp; &nbsp;
+                                        <i class="fas fa-fw fa-trash text-danger" title="Delete customer details"></i>
+                                    </td>
+
+
+                                </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                   No customers yet
+
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>

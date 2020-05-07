@@ -10,11 +10,12 @@ use App\classes\Request;
 use App\classes\Session;
 use App\classes\Validation;
 use App\models\Customer;
-use App\models\User;
+
 
 class CustomerController extends BaseController{
     public function show(){
-        return view('user/customers');
+        $customers = Customer::all();
+        return view('user/customers', compact('customers'));
     }
 
     public function showcustomerform(){
@@ -30,7 +31,7 @@ class CustomerController extends BaseController{
                         'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
                         'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                         'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 11, 'minLength' => 11, 'number' => true],
+                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true],
                         'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'address' => ['required' => true, 'maxLength' => '150'],
@@ -44,7 +45,7 @@ class CustomerController extends BaseController{
                     }
 
                     //Add the user
-                    Customer::create([
+                    $details = [
                         'customer_id' => base64_encode(openssl_random_pseudo_bytes(16)),
                         'surname' => $request->surname,
                         'firstname' => $request->firstname,
@@ -55,17 +56,20 @@ class CustomerController extends BaseController{
                         'state' => $request->state,
                         'amount' => $request->amount,
 
-                    ]);
+                    ];
+
+                    Customer::create($details);
 
                     Request::refresh();
 
                     Session::add('success', 'user created successfully');
 
                     Redirect::to('/customers');
+                    exit();
 
                 }
 
-            Redirect::to('/customer');
+                Redirect::to('/customer');
             }
     }
 

@@ -337,6 +337,14 @@ header{
     color: #aaa;
 }
 
+.table-action{
+
+}
+
+.table-style{
+    cursor: pointer;
+}
+
 /*STYLES FOR LOGIN PAGE ENDS*/
 
 @media screen and (min-width: 768px){
