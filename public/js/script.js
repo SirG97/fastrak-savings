@@ -73,17 +73,48 @@ document.addEventListener('DOMContentLoaded', (event) => {
             amount : $('#amount').val(),
         }
 
+
+
         $.ajax({
             url: url,
             type: 'POST',
             data: data,
             success: function (response) {
-
+                let data = JSON.parse(response);
                 console.log(JSON.parse(response))
+                let message = data.success;
+                msg.innerHTML = alertMessage('success', message);
+                interval(5000);
             },
-            error: function(error){
-                console.log(error);
+            error: function(request, error){
+
+                let errors = JSON.parse(request.responseText);
+                console.log(errors);
+                let ul = '';
+                $.each(errors, (key, value) => {
+                    $.each(value, (index, item)=>{
+                        console.log(item);
+                        ul += `${item} <br>`;
+                    });
+
+                });
+
+                msg.innerHTML = alertMessage('danger', ul);
+                interval(5000);
             }
         });
     });
+
+
+    function alertMessage(status, message){
+        return `<div class="alert alert-${status} m-t-20 alert-dismissible fade show" role="alert">
+	${message}
+	</div>`;
+    }
+
+    function interval(duration){
+        setTimeout(()=>{
+            $(".alert").alert('close');
+        }, duration);
+    }
 });
