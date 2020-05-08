@@ -19,7 +19,8 @@ class Validation{
         'number' => 'The :attribute field can contain only numbers',
         'email' => 'The email address is not valid',
         'unique' => 'The :attribute is already taken',
-        'confirmed' => 'The password do not match'
+        'confirmed' => 'The password do not match',
+        'unique_edit' => ':attribute already exists'
     ];
 
     private static function setErrorMessages($error, $key = null){
@@ -149,6 +150,17 @@ class Validation{
     public static function confirmed($column, $value, $policy){
         if($value != null && !empty(trim($value))){
             return $policy === $value;
+        }
+        return true;
+    }
+
+    public function unique_edit($column, $value, $policy){
+        list($table, $id, $column_name) = explode('|', $policy);
+        //echo 'table: '.$table . '<br>Id: '. $id .'<br>column_name: '. $column_name .'<br>column: '.$column .'<br> value: '.$value .'<br>';
+        if($value != null && !empty(trim($value))){
+            return !Capsule::table($table)->where($column, '=', $value)
+                                            ->where($column_name, '!=', $id)
+                                            ->exists();
         }
         return true;
     }
