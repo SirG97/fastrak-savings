@@ -85,6 +85,9 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
+                                                <div id="msg" class="d-flex">
+
+                                                </div>
                                                 <form>
                                                     <div class="col-md-12">
                                                         <div class="form-row">
