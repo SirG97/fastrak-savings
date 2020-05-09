@@ -5,6 +5,7 @@ namespace App\controllers;
 
 
 use App\classes\CSRFToken;
+use App\classes\Random;
 use App\classes\Redirect;
 use App\classes\Request;
 use App\classes\Session;
@@ -58,7 +59,7 @@ class CustomerController extends BaseController{
 
                     //Add the user
                     $details = [
-                        'customer_id' => base64_encode(openssl_random_pseudo_bytes(16)),
+                        'customer_id' => Random::generateId(16),
                         'surname' => $request->surname,
                         'firstname' => $request->firstname,
                         'email' => $request->email,
@@ -85,9 +86,9 @@ class CustomerController extends BaseController{
             }
     }
 
-    public function editcustomer($params){
+    public function editcustomer($id){
 
-        $customer_id = $params['customer_id'];
+        $customer_id = $id['customer_id'];
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
@@ -113,7 +114,6 @@ class CustomerController extends BaseController{
 
                 //Add the user
                 $details = [
-                    'customer_id' => base64_encode(openssl_random_pseudo_bytes(16)),
                     'surname' => $request->surname,
                     'firstname' => $request->firstname,
                     'email' => $request->email,
@@ -134,6 +134,26 @@ class CustomerController extends BaseController{
             }
 
             //Redirect::to('/customer');
+        }else{
+            echo 'request error';
+        }
+
+    }
+
+    public  function deletecustomer($id){
+        $customer_id = $id['customer_id'];
+        if(Request::has('post')){
+            $request = Request::get('post');
+
+            if(CSRFToken::verifyCSRFToken($request->token)){
+
+                $customer = Customer::where('customer_id', '=', $customer_id)->first();
+                $customer->delete();
+                Session::add('success', 'Customer deleted successfully');
+                Redirect::to('/customers');
+            }
+//            Session::add('error', 'Customer deletion failed');
+//            Redirect::to('/customers');
         }else{
             echo 'request error';
         }

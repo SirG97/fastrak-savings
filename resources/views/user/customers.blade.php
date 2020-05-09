@@ -69,14 +69,18 @@
                                            data-city="{{ $customer['city'] }}"
                                            data-state="{{ $customer['state'] }}"
                                             ></i> &nbsp; &nbsp;
-                                        <i class="fas fa-fw fa-trash text-danger" title="Delete customer details"></i>
+                                        <i class="fas fa-fw fa-trash text-danger"
+                                           title="Delete customer details"
+                                           data-toggle="modal"
+                                           data-target="#deleteModal"
+                                           data-customer_id="{{ $customer['customer_id'] }}"></i>
                                     </td>
 
 
                                 </tr>
                                 @endforeach
-
-                                <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                {{-- Edit Modal--}}
+                                <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -167,6 +171,32 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="button" class="btn btn-primary" id="editBtn">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Delete Modal--}}
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Customer</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="customerDeleteForm" action="" method="POST">
+                                                    <div class="col-md-12">
+                                                        Delete customer?
+                                                        <input type="hidden" id="token" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" id="deleteCustomerBtn">Delete</button>
                                             </div>
                                         </div>
                                     </div>

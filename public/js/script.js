@@ -106,6 +106,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
 
+    // show the delete confirmation modal
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let customer_id = button.data('customer_id'); // Extract info from data-* attributes
+        let form_action = `/customer/${customer_id}/delete`;
+
+        let modal = $(this)
+        modal.find('#customerDeleteForm').attr("action", form_action);
+    });
+
+    $('#deleteCustomerBtn').on('click', (e)=>{
+        e.preventDefault();
+        // const data = {
+        //     token : $('#token').val(),
+        //
+        // }
+
+        $("#customerDeleteForm").submit();
+
+    });
+
+
     function alertMessage(status, message){
         return `<div class="alert alert-${status} m-t-20 alert-dismissible fade show" role="alert">
 	${message}

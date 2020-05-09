@@ -49,7 +49,7 @@ function paginate($num_of_record, $total_record, $table, $object){
     $pages = new Paginator($num_of_record, 'p');
     $pages->set_total($total_record);
 
-    $data = Capsule::select("SELECT * FROM ". $table . " ". $pages->get_limit());
+    $data = Capsule::select("SELECT * FROM ". $table . " WHERE deleted_at is null". $pages->get_limit());
     $d = $object->transform($data);
 
     return [$d, $pages->page_links()];
