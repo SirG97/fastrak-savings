@@ -1,15 +1,20 @@
 <?php
 
 
-namespace App\models;
+namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 
+
 class Customer extends Model{
+    use SoftDeletes;
+
     public $timestamps = true;
+    protected $dates = ['deleted_at'];
     protected $fillable = ['customer_id', 'surname', 'firstname', 'email', 'phone', 'address', 'city', 'state', 'amount'];
 
     public function transform($data){

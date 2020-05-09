@@ -142,21 +142,18 @@ class CustomerController extends BaseController{
 
     public  function deletecustomer($id){
         $customer_id = $id['customer_id'];
-        var_dump(Request::all());
-        die('Request might be empty');
         if(Request::has('post')){
             $request = Request::get('post');
-            var_dump($request);
-            die();
+
             if(CSRFToken::verifyCSRFToken($request->token)){
-                Customer::destroy($customer_id);
+
+                $customer = Customer::where('customer_id', '=', $customer_id)->first();
+                $customer->delete();
                 Session::add('success', 'Customer deleted successfully');
                 Redirect::to('/customers');
-            }else{
-                echo 'token error';
             }
-
-            //Redirect::to('/customers');
+//            Session::add('error', 'Customer deletion failed');
+//            Redirect::to('/customers');
         }else{
             echo 'request error';
         }
