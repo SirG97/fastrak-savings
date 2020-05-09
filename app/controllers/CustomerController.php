@@ -85,9 +85,9 @@ class CustomerController extends BaseController{
             }
     }
 
-    public function editcustomer($params){
+    public function editcustomer($id){
 
-        $customer_id = $params['customer_id'];
+        $customer_id = $id['customer_id'];
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
@@ -113,7 +113,6 @@ class CustomerController extends BaseController{
 
                 //Add the user
                 $details = [
-                    'customer_id' => base64_encode(openssl_random_pseudo_bytes(16)),
                     'surname' => $request->surname,
                     'firstname' => $request->firstname,
                     'email' => $request->email,
@@ -134,6 +133,29 @@ class CustomerController extends BaseController{
             }
 
             //Redirect::to('/customer');
+        }else{
+            echo 'request error';
+        }
+
+    }
+
+    public  function deletecustomer($id){
+        $customer_id = $id['customer_id'];
+        var_dump(Request::all());
+        die('Request might be empty');
+        if(Request::has('post')){
+            $request = Request::get('post');
+            var_dump($request);
+            die();
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                Customer::destroy($customer_id);
+                Session::add('success', 'Customer deleted successfully');
+                Redirect::to('/customers');
+            }else{
+                echo 'token error';
+            }
+
+            //Redirect::to('/customers');
         }else{
             echo 'request error';
         }
