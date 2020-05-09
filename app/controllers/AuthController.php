@@ -5,6 +5,7 @@ namespace App\controllers;
 
 
 use App\classes\CSRFToken;
+use App\classes\Random;
 use App\classes\Redirect;
 use App\classes\Request;
 use App\classes\Session;
@@ -99,7 +100,7 @@ class AuthController{
 
                 //Add the user
                 User::create([
-                    'userid' => base64_encode(openssl_random_pseudo_bytes(16)),
+                    'userid' => Random::generateId(16),
                     'surname' => $request->surname,
                     'firstname' => $request->firstname,
                     'email' => $request->email,

@@ -5,6 +5,7 @@ namespace App\controllers;
 
 
 use App\classes\CSRFToken;
+use App\classes\Random;
 use App\classes\Redirect;
 use App\classes\Request;
 use App\classes\Session;
@@ -58,7 +59,7 @@ class CustomerController extends BaseController{
 
                     //Add the user
                     $details = [
-                        'customer_id' => base64_encode(openssl_random_pseudo_bytes(16)),
+                        'customer_id' => Random::generateId(16),
                         'surname' => $request->surname,
                         'firstname' => $request->firstname,
                         'email' => $request->email,
