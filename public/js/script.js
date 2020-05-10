@@ -22,10 +22,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Show search dropdown
     const search = $('#search');
-    search.on('keyup', ()=>{
-        $('#search').addClass('no-bottom-borders');
+    search.on('input', ()=>{
+        search.addClass('no-bottom-borders');
         $('.search-result').css('display','block');
+        let terms = search.val();
+        const url = `/customer/${terms}/search`;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            beforeSend: function(){
+                $('.search-result').html('loading...');
+            },
+            success: function (response) {
+                let data = JSON.parse(response);
+                console.log(JSON.parse(response))
+                let ul = '';
+                $.each(data, (key, value) => {
+                    $.each(value, (index, item)=>{
+                        console.log(item);
+                        ul += `${item.firstname} ${item.surname} <br>`;
+                    });
 
+                });
+                $('.search-result').html(ul);
+
+            },
+            error: function(request, error){
+                let errors = JSON.parse(request.responseText);
+                $('.search-result').html('No results found');
+            }
+        });
     });
 
     search.on('blur', ()=>{
@@ -33,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $('.search-result').css('display','none');
 
     })
-    search.on
+
 
 
 

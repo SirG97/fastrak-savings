@@ -159,6 +159,24 @@ class CustomerController extends BaseController{
         }
 
     }
+    
+    public function searchcustomer($terms){
+        //Get the value of the term from the array
+        $term = $terms['terms'];
+        $searchresult = Customer::query()
+            ->where('surname', 'LIKE', "%{$term}%")
+            ->orWhere('firstname', 'LIKE', "%{$term}%")
+            ->orWhere('email', 'LIKE', "%{$term}%")
+            ->orWhere('phone', 'LIKE', "%{$term}%")->get();
+        if(count($searchresult) > 0){
+            echo json_encode(['success' => $searchresult]);
+            exit();
+        }else{
+            echo json_encode(['error' => $searchresult]);
+            exit();
+        }
+
+    }
 
     public function contributions(){
         return view('user/contributions');
