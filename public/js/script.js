@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const profile = document.querySelector('.header-nav-item');
     const ndropdown = document.querySelector('.nav-dropdown');
 
+
     hamburger.addEventListener('click', () =>{
         sidebar.classList.toggle('nav-sidebar-open');
     });
@@ -18,6 +19,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             sidebar.classList.remove('nav-sidebar-open');
         
     });
+
+    // Show search dropdown
+    const search = $('#search');
+    search.on('keyup', ()=>{
+        $('#search').addClass('no-bottom-borders');
+        $('.search-result').css('display','block');
+
+    });
+
+    search.on('blur', ()=>{
+        $('#search').removeClass('no-bottom-borders');
+        $('.search-result').css('display','none');
+
+    })
+    search.on
+
+
 
     // Show the edit modal and populate the fields for customer edit
     $('#editModal').on('show.bs.modal', function (event) {

@@ -337,6 +337,27 @@ header{
     color: #aaa;
 }
 
+.search-result {
+    display: none;
+    position: absolute;
+    left: 15px;
+    right: 0;
+    padding: 18px 15px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    background-color: #FFF;
+    z-index: 4;
+    top: 35px;
+    margin: 0 15px 10px 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top: 2px solid #dee2e6;
+}
+
+.no-bottom-borders{
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
 .table-action{
 
 }
