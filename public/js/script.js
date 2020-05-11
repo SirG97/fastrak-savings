@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Show search dropdown
     const search = $('#search');
+    const search_result = $('.search-result');
     search.on('input', ()=>{
         search.addClass('no-bottom-borders');
         $('.search-result').css('display','block');
@@ -31,25 +32,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
             url: url,
             type: 'GET',
             beforeSend: function(){
-                $('.search-result').html('loading...');
+                search_result.html('loading...');
             },
             success: function (response) {
                 let data = JSON.parse(response);
                 console.log(JSON.parse(response))
-                let ul = '';
+                let ul = '<ul class="list-group list-group-flush">';
                 $.each(data, (key, value) => {
                     $.each(value, (index, item)=>{
                         console.log(item);
-                        ul += `${item.firstname} ${item.surname} <br>`;
+                        ul += '<li class="list-group list-group-item">' + item.firstname + ' ' + item.surname + '</li>';
                     });
-
                 });
+                ul += '</ul>'
                 $('.search-result').html(ul);
-
             },
             error: function(request, error){
                 let errors = JSON.parse(request.responseText);
-                $('.search-result').html('No results found');
+                $('#search-result-list').html('No r');
             }
         });
     });
