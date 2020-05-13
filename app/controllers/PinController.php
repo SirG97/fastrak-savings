@@ -8,37 +8,32 @@ use App\classes\Redirect;
 use App\classes\Request;
 use App\classes\Session;
 use App\classes\Validation;
-use App\models\Pins;
+use App\models\Pin;
 
 
-class PinController extends BaseController
-{
-    /**
-     * Display a listing of the resource.
-     *
-     *
-     */
+class PinController extends BaseController{
+    public $table_name = 'pins';
+    public $pins;
+    public $links;
+
+    public function __construct(){
+        $total = Pin::all()->count();
+        $object = new Pin();
+
+        list($this->pins, $this->links) = paginate(20, $total, $this->table_name, $object);
+    }
+
     public function index()
     {
-
-         $pins = Pins::all();
-
-        //$pins =  DB::select("SELECT * FROM pins LIMIT 10");
-        return view('home');
-        //echo date("Y:m:d H:i:s");
-
-
+        $pins = Pin::all();
+        return view('user/generated', ['pins' => $this->pins, 'links' => $this->links]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     *
      */
-    public function create()
-    {
-        //
-        return View::make('generate');
+    public function generate_form(){
+        return view('user/generate');
     }
 
     /**
@@ -47,9 +42,9 @@ class PinController extends BaseController
      */
 
     public function getLastInserted(){
-        $usedPinsCount = \App\Pins::get()->count();
+        $usedPinsCount = Pins::get()->count();
         if($usedPinsCount > 0){
-            $usedPins = \App\Pins::limit(1)->latest()->orderBy('id', 'desc')->get();
+            $usedPins = Pin::limit(1)->latest()->orderBy('id', 'desc')->get();
             return $usedPins[0]['id'];
         }else{
             $empty = 32398439;
@@ -226,13 +221,15 @@ class PinController extends BaseController
         return redirect('live')->with('setpin', 'Pins set to LIVE Successfully');
     }
 
-
+    public function live(){
+        $pins = Pin::all();
+        return view('user/generated', ['pins' => $this->pins, 'links' => $this->links]);
+    }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-
      */
     public function destroy($id)
     {
