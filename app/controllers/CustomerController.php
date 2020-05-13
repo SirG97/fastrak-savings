@@ -142,6 +142,7 @@ class CustomerController extends BaseController{
 
     public  function deletecustomer($id){
         $customer_id = $id['customer_id'];
+
         if(Request::has('post')){
             $request = Request::get('post');
 
@@ -162,7 +163,7 @@ class CustomerController extends BaseController{
     
     public function searchcustomer($terms){
         //Get the value of the term from the array
-        $term = $terms['terms'];
+        $term = trim($terms['terms']);
         $searchresult = Customer::query()
             ->where('surname', 'LIKE', "%{$term}%")
             ->orWhere('firstname', 'LIKE', "%{$term}%")
@@ -172,7 +173,7 @@ class CustomerController extends BaseController{
             echo json_encode(['success' => $searchresult]);
             exit();
         }else{
-            echo json_encode(['error' => $searchresult]);
+            echo json_encode(['su' => 'No result found']);
             exit();
         }
 
