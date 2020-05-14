@@ -38,6 +38,7 @@ $router->map('GET', '/pins/pending', '\App\Controllers\PinController@pending', '
 
 //Contributions
 $router->map('GET', '/contributions', '\App\Controllers\CustomerController@contributions', 'contributions');
+$router->map('GET', '/contribute', '\App\Controllers\CustomerController@contribute_form', 'contribute_form');
 $router->map('POST', '/contribute', '\App\Controllers\CustomerController@contribute', 'contribute');
 
 // Settings

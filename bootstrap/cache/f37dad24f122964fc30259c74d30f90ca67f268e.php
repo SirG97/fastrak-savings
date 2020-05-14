@@ -8,7 +8,7 @@
                 <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
                     Generate Pins
                 </div>
-                <form action="/customer" method="POST">
+                <form action="/pins/new" method="POST">
                     <div class="container">
                         <div class="row cool-border trx-bg-head py-3">
                             <div class="col-md-8 offset-md-2">

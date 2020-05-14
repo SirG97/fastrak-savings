@@ -183,7 +183,39 @@ class CustomerController extends BaseController{
         return view('user/contributions');
     }
 
-    public function contribute(){
+    public function contribute_form(){
+        return view('user/contribute');
+    }
 
+    public function contribute(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                $rules = [
+                    'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true],
+                    'pin' => ['required' => true,'minLength' => '12', 'maxLength' => '12', 'number' => true],
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    return view('user/contribute', ['errors' => $errors]);
+                }
+               $is_registered_customer = Customer::where('phone', '=', $request->phone)->firstOrFail();
+
+                if($is_registered_customer == null){
+                    Session::add('error', 'This number is not registered');
+                    return view('user/contribute');
+                }
+
+                $is_pin_valid = Pin::findOrFail($request->pin);
+                if($is_pin_valid == null){
+                    Session::add('error', 'This pin is not valid. 2 trials remaining');
+                    return view('user/contribute');
+                }
+
+
+            }
+        }
     }
 }

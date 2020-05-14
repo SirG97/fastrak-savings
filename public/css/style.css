@@ -357,8 +357,8 @@ header{
     border-bottom-left-radius: 0px !important;
 }
 
-.table-action{
-
+.pin-nav > .nav-link.active{
+    border-bottom: 2px solid #007bff;
 }
 
 .table-style{

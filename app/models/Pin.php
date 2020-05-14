@@ -3,16 +3,18 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pin extends Model
 {
-    //
-    protected $table = 'pins';
+    use SoftDeletes;
 
+    public $timestamps = true;
     //change my primary key from id to pin
     protected $primaryKey = 'pin';
     //Tell laravel that the primary key is not an integer
     public $incrementing = false;
+    protected $fillable = ['serial', 'pin', 'batch_no', 'amount'];
 
 
     public function transform($data){

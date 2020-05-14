@@ -4,6 +4,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
+            <?php echo $__env->make('includes/message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="nav pin-nav mr-2">
+                <a class="nav-link active" href="#">Live</a>
+                <a class="nav-link" href="#">Used</a>
+                <a class="nav-link" href="#">Pending</a>
+                <a class="nav-link" href="#">Suspended</a>
+
+            </nav>
             <div class="custom-panel card py-2">
                 <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
                     Pins
@@ -54,49 +66,11 @@
     </div>
     <form method="post" action="">
 
-        <!-- <input name="_method" type="hidden" value="PATCH">
-        <input type="hidden" name="id" > -->
         <div class="g-btn-container">
             <button type="submit" class="generate-btn pull-right">Set Pins To Live</button>
         </div>
     </form>
-    <div class="panel panel-success mytable">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Generated Pins</div>
 
-        <!-- Table -->
-        <table class="table table-striped table-hover">
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        </table>
-
-        
-    </div>
 </div>
 
 

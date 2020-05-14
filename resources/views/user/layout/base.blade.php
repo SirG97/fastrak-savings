@@ -69,6 +69,14 @@
                     </a>
                 </div>
                 <div class="nav_item prelative">
+                    <a href="/contribute" class="nav_link nav_flex">
+                            <span class="nav_link_icon">
+                             <i class="fas fa-fw fa-hand-holding-medical"></i>
+                            </span>
+                        <span class="nav_link_text">Contribute</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
                     <a href="/newpins" class="nav_link nav_flex">
                          <span class="nav_link_icon">
                           <i class="fas fa-fw fa-lightbulb"></i>
