@@ -3,7 +3,7 @@
 
 namespace App\controllers;
 
-
+use Illuminate\Database\Capsule\Manager as Capsule;
 use App\classes\CSRFToken;
 use App\classes\Random;
 use App\classes\Redirect;
@@ -11,6 +11,7 @@ use App\classes\Request;
 use App\classes\Session;
 use App\classes\Validation;
 use App\models\Customer;
+use App\models\Pin;
 
 
 class CustomerController extends BaseController{
@@ -201,21 +202,30 @@ class CustomerController extends BaseController{
                     $errors = $validation->getErrorMessages();
                     return view('user/contribute', ['errors' => $errors]);
                 }
-               $is_registered_customer = Customer::where('phone', '=', $request->phone)->firstOrFail();
+               $testDB = Capsule::table('customers')->get();
+                var_dump($testDB);
+                die();
+               $is_registered_customer = Customer::where('phone', '=', $request->phone)->first();
 
                 if($is_registered_customer == null){
                     Session::add('error', 'This number is not registered');
                     return view('user/contribute');
                 }
 
-                $is_pin_valid = Pin::findOrFail($request->pin);
+                $is_pin_valid = Pin::find($request->pin);
                 if($is_pin_valid == null){
                     Session::add('error', 'This pin is not valid. 2 trials remaining');
                     return view('user/contribute');
                 }
 
-
+                var_dump($is_registered_customer);
+                var_dump($is_pin_valid);
+                die();
             }
         }
+    }
+
+    private static function is_fraudulent($number){
+
     }
 }
