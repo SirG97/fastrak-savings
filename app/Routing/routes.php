@@ -17,7 +17,7 @@ $router->map('GET', '/logout', '\App\Controllers\AuthController@logout', 'logout
 $router->map('GET', '/dashboard', '\App\Controllers\DashboardController@show', 'dashboard');
 $router->map('POST', '/dashboard', '\App\Controllers\DashboardController@store', 'dt');
 
-//Customer
+//Customer Routes
 $router->map('GET', '/customers', '\App\Controllers\CustomerController@show', 'customers');
 
 $router->map('GET', '/customer', '\App\Controllers\CustomerController@showcustomerform', 'customer');
@@ -26,11 +26,19 @@ $router->map('POST', '/customer/[:customer_id]/edit', '\App\Controllers\Customer
 $router->map('POST', '/customer/[:customer_id]/delete', '\App\Controllers\CustomerController@deletecustomer', 'delete_customer');
 $router->map('GET', '/customer/[:terms]/search', '\App\Controllers\CustomerController@searchcustomer', 'search_customer');
 
+//Fastrak Pin Route
+$router->map('GET', '/pins', '\App\Controllers\PinController@live', 'pins');
+$router->map('GET', '/newpins', '\App\Controllers\PinController@generate_form', 'generate_pins_form');
+$router->map('POST', '/pins/new', '\App\Controllers\PinController@generate', 'generate_pins');
+$router->map('GET', '/pins/live', '\App\Controllers\PinController@live', 'get_live_pins');
+$router->map('GET', '/pins/used', '\App\Controllers\PinController@used', 'get_used_pins');
+$router->map('GET', '/pins/pending', '\App\Controllers\PinController@pending', 'get_pending_pins');
 
 //$router->addMatchTypes(array('cId' => '[a-zA-Z]{2}[0-9](?:_[0-9]++)?'));
 
 //Contributions
 $router->map('GET', '/contributions', '\App\Controllers\CustomerController@contributions', 'contributions');
+$router->map('GET', '/contribute', '\App\Controllers\CustomerController@contribute_form', 'contribute_form');
 $router->map('POST', '/contribute', '\App\Controllers\CustomerController@contribute', 'contribute');
 
 // Settings

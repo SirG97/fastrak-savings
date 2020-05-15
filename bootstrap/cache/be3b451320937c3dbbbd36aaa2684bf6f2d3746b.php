@@ -1,11 +1,10 @@
-@extends('user.layout.base')
-@section('title', 'Pins')
-@section('icon', 'fa-user-plus')
-@section('content')
+<?php $__env->startSection('title', 'Pins'); ?>
+<?php $__env->startSection('icon', 'fa-user-plus'); ?>
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            @include('includes/message')
+            <?php echo $__env->make('includes/message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
     <div class="row">
@@ -33,30 +32,32 @@
                         </tr>
                         </thead>
                         <tbody class="table-style">
-                        @if(!empty($pins) && count($pins) > 0)
-                            @foreach($pins as $pin)
+                        <?php if(!empty($pins) && count($pins) > 0): ?>
+                            <?php $__currentLoopData = $pins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                 <td scope="row">
-                                    {{ $pin['serial'] }}
+                                    <?php echo e($pin['serial']); ?>
+
                                 </td>
-                                <td>{{ $pin['pin'] }}</td>
-                                <td>{{ $pin['amount'] }}</td>
-                                <td>{{ $pin['created_at'] }}</td>
-                                <td>{{ $pin['status'] }}</td>
+                                <td><?php echo e($pin['pin']); ?></td>
+                                <td><?php echo e($pin['amount']); ?></td>
+                                <td><?php echo e($pin['created_at']); ?></td>
+                                <td><?php echo e($pin['status']); ?></td>
 
                             </tr>
-                            @endforeach
-                        @else
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
                             <tr>
                                 No customers yet
 
                             </tr>
-                        @endif
+                        <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="panel-footer py-1 mt-0 mr-3 d-flex justify-content-end">
-                    {!! $links !!}
+                    <?php echo $links; ?>
+
                 </div>
 
             </div>
@@ -73,4 +74,5 @@
 </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layout.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\noble\resources\views/user/generated.blade.php ENDPATH**/ ?>

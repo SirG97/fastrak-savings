@@ -1,7 +1,6 @@
-@extends('user.layout.base')
-@section('title', 'Generate Pins')
-@section('icon', 'fa-user-plus')
-@section('content')
+<?php $__env->startSection('title', 'Generate Pins'); ?>
+<?php $__env->startSection('icon', 'fa-user-plus'); ?>
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-md-12">
@@ -13,9 +12,9 @@
                     <div class="container">
                         <div class="row cool-border trx-bg-head py-3">
                             <div class="col-md-8 offset-md-2">
-                                @include('includes/message')
+                                <?php echo $__env->make('includes/message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 <div class="form-row">
-                                    <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
+                                    <input type="hidden" name="token" value="<?php echo e(\App\Classes\CSRFToken::_token()); ?>">
                                     <div class="col-md-8 mb-3">
                                         <label for="email">Amount</label>
                                         <div class="input-group">
@@ -131,4 +130,5 @@
 
     </div>
 </div>
-@endsection()
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layout.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\noble\resources\views/user/generate.blade.php ENDPATH**/ ?>

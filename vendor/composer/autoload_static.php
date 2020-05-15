@@ -9,6 +9,8 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '01037c37b1093bd1affa5b83399f2381' => __DIR__ . '/../..' . '/app/functions/helper.php',
     );
@@ -178,15 +180,34 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'SecurityLib' => 
+            array (
+                0 => __DIR__ . '/..' . '/ircmaxell/security-lib/lib',
+            ),
+        ),
+        'R' => 
+        array (
+            'RandomLib' => 
+            array (
+                0 => __DIR__ . '/..' . '/paragonie/random-lib/lib',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
         'App\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/controllers/BaseController.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
+        'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/models/Customer.php',
         'App\\RouteDispatcher' => __DIR__ . '/../..' . '/app/Routing/RouteDispatcher.php',
         'App\\classes\\CSRFToken' => __DIR__ . '/../..' . '/app/classes/CSRFToken.php',
         'App\\classes\\Database' => __DIR__ . '/../..' . '/app/classes/Database.php',
         'App\\classes\\ErrorHandler' => __DIR__ . '/../..' . '/app/classes/ErrorHandler.php',
         'App\\classes\\Mail' => __DIR__ . '/../..' . '/app/classes/Mail.php',
+        'App\\classes\\Random' => __DIR__ . '/../..' . '/app/classes/Random.php',
         'App\\classes\\Redirect' => __DIR__ . '/../..' . '/app/classes/Redirect.php',
         'App\\classes\\Request' => __DIR__ . '/../..' . '/app/classes/Request.php',
         'App\\classes\\Session' => __DIR__ . '/../..' . '/app/classes/Session.php',
@@ -194,10 +215,11 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         'App\\controllers\\AuthController' => __DIR__ . '/../..' . '/app/controllers/AuthController.php',
         'App\\controllers\\CustomerController' => __DIR__ . '/../..' . '/app/controllers/CustomerController.php',
         'App\\controllers\\DashboardController' => __DIR__ . '/../..' . '/app/controllers/DashboardController.php',
+        'App\\controllers\\PinController' => __DIR__ . '/../..' . '/app/controllers/PinController.php',
         'App\\controllers\\SettingsController' => __DIR__ . '/../..' . '/app/controllers/SettingsController.php',
         'App\\controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
         'App\\models\\Contribution' => __DIR__ . '/../..' . '/app/models/Contribution.php',
-        'App\\models\\Customer' => __DIR__ . '/../..' . '/app/models/Customer.php',
+        'App\\models\\Pin' => __DIR__ . '/../..' . '/app/models/Pin.php',
         'App\\models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
@@ -640,6 +662,36 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         'Psr\\SimpleCache\\CacheException' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheException.php',
         'Psr\\SimpleCache\\CacheInterface' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheInterface.php',
         'Psr\\SimpleCache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/simple-cache/src/InvalidArgumentException.php',
+        'RandomLib\\AbstractMcryptMixer' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/AbstractMcryptMixer.php',
+        'RandomLib\\AbstractMixer' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/AbstractMixer.php',
+        'RandomLib\\AbstractSource' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/AbstractSource.php',
+        'RandomLib\\Factory' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Factory.php',
+        'RandomLib\\Generator' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Generator.php',
+        'RandomLib\\Mixer' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Mixer.php',
+        'RandomLib\\Mixer\\Hash' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Mixer/Hash.php',
+        'RandomLib\\Mixer\\McryptRijndael128' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Mixer/McryptRijndael128.php',
+        'RandomLib\\Mixer\\SodiumMixer' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Mixer/SodiumMixer.php',
+        'RandomLib\\Mixer\\XorMixer' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Mixer/XorMixer.php',
+        'RandomLib\\Source' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source.php',
+        'RandomLib\\Source\\CAPICOM' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/CAPICOM.php',
+        'RandomLib\\Source\\MTRand' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/MTRand.php',
+        'RandomLib\\Source\\MicroTime' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/MicroTime.php',
+        'RandomLib\\Source\\OpenSSL' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/OpenSSL.php',
+        'RandomLib\\Source\\Rand' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/Rand.php',
+        'RandomLib\\Source\\RandomBytes' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/RandomBytes.php',
+        'RandomLib\\Source\\Sodium' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/Sodium.php',
+        'RandomLib\\Source\\URandom' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/URandom.php',
+        'RandomLib\\Source\\UniqID' => __DIR__ . '/..' . '/paragonie/random-lib/lib/RandomLib/Source/UniqID.php',
+        'SecurityLib\\AbstractFactory' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/AbstractFactory.php',
+        'SecurityLib\\BaseConverter' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/BaseConverter.php',
+        'SecurityLib\\BigMath' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/BigMath.php',
+        'SecurityLib\\BigMath\\BCMath' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/BigMath/BCMath.php',
+        'SecurityLib\\BigMath\\GMP' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/BigMath/GMP.php',
+        'SecurityLib\\BigMath\\PHPMath' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/BigMath/PHPMath.php',
+        'SecurityLib\\Enum' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/Enum.php',
+        'SecurityLib\\Hash' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/Hash.php',
+        'SecurityLib\\Strength' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/Strength.php',
+        'SecurityLib\\Util' => __DIR__ . '/..' . '/ircmaxell/security-lib/lib/SecurityLib/Util.php',
         'Symfony\\Component\\Debug\\BufferingLogger' => __DIR__ . '/..' . '/symfony/debug/BufferingLogger.php',
         'Symfony\\Component\\Debug\\Debug' => __DIR__ . '/..' . '/symfony/debug/Debug.php',
         'Symfony\\Component\\Debug\\DebugClassLoader' => __DIR__ . '/..' . '/symfony/debug/DebugClassLoader.php',
@@ -832,6 +884,7 @@ class ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit2aaa4c327fcd6f3102abf9748777f094::$classMap;
 
         }, null, ClassLoader::class);
