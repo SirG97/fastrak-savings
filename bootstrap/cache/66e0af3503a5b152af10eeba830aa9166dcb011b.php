@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row ">
             <div class="col-md-12 d-flex justify-content-center">
-                <div class="  flex-column">
+                <div class=" flex-column">
                     <div class="login-box">
                         <?php echo $__env->make('includes/message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <form action="/contribute" method="POST" id="form">
@@ -12,7 +12,7 @@
                             <input type="hidden" name="token" value="<?php echo e(\App\Classes\CSRFToken::_token()); ?>">
                             <div class="form-group">
                                 <label for="email" class="font-weight-bold">Number</label>
-                                <input type="text" class="form-control form-control-lg" value="" id="email" name="phone">
+                                <input type="text" class="form-control form-control-lg" value="09087675432" id="phone" name="phone">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="font-weight-bold">Pin</label>

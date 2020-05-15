@@ -1,5 +1,5 @@
 <div>
-@if($errors != false && is_array($errors))
+@if(isset($errors) && $errors != false && is_array($errors))
 <div class="alert alert-danger alert-dismissible" role="alert">
     @foreach($errors as $error)
         @foreach($error as $error_item)

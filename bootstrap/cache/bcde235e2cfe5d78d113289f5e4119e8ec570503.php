@@ -1,5 +1,5 @@
 <div>
-<?php if($errors != false && is_array($errors)): ?>
+<?php if(isset($errors) && $errors != false && is_array($errors)): ?>
 <div class="alert alert-danger alert-dismissible" role="alert">
     <?php $__currentLoopData = $errors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php $__currentLoopData = $error; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
