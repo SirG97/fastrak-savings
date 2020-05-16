@@ -255,10 +255,10 @@ class CustomerController extends BaseController{
     }
 
     private static function is_fraudulent($number){
-        $status = Capsule::select("SELECT * FROM fraud WHERE phone = ". $number ." AND updated_at > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 minute) LIMIT 1");
+        $query = "SELECT * FROM fraud WHERE phone = ". $number ." AND TIMESTAMPDIFF(MINUTE, updated_at, CURRENT_TIMESTAMP) < 30 ORDER BY updated_at DESC LIMIT 1";
+        $status = Capsule::select($query);
         if(count($status) != 0){
             if($status[0]->fraud_status == 1){
-
                 return true;
             }else{
                 return false;
@@ -269,7 +269,7 @@ class CustomerController extends BaseController{
 
     private static function update_fraud_count($number){
         // Update fraud count and return trials remaining and
-        $count = Capsule::select("SELECT trials FROM fraud WHERE phone =". $number . " ORDER BY updated_at DESC LIMIT 1");
+        $count = Capsule::select("SELECT trials FROM fraud WHERE phone =". $number . " AND TIMESTAMPDIFF(MINUTE, updated_at, CURRENT_TIMESTAMP) < 30 ORDER BY updated_at DESC LIMIT 1");
         if(count($count) != 0 || $count != false){
 
             $trial =  (int)$count[0]->trials;
