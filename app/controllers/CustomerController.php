@@ -3,6 +3,7 @@
 
 namespace App\controllers;
 
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\classes\CSRFToken;
 use App\classes\Random;
@@ -12,7 +13,7 @@ use App\classes\Session;
 use App\classes\Validation;
 use App\models\Customer;
 use App\models\Pin;
-
+use App\models\Contribution;
 
 class CustomerController extends BaseController{
     public $table_name = 'customers';
@@ -45,7 +46,7 @@ class CustomerController extends BaseController{
                         'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
                         'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                         'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true],
+                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true, 'unique' => 'phone'],
                         'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'address' => ['required' => true, 'maxLength' => '150'],
@@ -226,7 +227,6 @@ class CustomerController extends BaseController{
 
                 $is_pin_valid = Pin::find($request->pin);
                 if($is_pin_valid == null){
-
                     //Update Fraud table
                     $fraud_count = CustomerController::update_fraud_count($request->phone);
                     if($fraud_count === true){
@@ -234,18 +234,34 @@ class CustomerController extends BaseController{
                         return view('user/contribute');
                     }else{
                         $error_msg = 'You have only '. $fraud_count . ' trial(s) remaining';
-
                         Session::add('error', $error_msg);
-
                         return view('user/contribute');
                     }
 
 
                 }else{
                     //Log information and make API call to the bank to fulfill the request
-                    var_dump($is_registered_customer);
-                    var_dump($is_pin_valid);
-                    die('We are good to go');
+                    $last_contribution = Contribution::where('phone', $request->phone)->latest('updated_at')->first();
+                    if($last_contribution ==  null){
+                        $pin_amount = (int)$is_pin_valid->amount;
+                        $daily_amount = (int)$is_registered_customer->amount;
+
+
+                        $points = $pin_amount / $daily_amount;
+
+                        Contribution::create([
+                            'contribution_id' => Random::generateId(16),
+                            'phone' => $request->phone,
+                            'pin' => $request->pin,
+                            'ledger_bal' => $pin_amount,
+                            'available_bal' => $pin_amount,
+                            'points' => $points,
+                        ]);
+
+                        Session::add('success', 'Contribution logged successfully');
+                        return view('user/contribute');
+                    }
+
                 }
 
 
