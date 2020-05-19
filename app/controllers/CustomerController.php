@@ -3,6 +3,7 @@
 
 namespace App\controllers;
 
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\classes\CSRFToken;
 use App\classes\Random;
@@ -12,7 +13,7 @@ use App\classes\Session;
 use App\classes\Validation;
 use App\models\Customer;
 use App\models\Pin;
-
+use App\models\Contribution;
 
 class CustomerController extends BaseController{
     public $table_name = 'customers';
@@ -45,7 +46,7 @@ class CustomerController extends BaseController{
                         'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
                         'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                         'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true],
+                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true, 'unique' => 'phone'],
                         'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'address' => ['required' => true, 'maxLength' => '150'],
@@ -226,7 +227,6 @@ class CustomerController extends BaseController{
 
                 $is_pin_valid = Pin::find($request->pin);
                 if($is_pin_valid == null){
-
                     //Update Fraud table
                     $fraud_count = CustomerController::update_fraud_count($request->phone);
                     if($fraud_count === true){
@@ -234,18 +234,234 @@ class CustomerController extends BaseController{
                         return view('user/contribute');
                     }else{
                         $error_msg = 'You have only '. $fraud_count . ' trial(s) remaining';
-
                         Session::add('error', $error_msg);
-
                         return view('user/contribute');
                     }
 
 
                 }else{
                     //Log information and make API call to the bank to fulfill the request
-                    var_dump($is_registered_customer);
-                    var_dump($is_pin_valid);
-                    die('We are good to go');
+                    $last_contribution = Contribution::where('phone', $request->phone)->latest('id')->first();
+                    $pin_amount = (int)$is_pin_valid->amount;
+                    $daily_amount = (int)$is_registered_customer->amount;
+
+                    $points = $pin_amount / $daily_amount;
+
+                    if($last_contribution ==  null){
+                        if($points <= 30.0){
+                            Contribution::create([
+                                'contribution_id' => Random::generateId(16),
+                                'phone' => $request->phone,
+                                'pin' => $request->pin,
+                                'ledger_bal' => $pin_amount,
+                                'available_bal' => $pin_amount,
+                                'points' => $points,
+                            ]);
+                        }else {
+                            $first_store = array();
+                            while($points > 0){
+                                //die('Remaining points is ' . $remaining_points);
+                                if($points > 30.0){
+                                    $ledger_bal = 30 * $daily_amount;
+                                    $available_bal = (30 * $daily_amount) - $daily_amount;
+                                    $cid = Random::generateId(16);
+                                    $first_store[] = array(
+                                        'contribution_id' => $cid,
+                                        'phone' => $request->phone,
+                                        'pin' => $request->pin,
+                                        'ledger_bal' =>  $ledger_bal,
+                                        'available_bal' =>  $available_bal,
+                                        'points' => 30.0,
+                                    );
+                                    $points = $points - 30.0;
+                                }else{
+
+                                    $remaining_points = $points % 30;
+                                    $remaining_bal = $remaining_points * $daily_amount;
+                                    $cid = Random::generateId(16);
+                                    $first_store[] = array(
+                                        'contribution_id' => $cid,
+                                        'phone' => $request->phone,
+                                        'pin' => $request->pin,
+                                        'ledger_bal' =>  $remaining_bal,
+                                        'available_bal' =>  $remaining_bal,
+                                        'points' => $remaining_points,
+                                    );
+                                    $points = 0;
+                                }
+                            }
+                            Contribution::insert($first_store);
+                        }
+                        //Send info to bank await confirmation
+
+                        Session::add('success', 'Contribution logged successfully');
+                        return view('user/contribute');
+                    }else{
+                        $accumulator = $points + $last_contribution->points;
+                        if($accumulator < 30.0){
+                            Contribution::create([
+                                'contribution_id' => Random::generateId(16),
+                                'phone' => $request->phone,
+                                'pin' => $request->pin,
+                                'ledger_bal' => $pin_amount,
+                                'available_bal' => $pin_amount,
+                                'points' => $accumulator,
+                            ]);
+                            Session::add('success', 'Contribution logged successfully');
+                            return view('user/contribute');
+                        }elseif($accumulator == 30.0){
+                            Contribution::create([
+                                'contribution_id' => Random::generateId(16),
+                                'phone' => $request->phone,
+                                'pin' => $request->pin,
+                                'ledger_bal' => $pin_amount,
+                                'available_bal' => $pin_amount - $daily_amount,
+                                'points' => $accumulator,
+                            ]);
+                            Session::add('success', 'Contribution logged successfully. Cycle completed');
+                            return view('user/contribute');
+                        }elseif($accumulator > 30.0){
+                            $rem_points_to_complete_last_contribution = 30.0 - $last_contribution->points;
+                            $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
+
+                            if($rem_points_to_complete_last_contribution == 0 ){
+
+                                if($points <= 30.0){
+                                    Contribution::create([
+                                        'contribution_id' => Random::generateId(16),
+                                        'phone' => $request->phone,
+                                        'pin' => $request->pin,
+                                        'ledger_bal' => $pin_amount,
+                                        'available_bal' => $pin_amount,
+                                        'points' => $points,
+                                    ]);
+                                }else {
+                                    $first_store = array();
+                                    while($points > 0){
+                                        //die('Remaining points is ' . $remaining_points);
+                                        if($points > 30.0){
+                                            $ledger_bal = 30 * $daily_amount;
+                                            $available_bal = (30 * $daily_amount) - $daily_amount;
+                                            $cid = Random::generateId(16);
+                                            $first_store[] = array(
+                                                'contribution_id' => $cid,
+                                                'phone' => $request->phone,
+                                                'pin' => $request->pin,
+                                                'ledger_bal' =>  $ledger_bal,
+                                                'available_bal' =>  $available_bal,
+                                                'points' => 30.0,
+                                            );
+                                            $points = $points - 30.0;
+                                        }else{
+
+                                            $remaining_points = $points;
+                                            $remaining_bal = $remaining_points * $daily_amount;
+                                            $cid = Random::generateId(16);
+                                            $first_store[] = array(
+                                                'contribution_id' => $cid,
+                                                'phone' => $request->phone,
+                                                'pin' => $request->pin,
+                                                'ledger_bal' =>  $remaining_bal,
+                                                'available_bal' =>  $remaining_bal,
+                                                'points' => $remaining_points,
+                                            );
+                                            $points = 0;
+                                        }
+                                    }
+
+                                    Contribution::insert($first_store);
+                                }
+
+                                Session::add('success', 'Contribution logged successfully.');
+                                return view('user/contribute');
+                            }elseif($rem_points_to_complete_last_contribution > 0  and $points <= 30.0){
+                                $remainder_to_store = array();
+                                $remainder_to_store[] = array(
+                                    'contribution_id' => Random::generateId(16),
+                                    'phone' => $request->phone,
+                                    'pin' => $request->pin,
+                                    'ledger_bal' =>  $rem_to_complete_last_amount,
+                                    'available_bal' =>   $rem_to_complete_last_amount - $daily_amount,
+                                    'points' => $rem_points_to_complete_last_contribution + $last_contribution->points,
+                                    );
+
+                                // Minus the remaining amount in
+                                $remaining_points = $points - $rem_points_to_complete_last_contribution;
+                                $remaining_amount = $pin_amount - $rem_to_complete_last_amount;
+
+                                        $cid = Random::generateId(16);
+                                        $remainder_to_store[] = array(
+                                            'contribution_id' => $cid,
+                                            'phone' => $request->phone,
+                                            'pin' => $request->pin,
+                                            'ledger_bal' =>  $remaining_amount,
+                                            'available_bal' =>  $remaining_amount,
+                                            'points' => $remaining_points,
+                                        );
+
+                                Contribution::insert($remainder_to_store);
+
+                                Session::add('success', 'Contribution logged successfully.');
+                                return view('user/contribute');
+                            }elseif($rem_points_to_complete_last_contribution > 0  and $points > 30.0){
+                                Contribution::create([
+                                    'contribution_id' => Random::generateId(16),
+                                    'phone' => $request->phone,
+                                    'pin' => $request->pin,
+                                    'ledger_bal' =>  $rem_to_complete_last_amount,
+                                    'available_bal' =>   $rem_to_complete_last_amount - $daily_amount,
+                                    'points' => $rem_points_to_complete_last_contribution + $last_contribution->points,
+                                ]);
+                                // Run a for loop through the remaining amount in case it is more than one cycle
+                                $remaining_points = $points - $rem_points_to_complete_last_contribution;
+                                $remaining_amount = $pin_amount - $rem_to_complete_last_amount;
+
+                                $remainder_to_store = array();
+                                while($remaining_points > 0){
+
+                                    if($remaining_points > 30.0){
+
+                                        $ledger_bal = 30 * $daily_amount;
+                                        $available_bal = (30 * $daily_amount) - $daily_amount;
+                                        $cid = Random::generateId(16);
+                                        $remainder_to_store[] = array(
+                                            'contribution_id' => $cid,
+                                            'phone' => $request->phone,
+                                            'pin' => $request->pin,
+                                            'ledger_bal' =>  $ledger_bal,
+                                            'available_bal' =>  $available_bal,
+                                            'points' => 30.0,
+                                        );
+                                        $remaining_points = $remaining_points - 30.0;
+
+                                    }else{
+
+                                        $remaining_bal = $remaining_points * $daily_amount;
+                                        $cid = Random::generateId(16);
+                                        $remainder_to_store[] = array(
+                                            'contribution_id' => $cid,
+                                            'phone' => $request->phone,
+                                            'pin' => $request->pin,
+                                            'ledger_bal' =>  $remaining_bal,
+                                            'available_bal' =>  $remaining_bal,
+                                            'points' => $remaining_points,
+                                        );
+//                                        echo 'Remaining balance is ' . $remaining_bal;
+//                                        die('Remaining points is ' . $remaining_points);
+                                        $remaining_points = 0;
+                                    }
+                                }
+
+                                Contribution::insert($remainder_to_store);
+
+                                Session::add('success', 'Contribution logged successfully.');
+                                return view('user/contribute');
+                            }
+
+
+                        }
+                    }
+
                 }
 
 
@@ -255,10 +471,10 @@ class CustomerController extends BaseController{
     }
 
     private static function is_fraudulent($number){
-        $status = Capsule::select("SELECT * FROM fraud WHERE phone = ". $number ." AND updated_at > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 30 minute) LIMIT 1");
+        $query = "SELECT * FROM fraud WHERE phone = ". $number ." AND TIMESTAMPDIFF(MINUTE, updated_at, CURRENT_TIMESTAMP) < 30 ORDER BY updated_at DESC LIMIT 1";
+        $status = Capsule::select($query);
         if(count($status) != 0){
             if($status[0]->fraud_status == 1){
-
                 return true;
             }else{
                 return false;
@@ -269,7 +485,7 @@ class CustomerController extends BaseController{
 
     private static function update_fraud_count($number){
         // Update fraud count and return trials remaining and
-        $count = Capsule::select("SELECT trials FROM fraud WHERE phone =". $number . " ORDER BY updated_at DESC LIMIT 1");
+        $count = Capsule::select("SELECT trials FROM fraud WHERE phone =". $number . " AND TIMESTAMPDIFF(MINUTE, updated_at, CURRENT_TIMESTAMP) < 30 ORDER BY updated_at DESC LIMIT 1");
         if(count($count) != 0 || $count != false){
 
             $trial =  (int)$count[0]->trials;
