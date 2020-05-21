@@ -27,7 +27,7 @@ $router->map('POST', '/customer/[:customer_id]/delete', '\App\Controllers\Custom
 $router->map('GET', '/customer/[:terms]/search', '\App\Controllers\CustomerController@searchcustomer', 'search_customer');
 
 //Fastrak Pin Route
-$router->map('GET', '/pins', '\App\Controllers\PinController@live', 'pins');
+$router->map('GET', '/pins', '\App\Controllers\PinController@index', 'pins');
 $router->map('GET', '/newpins', '\App\Controllers\PinController@generate_form', 'generate_pins_form');
 $router->map('POST', '/pins/new', '\App\Controllers\PinController@generate', 'generate_pins');
 $router->map('GET', '/pins/live', '\App\Controllers\PinController@live', 'get_live_pins');

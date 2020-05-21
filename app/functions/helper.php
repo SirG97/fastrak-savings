@@ -43,13 +43,21 @@ function user(){
     return false;
 }
 
-function paginate($num_of_record, $total_record, $table, $object){
+function paginate($num_of_record, $total_record, $table, $object, $filter=null){
     $d = [];
 
     $pages = new Paginator($num_of_record, 'p');
-    $pages->set_total($total_record);
 
+    $pages->set_total($total_record);
+if($filter == null){
     $data = Capsule::select("SELECT * FROM ". $table . " WHERE deleted_at is null ORDER BY created_at DESC ". $pages->get_limit());
+}else{
+  $key =  array_key_first($filter);
+  $value = $filter[$key];
+
+  $data = Capsule::select("SELECT * FROM ". $table . " WHERE " . $key."='".$value ."' AND deleted_at is null ORDER BY created_at DESC ". $pages->get_limit());
+}
+
     $d = $object->transform($data);
 
     return [$d, $pages->page_links()];
