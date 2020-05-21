@@ -11,11 +11,10 @@
     <div class="row">
         <div class="col-md-12">
             <nav class="nav pin-nav mr-2">
-                <a class="nav-link active" href="#">Live</a>
-                <a class="nav-link" href="#">Used</a>
+                <a class="nav-link active" href="/pins">All</a>
+                <a class="nav-link " href="/pins/live">Live</a>
+                <a class="nav-link" href="/pins/used">Used</a>
                 <a class="nav-link" href="#">Pending</a>
-                <a class="nav-link" href="#">Suspended</a>
-
             </nav>
             <div class="custom-panel card py-2">
                 <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
@@ -48,7 +47,7 @@
                             @endforeach
                         @else
                             <tr>
-                                No customers yet
+                                No pins generated
 
                             </tr>
                         @endif

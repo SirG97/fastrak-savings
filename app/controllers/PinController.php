@@ -18,17 +18,21 @@ class PinController extends BaseController{
     public $pins;
     public $links;
 
-    public function __construct(){
-        $total = Pin::all()->count();
-        $object = new Pin();
-
-        list($this->pins, $this->links) = paginate(20, $total, $this->table_name, $object);
-    }
+//    public function __construct(){
+//        $total = Pin::all()->count();
+//        $object = new Pin();
+//
+//        list($this->pins, $this->links) = paginate(20, $total, $this->table_name, $object);
+//    }
 
     public function index()
     {
-        $pins = Pin::all();
-        return view('user/generated', ['pins' => $this->pins, 'links' => $this->links]);
+
+        $total = Pin::all()->count();
+        $object = new Pin();
+
+        list($pins, $links) = paginate(10, $total, $this->table_name, $object);
+        return view('user/generated', ['pins' => $pins, 'links' => $links]);
     }
 
     /**
@@ -315,8 +319,21 @@ class PinController extends BaseController{
     }
 
     public function live(){
-        $pins = Pin::all();
-        return view('user/generated', ['pins' => $this->pins, 'links' => $this->links]);
+        $total = Pin::where('status', 'live')->count();
+        $object = new Pin();
+        $filter = ['status' => 'live'];
+        list($pins, $links) = paginate(20, $total, $this->table_name, $object, $filter);
+
+        return view('user/generated', ['pins' => $pins, 'links' => $links]);
+    }
+
+    public function used(){
+        $total = Pin::where('status', 'used')->count();
+        $object = new Pin();
+        $filter = ['status' => 'used'];
+        list($pins, $links) = paginate(20, $total, $this->table_name, $object, $filter);
+
+        return view('user/generated', ['pins' => $pins, 'links' => $links]);
     }
 
     /**
