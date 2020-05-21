@@ -180,7 +180,7 @@ class PinController extends BaseController{
         }
     }
 
-    public function store(Request $request){
+    public function store(){
         //
 
 
@@ -299,13 +299,7 @@ class PinController extends BaseController{
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //

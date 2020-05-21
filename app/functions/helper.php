@@ -43,7 +43,7 @@ function user(){
     return false;
 }
 
-function paginate($num_of_record, $total_record, $table, $object){
+function paginate($num_of_record, $total_record, $table, $object, $filter=null){
     $d = [];
 
     $pages = new Paginator($num_of_record, 'p');
