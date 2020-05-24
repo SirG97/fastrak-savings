@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
     });
 
+    $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        console.log('hie');
+        $(this).tab('show')
+    })
+
     // Show search dropdown
     const search = $('#search');
     const search_result = $('.search-result');
@@ -191,4 +197,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             $(".alert").alert('close');
         }, duration);
     }
+
+
 });

@@ -22,6 +22,8 @@ $router->map('GET', '/customers', '\App\Controllers\CustomerController@show', 'c
 
 $router->map('GET', '/customer', '\App\Controllers\CustomerController@showcustomerform', 'customer');
 $router->map('POST', '/customer', '\App\Controllers\CustomerController@storecustomer', 'store_customer');
+$router->map('GET', '/customer/[:customer_id]', '\App\Controllers\CustomerController@getcustomer', 'get_customer');
+$router->map('GET', '/customer/[:contribution_id]', '\App\Controllers\CustomerController@getcontribution', 'get_contribution');
 $router->map('POST', '/customer/[:customer_id]/edit', '\App\Controllers\CustomerController@editcustomer', 'edit_customer');
 $router->map('POST', '/customer/[:customer_id]/delete', '\App\Controllers\CustomerController@deletecustomer', 'delete_customer');
 $router->map('GET', '/customer/[:terms]/search', '\App\Controllers\CustomerController@searchcustomer', 'search_customer');

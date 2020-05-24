@@ -59,7 +59,7 @@
                                     <td>{{ $customer['email'] }}</td>
                                     <td>{{ $customer['amount'] }}</td>
                                     <td class="table-action d-flex flex-nowrap">
-                                        <i class="fas fa-fw fa-eye text-success" title="View customer details"></i> &nbsp; &nbsp;
+                                        <a href="/customer/{{ $customer['customer_id'] }}" ><i class="fas fa-fw fa-eye text-success" title="View customer details"></i></a> &nbsp; &nbsp;
                                         <i class="fas fa-fw fa-edit text-primary"
                                            data-toggle="modal"
                                            data-target="#editModal"

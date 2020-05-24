@@ -33,6 +33,17 @@ class CustomerController extends BaseController{
         return view('user/customers', ['customers' => $this->customers, 'links' => $this->links]);
     }
 
+    public function getcustomer($id){
+        $customer_id = $id['customer_id'];
+        return view('user/customerdetails');
+    }
+
+    public function getcontribution($id){
+        $contribution_id = $id['contribution_id'];
+        return view('user/customercontributions');
+    }
+
+
     public function showcustomerform(){
         return view('user/customer');
     }
@@ -175,7 +186,7 @@ class CustomerController extends BaseController{
             echo json_encode(['success' => $searchresult]);
             exit();
         }else{
-            echo json_encode(['su' => 'No result found']);
+            echo json_encode(['success' => 'No result found']);
             exit();
         }
 
@@ -248,7 +259,7 @@ class CustomerController extends BaseController{
                     $points = $pin_amount / $daily_amount;
 
                     if($last_contribution ==  null){
-                        if($points <= 30.0){
+                        if($points <= 31.0){
                             Contribution::create([
                                 'contribution_id' => Random::generateId(16),
                                 'phone' => $request->phone,
@@ -261,9 +272,9 @@ class CustomerController extends BaseController{
                             $first_store = array();
                             while($points > 0){
                                 //die('Remaining points is ' . $remaining_points);
-                                if($points > 30.0){
-                                    $ledger_bal = 30 * $daily_amount;
-                                    $available_bal = (30 * $daily_amount) - $daily_amount;
+                                if($points > 31.0){
+                                    $ledger_bal = 31 * $daily_amount;
+                                    $available_bal = (31 * $daily_amount) - $daily_amount;
                                     $cid = Random::generateId(16);
                                     $first_store[] = array(
                                         'contribution_id' => $cid,
@@ -271,12 +282,12 @@ class CustomerController extends BaseController{
                                         'pin' => $request->pin,
                                         'ledger_bal' =>  $ledger_bal,
                                         'available_bal' =>  $available_bal,
-                                        'points' => 30.0,
+                                        'points' => 31.0,
                                     );
-                                    $points = $points - 30.0;
+                                    $points = $points - 31.0;
                                 }else{
 
-                                    $remaining_points = $points % 30;
+                                    $remaining_points = $points % 31;
                                     $remaining_bal = $remaining_points * $daily_amount;
                                     $cid = Random::generateId(16);
                                     $first_store[] = array(
@@ -298,7 +309,7 @@ class CustomerController extends BaseController{
                         return view('user/contribute');
                     }else{
                         $accumulator = $points + $last_contribution->points;
-                        if($accumulator < 30.0){
+                        if($accumulator < 31.0){
                             Contribution::create([
                                 'contribution_id' => Random::generateId(16),
                                 'phone' => $request->phone,
@@ -309,7 +320,7 @@ class CustomerController extends BaseController{
                             ]);
                             Session::add('success', 'Contribution logged successfully');
                             return view('user/contribute');
-                        }elseif($accumulator == 30.0){
+                        }elseif($accumulator == 31.0){
                             Contribution::create([
                                 'contribution_id' => Random::generateId(16),
                                 'phone' => $request->phone,
@@ -320,13 +331,13 @@ class CustomerController extends BaseController{
                             ]);
                             Session::add('success', 'Contribution logged successfully. Cycle completed');
                             return view('user/contribute');
-                        }elseif($accumulator > 30.0){
-                            $rem_points_to_complete_last_contribution = 30.0 - $last_contribution->points;
+                        }elseif($accumulator > 31.0){
+                            $rem_points_to_complete_last_contribution = 31.0 - $last_contribution->points;
                             $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
 
                             if($rem_points_to_complete_last_contribution == 0 ){
 
-                                if($points <= 30.0){
+                                if($points <= 31.0){
                                     Contribution::create([
                                         'contribution_id' => Random::generateId(16),
                                         'phone' => $request->phone,
@@ -339,9 +350,9 @@ class CustomerController extends BaseController{
                                     $first_store = array();
                                     while($points > 0){
                                         //die('Remaining points is ' . $remaining_points);
-                                        if($points > 30.0){
-                                            $ledger_bal = 30 * $daily_amount;
-                                            $available_bal = (30 * $daily_amount) - $daily_amount;
+                                        if($points > 31.0){
+                                            $ledger_bal = 31 * $daily_amount;
+                                            $available_bal = (31 * $daily_amount) - $daily_amount;
                                             $cid = Random::generateId(16);
                                             $first_store[] = array(
                                                 'contribution_id' => $cid,
@@ -349,9 +360,9 @@ class CustomerController extends BaseController{
                                                 'pin' => $request->pin,
                                                 'ledger_bal' =>  $ledger_bal,
                                                 'available_bal' =>  $available_bal,
-                                                'points' => 30.0,
+                                                'points' => 31.0,
                                             );
-                                            $points = $points - 30.0;
+                                            $points = $points - 31.0;
                                         }else{
 
                                             $remaining_points = $points;
@@ -374,7 +385,7 @@ class CustomerController extends BaseController{
 
                                 Session::add('success', 'Contribution logged successfully.');
                                 return view('user/contribute');
-                            }elseif($rem_points_to_complete_last_contribution > 0  and $points <= 30.0){
+                            }elseif($rem_points_to_complete_last_contribution > 0  and $points <= 31.0){
                                 $remainder_to_store = array();
                                 $remainder_to_store[] = array(
                                     'contribution_id' => Random::generateId(16),
@@ -403,7 +414,7 @@ class CustomerController extends BaseController{
 
                                 Session::add('success', 'Contribution logged successfully.');
                                 return view('user/contribute');
-                            }elseif($rem_points_to_complete_last_contribution > 0  and $points > 30.0){
+                            }elseif($rem_points_to_complete_last_contribution > 0  and $points > 31.0){
                                 Contribution::create([
                                     'contribution_id' => Random::generateId(16),
                                     'phone' => $request->phone,
@@ -419,10 +430,10 @@ class CustomerController extends BaseController{
                                 $remainder_to_store = array();
                                 while($remaining_points > 0){
 
-                                    if($remaining_points > 30.0){
+                                    if($remaining_points > 31.0){
 
-                                        $ledger_bal = 30 * $daily_amount;
-                                        $available_bal = (30 * $daily_amount) - $daily_amount;
+                                        $ledger_bal = 31 * $daily_amount;
+                                        $available_bal = (31 * $daily_amount) - $daily_amount;
                                         $cid = Random::generateId(16);
                                         $remainder_to_store[] = array(
                                             'contribution_id' => $cid,
@@ -430,9 +441,9 @@ class CustomerController extends BaseController{
                                             'pin' => $request->pin,
                                             'ledger_bal' =>  $ledger_bal,
                                             'available_bal' =>  $available_bal,
-                                            'points' => 30.0,
+                                            'points' => 31.0,
                                         );
-                                        $remaining_points = $remaining_points - 30.0;
+                                        $remaining_points = $remaining_points - 31.0;
 
                                     }else{
 
