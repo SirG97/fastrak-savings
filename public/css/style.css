@@ -326,6 +326,17 @@ header{
     border-bottom: 1px solid #e3e8ee !important;
 }
 
+.cool-border-top{
+    border-top: 1px solid #e3e8ee !important;
+}
+
+.contribution-overview{
+    background-color: #007bff;
+    color: white;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
 .has-search .form-control {
     padding-left: 2.375rem;
 }

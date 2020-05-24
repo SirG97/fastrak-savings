@@ -57,7 +57,7 @@ class CustomerController extends BaseController{
 
         $maintenance = $total_donation - $total_available;
 
-        return view('user/customers', ['customer' =>$customer,
+        return view('user/customerdetails', ['customer' =>$customer,
                                             'links' => $links,
                                             'contributions' => $contributions,
                                             'total_donation' => $total_donation,
