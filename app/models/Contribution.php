@@ -17,10 +17,10 @@ class Contribution extends Model{
         $contributions = [];
         foreach ($data as $item){
             array_push($contributions,[
-                'contribution_id' => $item->contribution,
+                'contribution_id' => $item->contribution_id,
                 'phone' => $item->phone,
                 'pin' => $item->pin,
-                'ledger_bal' => $item->ledger,
+                'ledger_bal' => $item->ledger_bal,
                 'available_bal' => $item->available_bal,
                 'points' => $item->points,
 

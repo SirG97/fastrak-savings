@@ -20,22 +20,49 @@ class CustomerController extends BaseController{
     public $customers;
     public $links;
 
-    public function __construct(){
-        $total = Customer::all()->count();
-//        $customers = Customer::all();
-        $object = new Customer();
-
-        list($this->customers, $this->links) = paginate(20, $total, $this->table_name, $object);
-    }
+//    public function __construct(){
+//        $total = Customer::all()->count();
+////        $customers = Customer::all();
+//        $object = new Customer();
+//
+//        list($this->customers, $this->links) = paginate(20, $total, $this->table_name, $object);
+//    }
 
     public function show(){
+        $total = Customer::all()->count();
+        $object = new Customer();
 
-        return view('user/customers', ['customers' => $this->customers, 'links' => $this->links]);
+        list($customers, $links) = paginate(20, $total, $this->table_name, $object);
+        return view('user/customers', ['customers' => $customers, 'links' => $links]);
     }
 
     public function getcustomer($id){
         $customer_id = $id['customer_id'];
-        return view('user/customerdetails');
+
+        $customer = Customer::where('customer_id', $customer_id)->first();
+
+        $total = Contribution::where('phone', $customer->phone)->count();
+        $object = new Contribution();
+        $filter = ['phone' => $customer->phone];
+        list($contributions, $links) = paginate(20,$total,'contributions', $object, $filter);
+
+        $total_donation = 0;
+        $total_available = 0;
+
+        $all_contribution = Contribution::where('phone', $customer->phone)->get();
+        for($i = 0; $i < count($all_contribution); $i++){
+            $total_donation = $total_donation + (int)$all_contribution[$i]->ledger_bal;
+            $total_available = $total_available + (int)$all_contribution[$i]->available_bal;
+        }
+
+        $maintenance = $total_donation - $total_available;
+
+        return view('user/customers', ['customer' =>$customer,
+                                            'links' => $links,
+                                            'contributions' => $contributions,
+                                            'total_donation' => $total_donation,
+                                            'total_available' => $total_available,
+                                            'maintenance' => $maintenance]);
     }
 
     public function getcontribution($id){
