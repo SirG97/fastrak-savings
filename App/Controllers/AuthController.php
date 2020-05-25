@@ -1,16 +1,16 @@
 <?php
 
 
-namespace App\controllers;
+namespace App\Controllers;
 
 
-use App\classes\CSRFToken;
-use App\classes\Random;
-use App\classes\Redirect;
-use App\classes\Request;
-use App\classes\Session;
-use App\classes\Validation;
-use App\models\User;
+use App\Classes\CSRFToken;
+use App\Classes\Random;
+use App\Classes\Redirect;
+use App\Classes\Request;
+use App\Classes\Session;
+use App\Classes\Validation;
+use App\Models\User;
 
 
 class AuthController{

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\controllers;
+namespace App\Controllers;
 
-use App\classes\CSRFToken;
-use App\classes\Request;
-use App\classes\Validation;
+use App\Classes\CSRFToken;
+use App\Classes\Request;
+use App\Classes\Validation;
 
 class DashboardController extends BaseController{
     public function show(){

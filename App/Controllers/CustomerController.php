@@ -1,19 +1,19 @@
 <?php
 
 
-namespace App\controllers;
+namespace App\Controllers;
 
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use App\classes\CSRFToken;
-use App\classes\Random;
-use App\classes\Redirect;
-use App\classes\Request;
-use App\classes\Session;
-use App\classes\Validation;
-use App\models\Customer;
-use App\models\Pin;
-use App\models\Contribution;
+use App\Classes\CSRFToken;
+use App\Classes\Random;
+use App\Classes\Redirect;
+use App\Classes\Request;
+use App\Classes\Session;
+use App\Classes\Validation;
+use App\Models\Customer;
+use App\Models\Pin;
+use App\Models\Contribution;
 
 class CustomerController extends BaseController{
     public $table_name = 'customers';
