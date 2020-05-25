@@ -22,6 +22,8 @@ $router->map('GET', '/customers', '\App\Controllers\CustomerController@show', 'c
 
 $router->map('GET', '/customer', '\App\Controllers\CustomerController@showcustomerform', 'customer');
 $router->map('POST', '/customer', '\App\Controllers\CustomerController@storecustomer', 'store_customer');
+$router->map('GET', '/customer/[:customer_id]', '\App\Controllers\CustomerController@getcustomer', 'get_customer');
+//$router->map('GET', '/customer/[:contribution_id]', '\App\Controllers\CustomerController@getcontribution', 'get_contribution');
 $router->map('POST', '/customer/[:customer_id]/edit', '\App\Controllers\CustomerController@editcustomer', 'edit_customer');
 $router->map('POST', '/customer/[:customer_id]/delete', '\App\Controllers\CustomerController@deletecustomer', 'delete_customer');
 $router->map('GET', '/customer/[:terms]/search', '\App\Controllers\CustomerController@searchcustomer', 'search_customer');
@@ -40,6 +42,7 @@ $router->map('GET', '/pins/pending', '\App\Controllers\PinController@pending', '
 $router->map('GET', '/contributions', '\App\Controllers\CustomerController@contributions', 'contributions');
 $router->map('GET', '/contribute', '\App\Controllers\CustomerController@contribute_form', 'contribute_form');
 $router->map('POST', '/contribute', '\App\Controllers\CustomerController@contribute', 'contribute');
+$router->map('POST', '/ussd', '\App\Controllers\CustomerController@ussd', 'ussd');
 
 // Settings
 $router->map('GET', '/settings', '\App\Controllers\SettingsController@showSettings', 'show_settings');

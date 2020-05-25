@@ -122,7 +122,8 @@
 
     <div class="header-nav">
             <span class="header-nav-item">
-                <img class="avatar rounded-circle img-thumbnail img-fluid" src="img/avatar-1.jpg" alt="profile pics">
+                <img class="avatar rounded-circle img-thumbnail img-fluid" src="/img/avatar-1.jpg" alt="profile pics">
+{{--            <p class="avatar">Hi! Noble</p>--}}
             </span>
         <div class="nav-dropdown">
             <div class="nav-dropdown-item">

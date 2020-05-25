@@ -108,11 +108,16 @@ body {
     align-items: center;;
 }
 
+.nav_flex:hover{
+    color: #007bff;
+    text-decoration: none;
+}
+
 .nav_link_icon{
     width: 30px;
     padding-left: 10px;
     display: block;
-    color: #919eab;
+    color: #007bff;
     transition: all 0.3s ease-in-out;
 }
 
@@ -321,6 +326,17 @@ header{
     border-bottom: 1px solid #e3e8ee !important;
 }
 
+.cool-border-top{
+    border-top: 1px solid #e3e8ee !important;
+}
+
+.contribution-overview{
+    background-color: #007bff;
+    color: white;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
 .has-search .form-control {
     padding-left: 2.375rem;
 }
@@ -358,6 +374,10 @@ header{
 }
 
 .pin-nav > .nav-link.active{
+    border-bottom: 2px solid #007bff;
+}
+
+.customer-nav > .nav-link.active{
     border-bottom: 2px solid #007bff;
 }
 
