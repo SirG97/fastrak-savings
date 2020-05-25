@@ -9,7 +9,7 @@ if(!isset($_SESSION)) session_start();
 //Load environment variable
 require_once __DIR__.'/../app/config/_env.php';
 
-// Instantiate database class
+// Instantiate database class for the application
 new App\Classes\Database();
 
 //Set custom error handler
