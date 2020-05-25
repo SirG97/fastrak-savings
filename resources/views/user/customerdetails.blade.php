@@ -24,7 +24,7 @@
                                 Customer information
                             </div>
 
-                            <form class="cool-border py-3 px-2">
+                            <form class="cool-border py-3 px-2" action="/customer/{{$customer->customer_id}}/edit" method="POST">
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <input type="hidden" id="customer_id"  value="" required>
