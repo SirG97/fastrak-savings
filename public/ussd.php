@@ -4,10 +4,10 @@
 //*384*5729#
 // Reads the variables sent via POST
 
-$text = $_GET['USSD_STRING'];
-$phonenumber = $_GET['MSISDN'];
-$serviceCode = $_GET['serviceCode'];
-$sessionid = 'a2wos2dscvmmytmougf';
+$sessionId   = $_POST["sessionId"];
+$serviceCode = $_POST["serviceCode"];
+$phoneNumber = $_POST["phoneNumber"];
+$text        = $_POST["text"];
 $level = explode("*", $text);
 
 $servername = "localhost";
@@ -419,5 +419,5 @@ $dbname = "test";
 //}
 
 header('Content-type: text/plain');
-echo 'Your number is ' . $phonenumber;
+echo 'Your number is ' . $phoneNumber;
 
