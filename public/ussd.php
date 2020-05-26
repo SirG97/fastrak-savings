@@ -419,5 +419,5 @@ $dbname = "test";
 //}
 
 header('Content-type: text/plain');
-echo 'Your number is ' . $phoneNumber;
+echo 'END Your number is ' . $phoneNumber;
 
