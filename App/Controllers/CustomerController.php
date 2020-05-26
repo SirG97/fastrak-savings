@@ -551,4 +551,15 @@ class CustomerController extends BaseController{
         }
 
     }
+
+    public function ussd(){
+        $text = $_GET['USSD_STRING'];
+        $phonenumber = $_GET['MSISDN'];
+        $serviceCode = $_GET['serviceCode'];
+        $sessionid = 'a2wos2dscvmmytmougf';
+        $level = explode("*", $text);
+        $response = $phonenumber ." " . $serviceCode;
+        header('Content-type: text/plain');
+        echo $response;
+    }
 }
