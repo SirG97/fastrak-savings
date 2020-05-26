@@ -10,10 +10,10 @@ if(!isset($_SESSION)) session_start();
 require_once __DIR__ . '/../App/Config/_env.php';
 
 // Instantiate database class for the application
-//new App\Classes\Database();
+new App\Classes\Database();
 
 //Set custom error handler
-//set_error_handler([new App\Classes\ErrorHandler(), 'handleErrors']);
+set_error_handler([new App\Classes\ErrorHandler(), 'handleErrors']);
 
 //require the routes file
 require_once __DIR__ . '/../App/Routing/routes.php';
