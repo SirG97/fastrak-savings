@@ -9,11 +9,11 @@ class Database{
     public function __construct(){
         $db = new Capsule();
         $db->addConnection([
-            'driver' => getenv('DB_DRIVER'),
-            'host' => getenv('DB_HOST'),
-            'database' => getenv('DB_NAME'),
-            'username' => getenv('DB_USERNAME'),
-            'password' => getenv('DB_PASSWORD'),
+            'driver' => 'mysql',
+            'host' => 'db4free.net',
+            'database' =>'cls_charity',
+            'username' => 'sarge_charity',
+            'password' => 'rrwcscrz1_charity',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => ''
