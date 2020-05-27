@@ -496,14 +496,9 @@ class CustomerController extends BaseController{
                                 return view('user/contribute');
                             }
 
-
                         }
                     }
-
                 }
-
-
-
             }
         }
     }
@@ -553,13 +548,57 @@ class CustomerController extends BaseController{
     }
 
     public function ussd(){
-        $text = $_GET['USSD_STRING'];
-        $phonenumber = $_GET['MSISDN'];
-        $serviceCode = $_GET['serviceCode'];
-        $sessionid = 'a2wos2dscvmmytmougf';
-        $level = explode("*", $text);
-        $response = $phonenumber ." " . $serviceCode;
+        $sessionId   = $_POST["sessionId"];
+        $serviceCode = $_POST["serviceCode"];
+        $phoneNumber = $_POST["phoneNumber"];
+        $text        = $_POST["text"];
+        $level       = explode("*", $text);
         header('Content-type: text/plain');
-        echo $response;
+        //Check if number is registered
+        $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
+        if($is_registered_customer == null){
+
+            $response = 'END This number is not registered';
+            echo $response;
+            exit;
+        }
+
+        // Check if number has been logged for fraud for less than 30mins
+        $fraud_status = CustomerController::is_fraudulent($phoneNumber);
+        if($fraud_status == true){
+            $response = 'END This number has been banned from using this service';
+            echo $response;
+            exit;
+        }
+
+        if($text == ''){
+            $response = 'CON Please enter your pin';
+            echo $response;
+            exit;
+        }else{
+            //The first item in the array should be the pin
+            $pin = $level[0];
+            $is_pin_valid = Pin::find($pin);
+            if($is_pin_valid == null){
+                $fraud_count = CustomerController::update_fraud_count($phoneNumber);
+                // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
+                if($fraud_count === true){
+                    $response = 'END You have been barred from using this service';
+                    echo $response;
+                    exit;
+                }else{
+                    $response = 'You have only '. $fraud_count . ' trial(s) remaining';
+                    echo $response;
+                    exit;
+                }
+            }else{
+                $response = 'CON You\'re about to deposit '. $is_pin_valid->amount . 'in your savings.';
+                $response .= "1. Proceed\n";
+                $response .= "2. Cancel\n";
+                echo $response;
+                exit;
+            }
+        }
+
     }
 }

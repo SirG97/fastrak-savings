@@ -8,12 +8,13 @@ $sessionId   = $_POST["sessionId"];
 $serviceCode = $_POST["serviceCode"];
 $phoneNumber = $_POST["phoneNumber"];
 $text        = $_POST["text"];
-$level = explode("*", $text);
+$level       = explode("*", $text);
+//check if user has been logged as fraudlent before
+    //if fraudlent, show fraud error message
+// check to see if text is empty
+    //if empty display input to enter pin
+// check to see if pin is correct i
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "test";
 
 
 

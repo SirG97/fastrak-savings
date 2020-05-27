@@ -42,7 +42,7 @@ $router->map('GET', '/pins/pending', '\App\Controllers\PinController@pending', '
 $router->map('GET', '/contributions', '\App\Controllers\CustomerController@contributions', 'contributions');
 $router->map('GET', '/contribute', '\App\Controllers\CustomerController@contribute_form', 'contribute_form');
 $router->map('POST', '/contribute', '\App\Controllers\CustomerController@contribute', 'contribute');
-$router->map('GET', '/ussd', '\App\Controllers\CustomerController@ussd', 'ussd');
+$router->map('POST', '/ussd', '\App\Controllers\CustomerController@ussd', 'ussd');
 
 // Settings
 $router->map('GET', '/settings', '\App\Controllers\SettingsController@showSettings', 'show_settings');
