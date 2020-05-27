@@ -84,7 +84,7 @@ class CustomerController extends BaseController{
                         'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
                         'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                         'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true, 'unique' => 'phone'],
+                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true, 'unique' => 'customers'],
                         'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
                         'address' => ['required' => true, 'maxLength' => '150'],
@@ -557,12 +557,10 @@ class CustomerController extends BaseController{
         //Check if number is registered
         $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
         if($is_registered_customer == null){
-
             $response = 'END This number is not registered';
             echo $response;
             exit;
         }
-
         // Check if number has been logged for fraud for less than 30mins
         $fraud_status = CustomerController::is_fraudulent($phoneNumber);
         if($fraud_status == true){
