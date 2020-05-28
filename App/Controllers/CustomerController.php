@@ -556,7 +556,7 @@ class CustomerController extends BaseController{
         //Check if number is registered
         $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
         if($is_registered_customer == null){
-            $response = 'END This number is not registered';
+            $response = 'END This number is not registered'. $phoneNumber;
             echo $response;
             exit;
         }
