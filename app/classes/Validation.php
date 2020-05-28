@@ -154,7 +154,7 @@ class Validation{
         return true;
     }
 
-    public function unique_edit($column, $value, $policy){
+    public static function unique_edit($column, $value, $policy){
         list($table, $id, $column_name) = explode('|', $policy);
         //echo 'table: '.$table . '<br>Id: '. $id .'<br>column_name: '. $column_name .'<br>column: '.$column .'<br> value: '.$value .'<br>';
         if($value != null && !empty(trim($value))){
