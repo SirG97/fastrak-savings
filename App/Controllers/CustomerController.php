@@ -232,7 +232,7 @@ class CustomerController extends BaseController{
             if(CSRFToken::verifyCSRFToken($request->token)){
                 //Validation Rules
                 $rules = [
-                    'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true],
+                    'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11],
                     'pin' => ['required' => true,'minLength' => '12', 'maxLength' => '12', 'number' => true],
                 ];
 
