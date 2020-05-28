@@ -132,12 +132,11 @@ class CustomerController extends BaseController{
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
-
                 $rules = [
                     'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique_edit' => 'customers|' .$customer_id .'|customer_id'],
                     'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                     'surname' => ['string' => true, 'maxLength' => 40],
-                    'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11, 'number' => true],
+                    'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11],
                     'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
                     'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
                     'address' => ['required' => true, 'maxLength' => '150'],
