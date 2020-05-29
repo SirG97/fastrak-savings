@@ -264,7 +264,7 @@ class CustomerController extends BaseController{
 
 
                 $is_pin_valid = Pin::find($request->pin);
-                if($is_pin_valid == null){
+                if($is_pin_valid == NULL){
                     //Update Fraud table
                     $fraud_count = CustomerController::update_fraud_count($request->phone);
                     if($fraud_count === true){
