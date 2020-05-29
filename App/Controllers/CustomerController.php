@@ -263,7 +263,7 @@ class CustomerController extends BaseController{
 
 
                 $is_pin_valid = Pin::find($request->pin);
-                if($is_pin_valid == null){
+                if($is_pin_valid == NULL){
                     //Update Fraud table
                     $fraud_count = CustomerController::update_fraud_count($request->phone);
                     if($fraud_count === true){
@@ -577,7 +577,7 @@ class CustomerController extends BaseController{
             $pin = $level[0];
 
             $is_pin_valid = Pin::find($pin);
-            if($is_pin_valid == null){
+            if($is_pin_valid == NULL){
                 $fraud_count = CustomerController::update_fraud_count($phoneNumber);
                 // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
                 if($fraud_count === true){
@@ -585,12 +585,12 @@ class CustomerController extends BaseController{
                     echo $response;
                     exit;
                 }else{
-                    $response = 'You have only '. $fraud_count . ' trial(s) remaining';
+                    $response = 'END You have only '. $fraud_count . ' trial(s) remaining';
                     echo $response;
                     exit;
                 }
             }else{
-                $response = 'CON You\'re about to deposit '. $is_pin_valid->amount . 'in your savings.';
+                $response = 'CON You\'re about to deposit '. $is_pin_valid->amount . ' in your savings.\n';
                 $response .= "1. Proceed\n";
                 $response .= "2. Cancel\n";
                 echo $response;
