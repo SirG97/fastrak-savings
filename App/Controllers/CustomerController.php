@@ -556,7 +556,7 @@ class CustomerController extends BaseController{
         //Check if number is registered
         $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
         if($is_registered_customer == null){
-            $response = 'END This number is not registered'. $phoneNumber;
+            $response = 'END This number is not registered';
             echo $response;
             exit;
         }
@@ -575,26 +575,29 @@ class CustomerController extends BaseController{
         }else{
             //The first item in the array should be the pin
             $pin = $level[0];
-            $is_pin_valid = Pin::find($pin);
-            if($is_pin_valid == null){
-                $fraud_count = CustomerController::update_fraud_count($phoneNumber);
-                // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
-                if($fraud_count === true){
-                    $response = 'END You have been barred from using this service';
-                    echo $response;
-                    exit;
-                }else{
-                    $response = 'You have only '. $fraud_count . ' trial(s) remaining';
-                    echo $response;
-                    exit;
-                }
-            }else{
-                $response = 'CON You\'re about to deposit '. $is_pin_valid->amount . 'in your savings.';
-                $response .= "1. Proceed\n";
-                $response .= "2. Cancel\n";
-                echo $response;
-                exit;
-            }
+            $response = 'END Please enter your pin ' . $pin;
+            echo $response;
+            exit;
+           // $is_pin_valid = Pin::find($pin);
+//            if($is_pin_valid == null){
+//                $fraud_count = CustomerController::update_fraud_count($phoneNumber);
+//                // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
+//                if($fraud_count === true){
+//                    $response = 'END You have been barred from using this service';
+//                    echo $response;
+//                    exit;
+//                }else{
+//                    $response = 'You have only '. $fraud_count . ' trial(s) remaining';
+//                    echo $response;
+//                    exit;
+//                }
+//            }else{
+//                $response = 'CON You\'re about to deposit '. $is_pin_valid->amount . 'in your savings.';
+//                $response .= "1. Proceed\n";
+//                $response .= "2. Cancel\n";
+//                echo $response;
+//                exit;
+//            }
         }
 
     }
