@@ -36,7 +36,7 @@ class Validation{
 
         foreach ($data as $column => $value){
             if(in_array($column, array_keys($policies))){
-               self::runValidation(['column' => $column, 'value' => $value, 'policies' => $policies[$column]]);
+                self::runValidation(['column' => $column, 'value' => $value, 'policies' => $policies[$column]]);
 
             }
         }
@@ -120,9 +120,9 @@ class Validation{
 
     public static function mixed($column, $value, $policy){
         if($value != null && !empty(trim($value))){
-           if(!preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)){
-               return false;
-           }
+            if(!preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)){
+                return false;
+            }
         }
 
         return true;
@@ -138,9 +138,9 @@ class Validation{
         return true;
     }
 
-    public static  function ussd_string($value){
+    public static  function ussd_string($column, $value, $policy){
         if($value != null && !empty(trim($value))){
-            if(preg_match('/[\'^£$%&()}{@#~?><,|=_+¬-]/', $value)) {
+            if(!preg_match('/^[0-9 *]+$/', $value)) {
                 // one or more of the 'special characters' found in $string
                 return false;
             }
@@ -170,8 +170,8 @@ class Validation{
         //echo 'table: '.$table . '<br>Id: '. $id .'<br>column_name: '. $column_name .'<br>column: '.$column .'<br> value: '.$value .'<br>';
         if($value != null && !empty(trim($value))){
             return !Capsule::table($table)->where($column, '=', $value)
-                                            ->where($column_name, '!=', $id)
-                                            ->exists();
+                ->where($column_name, '!=', $id)
+                ->exists();
         }
         return true;
     }
