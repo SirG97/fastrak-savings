@@ -349,7 +349,7 @@ class CustomerController extends BaseController{
 
             $level = explode("*", $text);
             header('Content-type: text/plain');
-            echo $serviceCode;
+            echo $_POST["serviceCode"];
             exit;
             //Check if number is registered
             $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
