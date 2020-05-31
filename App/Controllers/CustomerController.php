@@ -58,11 +58,11 @@ class CustomerController extends BaseController{
         $maintenance = $total_donation - $total_available;
 
         return view('user/customerdetails', ['customer' =>$customer,
-                                            'links' => $links,
-                                            'contributions' => $contributions,
-                                            'total_donation' => $total_donation,
-                                            'total_available' => $total_available,
-                                            'maintenance' => $maintenance]);
+            'links' => $links,
+            'contributions' => $contributions,
+            'total_donation' => $total_donation,
+            'total_available' => $total_available,
+            'maintenance' => $maintenance]);
     }
 
     public function getcontribution($id){
@@ -77,53 +77,53 @@ class CustomerController extends BaseController{
 
     public function storecustomer(){
         if(Request::has('post')){
-                $request = Request::get('post');
-                if(CSRFToken::verifyCSRFToken($request->token)){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
 
-                    $rules = [
-                        'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
-                        'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
-                        'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11, 'number' => true, 'unique' => 'customers'],
-                        'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
-                        'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
-                        'address' => ['required' => true, 'maxLength' => '150'],
-                        'amount' => ['required' => true,  'number' => true]
-                    ];
-                    $validation = new Validation();
-                    $validation->validate($_POST, $rules);
-                    if($validation->hasError()){
-                        $errors = $validation->getErrorMessages();
-                        return view('user/customer', ['errors' => $errors]);
-                    }
-
-                    //Add the user
-                    $details = [
-                        'customer_id' => Random::generateId(16),
-                        'surname' => $request->surname,
-                        'firstname' => $request->firstname,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'address' => $request->address,
-                        'city' => $request->city,
-                        'state' => $request->state,
-                        'amount' => $request->amount,
-
-                    ];
-
-                    Customer::create($details);
-
-                    Request::refresh();
-
-                    Session::add('success', 'New customer created successfully');
-
-                    Redirect::to('/customers');
-                    exit();
-
+                $rules = [
+                    'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
+                    'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
+                    'surname' => ['string' => true, 'maxLength' => 40],
+                    'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11, 'number' => true, 'unique' => 'customers'],
+                    'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
+                    'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
+                    'address' => ['required' => true, 'maxLength' => '150'],
+                    'amount' => ['required' => true,  'number' => true]
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    return view('user/customer', ['errors' => $errors]);
                 }
 
-                Redirect::to('/customer');
+                //Add the user
+                $details = [
+                    'customer_id' => Random::generateId(16),
+                    'surname' => $request->surname,
+                    'firstname' => $request->firstname,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'amount' => $request->amount,
+
+                ];
+
+                Customer::create($details);
+
+                Request::refresh();
+
+                Session::add('success', 'New customer created successfully');
+
+                Redirect::to('/customers');
+                exit();
+
             }
+
+            Redirect::to('/customer');
+        }
     }
 
     public function editcustomer($id){
@@ -199,7 +199,7 @@ class CustomerController extends BaseController{
         }
 
     }
-    
+
     public function searchcustomer($terms){
         //Get the value of the term from the array
         $term = trim($terms['terms']);
@@ -314,11 +314,11 @@ class CustomerController extends BaseController{
                 }
             }
         }else{
-           $log_fraud = Capsule::insert("INSERT INTO fraud (phone, trials, fraud_status) VALUES ('$number', 1, 0)");
-           if($log_fraud){
-               //Remaining trials before block
-               return 2;
-           }
+            $log_fraud = Capsule::insert("INSERT INTO fraud (phone, trials, fraud_status) VALUES ('$number', 1, 0)");
+            if($log_fraud){
+                //Remaining trials before block
+                return 2;
+            }
         }
 
     }
@@ -339,7 +339,7 @@ class CustomerController extends BaseController{
                 'pin' => ['required' => true,'minLength' => 12, 'maxLength' => 20, 'number' => true],
                 'sessionId' => ['required' => true, 'mixed' => true],
                 'serviceCode' => ['required' => true],
-                'text' => ['required' => true, 'ussd_string' => true],
+                'text' => ['ussd_string' => true],
             ];
 
             //Run Validation and return errors
@@ -723,7 +723,7 @@ class CustomerController extends BaseController{
                 return $phone;
                 break;
 
-                default;
+            default;
         }
     }
 }
