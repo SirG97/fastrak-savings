@@ -1,19 +1,19 @@
 <?php
 
 
-namespace App\controllers;
+namespace App\Controllers;
 
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use App\classes\CSRFToken;
-use App\classes\Random;
-use App\classes\Redirect;
-use App\classes\Request;
-use App\classes\Session;
-use App\classes\Validation;
-use App\models\Customer;
-use App\models\Pin;
-use App\models\Contribution;
+use App\Classes\CSRFToken;
+use App\Classes\Random;
+use App\Classes\Redirect;
+use App\Classes\Request;
+use App\Classes\Session;
+use App\Classes\Validation;
+use App\Models\Customer;
+use App\Models\Pin;
+use App\Models\Contribution;
 
 class CustomerController extends BaseController{
     public $table_name = 'customers';
@@ -58,11 +58,11 @@ class CustomerController extends BaseController{
         $maintenance = $total_donation - $total_available;
 
         return view('user/customerdetails', ['customer' =>$customer,
-                                            'links' => $links,
-                                            'contributions' => $contributions,
-                                            'total_donation' => $total_donation,
-                                            'total_available' => $total_available,
-                                            'maintenance' => $maintenance]);
+            'links' => $links,
+            'contributions' => $contributions,
+            'total_donation' => $total_donation,
+            'total_available' => $total_available,
+            'maintenance' => $maintenance]);
     }
 
     public function getcontribution($id){
@@ -77,53 +77,53 @@ class CustomerController extends BaseController{
 
     public function storecustomer(){
         if(Request::has('post')){
-                $request = Request::get('post');
-                if(CSRFToken::verifyCSRFToken($request->token)){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
 
-                    $rules = [
-                        'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
-                        'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
-                        'surname' => ['string' => true, 'maxLength' => 40],
-                        'phone' => ['required' => true,'maxLength' => 13, 'minLength' => 11, 'number' => true, unique => 'customers'],
-                        'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
-                        'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
-                        'address' => ['required' => true, 'maxLength' => '150'],
-                        'amount' => ['required' => true,  'number' => true]
-                    ];
-                    $validation = new Validation();
-                    $validation->validate($_POST, $rules);
-                    if($validation->hasError()){
-                        $errors = $validation->getErrorMessages();
-                        return view('user/customer', ['errors' => $errors]);
-                    }
-
-                    //Add the user
-                    $details = [
-                        'customer_id' => Random::generateId(16),
-                        'surname' => $request->surname,
-                        'firstname' => $request->firstname,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'address' => $request->address,
-                        'city' => $request->city,
-                        'state' => $request->state,
-                        'amount' => $request->amount,
-
-                    ];
-
-                    Customer::create($details);
-
-                    Request::refresh();
-
-                    Session::add('success', 'New customer created successfully');
-
-                    Redirect::to('/customers');
-                    exit();
-
+                $rules = [
+                    'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique' =>'customers'],
+                    'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
+                    'surname' => ['string' => true, 'maxLength' => 40],
+                    'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11, 'number' => true, 'unique' => 'customers'],
+                    'city' => ['required' => true, 'maxLength' => '50', 'string' => true],
+                    'state' => ['required' => true, 'maxLength' => '50', 'string' => true],
+                    'address' => ['required' => true, 'maxLength' => '150'],
+                    'amount' => ['required' => true,  'number' => true]
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    return view('user/customer', ['errors' => $errors]);
                 }
 
-                Redirect::to('/customer');
+                //Add the user
+                $details = [
+                    'customer_id' => Random::generateId(16),
+                    'surname' => $request->surname,
+                    'firstname' => $request->firstname,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'amount' => $request->amount,
+
+                ];
+
+                Customer::create($details);
+
+                Request::refresh();
+
+                Session::add('success', 'New customer created successfully');
+
+                Redirect::to('/customers');
+                exit();
+
             }
+
+            Redirect::to('/customer');
+        }
     }
 
     public function editcustomer($id){
@@ -132,7 +132,6 @@ class CustomerController extends BaseController{
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
-
                 $rules = [
                     'email' => ['required' => true, 'maxLength' => 30, 'email' => true, 'unique_edit' => 'customers|' .$customer_id .'|customer_id'],
                     'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
@@ -200,7 +199,7 @@ class CustomerController extends BaseController{
         }
 
     }
-    
+
     public function searchcustomer($terms){
         //Get the value of the term from the array
         $term = trim($terms['terms']);
@@ -245,9 +244,7 @@ class CustomerController extends BaseController{
                     return view('user/contribute', ['errors' => $errors]);
                 }
 
-
                 $is_registered_customer = Customer::where('phone', '=', $request->phone)->first();
-
                 if($is_registered_customer == null){
                     Session::add('error', 'This number is not registered');
                     return view('user/contribute');
@@ -262,7 +259,6 @@ class CustomerController extends BaseController{
                     return view('user/contribute');
                 }
 
-
                 $is_pin_valid = Pin::find($request->pin);
                 if($is_pin_valid == NULL){
                     //Update Fraud table
@@ -275,7 +271,6 @@ class CustomerController extends BaseController{
                         Session::add('error', $error_msg);
                         return view('user/contribute');
                     }
-
                 }else{
                     // Log information and make API call to the bank to fulfill the request
                     CustomerController::mark_contribution($request, $is_registered_customer, $is_pin_valid, false);
@@ -319,128 +314,159 @@ class CustomerController extends BaseController{
                 }
             }
         }else{
-           $log_fraud = Capsule::insert("INSERT INTO fraud (phone, trials, fraud_status) VALUES ('$number', 1, 0)");
-           if($log_fraud){
-               //Remaining trials before block
-               return 2;
-           }
+            $log_fraud = Capsule::insert("INSERT INTO fraud (phone, trials, fraud_status) VALUES ('$number', 1, 0)");
+            if($log_fraud){
+                //Remaining trials before block
+                return 2;
+            }
         }
 
     }
 
     public function ussd(){
-        $sessionId   = $_POST["sessionId"];
-        $serviceCode = $_POST["serviceCode"];
-        $phoneNumber = $_POST["phoneNumber"];
-        $text        = $_POST["text"];
-        $level       = explode("*", $text);
-        header('Content-type: text/plain');
-        //Check if number is registered
-        $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
-        if($is_registered_customer == null){
-            $response = 'END This number is not registered';
-            echo $response;
-            exit;
-        }
-        // Check if number has been logged for fraud for less than 30mins
-        $fraud_status = CustomerController::is_fraudulent($phoneNumber);
-        if($fraud_status == true){
-            $response = 'END This number has been banned from using this service';
-            echo $response;
-            exit;
-        }
+        if(Request::has('post')) {
+            $request = Request::get('post');
+            $sessionId = $request->sessionId;
+            $serviceCode = $request->serviceCode;
+            $phoneNumber = $this->format_phone($request->phoneNumber);
+            $text = $request->text;
+            header('Content-type: text/plain');
 
-        if(isset($text) && $text == ''){
-            $response = 'CON Please enter your Fastrak pin';
-            echo $response;
-            exit;
-        }else{
-            //The first item in the array should be the pin
-            $no_of_items_in_array = count($level);
-            if($no_of_items_in_array === 1){
-                $pin = $level[0];
-                $is_pin_valid = Pin::find($pin);
-                if($is_pin_valid == NULL){
-                    $fraud_count = CustomerController::update_fraud_count($phoneNumber);
-                    // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
-                    if($fraud_count === true){
-                        $response = 'END You have been barred from using this service';
-                        echo $response;
-                        exit;
-                    }else{
-                        $response = 'CON Wrong Pin! You have only '. $fraud_count . ' trial(s) remaining';
-                        echo $response;
-                        exit;
-                    }
-                }else{
-                    $response = "CON You're about to deposit ". $is_pin_valid->amount . " in your savings.\n";
-                    $response .= "1. Proceed\n";
-                    $response .= "2. Cancel\n";
-                    echo $response;
-                    exit;
+            // time for some validation
+            //Validation Rules
+            $rules = [
+                'phoneNumber' => ['required' => true,'maxLength' => 11, 'minLength' => 11],
+                'pin' => ['required' => true,'minLength' => 12, 'maxLength' => 20, 'number' => true],
+                'sessionId' => ['required' => true, 'mixed' => true],
+                'serviceCode' => ['required' => true],
+                'text' => ['ussd_string' => true],
+            ];
+
+            //Run Validation and return errors
+            $validation = new Validation();
+            $validation->validate($_POST, $rules);
+            if($validation->hasError()){
+                $errors = $validation->getErrorMessages();
+                $err = '';
+                foreach ($errors as $error){
+                    $err .= $error ."\n";
                 }
-            }elseif ($no_of_items_in_array === 2 or $no_of_items_in_array <= 4){
-                // check if the user is trying to confirm a pin transaction
-                $confirmation = end($level);
-                if($confirmation === '1'){
-                    //Transaction confirmed, you'll be notified
+                $response = 'END There is something wrong with this request. Make sure you are registered and pin is typed correctly';
+                echo $response;
+                exit;
+            }
 
-                    $pin =  prev($level);
+            $level = explode("*", $text);
+            //Check if number is registered
+            $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
+            if ($is_registered_customer == null) {
+                $response = 'END This number is not registered';
+                echo $response;
+                exit;
+            }
+            // Check if number has been logged for fraud for less than 30mins
+            $fraud_status = CustomerController::is_fraudulent($phoneNumber);
+            if ($fraud_status == true) {
+                $response = 'END This number has been banned from using this service';
+                echo $response;
+                exit;
+            }
+
+            if (isset($text) && $text == '') {
+                $response = 'CON Please enter your Fastrak pin';
+                echo $response;
+                exit;
+            } else {
+                //The first item in the array should be the pin
+                $no_of_items_in_array = count($level);
+                if ($no_of_items_in_array === 1) {
+                    $pin = $level[0];
                     $is_pin_valid = Pin::find($pin);
-                    if($is_pin_valid == NULL){
+                    if ($is_pin_valid == NULL) {
                         $fraud_count = CustomerController::update_fraud_count($phoneNumber);
                         // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
-                        if($fraud_count === true){
+                        if ($fraud_count === true) {
                             $response = 'END You have been barred from using this service';
                             echo $response;
                             exit;
-                        }else{
-                            $response = 'CON Wrong Pin! You have only '. $fraud_count . ' trial(s) remaining';
+                        } else {
+                            $response = 'CON Wrong Pin! You have only ' . $fraud_count . ' trial(s) remaining';
                             echo $response;
                             exit;
                         }
-                    }else{
-                        $response = 'END You will be credited '. $is_pin_valid->amount . ' in your savings shortly.';
-                        echo $response;
-                        exit;
-                    }
-
-                }elseif (end($level) === '2'){
-                    // It means the user has cancelled the transaction
-                    $response = 'END Transaction terminated';
-                    echo $response;
-                    exit;
-                }else{
-                    // This should be another pin
-                    $pin = end($level);
-                    $is_pin_valid = Pin::find($pin);
-                    if($is_pin_valid == NULL){
-                        $fraud_count = CustomerController::update_fraud_count($phoneNumber);
-                        // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
-                        if($fraud_count === true){
-                            $response = 'END You have been barred from using this service';
-                            echo $response;
-                            exit;
-                        }else{
-                            $response = 'CON Wrong Pin! You have only '. $fraud_count . ' trial(s) remaining';
-                            echo $response;
-                            exit;
-                        }
-                    }else{
-                        $response = "CON You're about to deposit ". $is_pin_valid->amount . " in your savings.\n";
+                    } else {
+                        $response = "CON You're about to deposit " . $is_pin_valid->amount . " in your savings.\n";
                         $response .= "1. Proceed\n";
                         $response .= "2. Cancel\n";
                         echo $response;
                         exit;
                     }
-                }
-            }else{
-                $response = 'END There is a problem with this request, please try again';
-                echo $response;
-                exit;
-            }
-        }
+                } elseif ($no_of_items_in_array === 2 or $no_of_items_in_array <= 4) {
+                    // check if the user is trying to confirm a pin transaction
+                    $confirmation = end($level);
+                    if ($confirmation === '1') {
+                        //Transaction confirmed, you'll be notified
 
+                        $pin = prev($level);
+                        $is_pin_valid = Pin::find($pin);
+                        if ($is_pin_valid == NULL) {
+                            $fraud_count = CustomerController::update_fraud_count($phoneNumber);
+                            // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
+                            if ($fraud_count === true) {
+                                $response = 'END You have been barred from using this service';
+                                echo $response;
+                                exit;
+                            } else {
+                                $response = 'CON Wrong Pin! You have only ' . $fraud_count . ' trial(s) remaining';
+                                echo $response;
+                                exit;
+                            }
+                        } else {
+                            $response = 'END You will be credited ' . $is_pin_valid->amount . ' in your savings shortly.';
+                            echo $response;
+                            exit;
+                        }
+
+                    } elseif (end($level) === '2') {
+                        // It means the user has cancelled the transaction
+                        $response = 'END was Transaction terminated';
+                        echo $response;
+                        exit;
+                    } else {
+                        // This should be another pin
+                        $pin = end($level);
+                        $is_pin_valid = Pin::find($pin);
+                        if ($is_pin_valid == NULL) {
+                            $fraud_count = CustomerController::update_fraud_count($phoneNumber);
+                            // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
+                            if ($fraud_count === true) {
+                                $response = 'END You have been barred from using this service';
+                                echo $response;
+                                exit;
+                            } else {
+                                $response = 'CON Wrong Pin! You have only ' . $fraud_count . ' trial(s) remaining';
+                                echo $response;
+                                exit;
+                            }
+                        } else {
+                            $response = "CON You're about to deposit " . $is_pin_valid->amount . " in your savings.\n";
+                            $response .= "1. Proceed\n";
+                            $response .= "2. Cancel\n";
+                            echo $response;
+                            exit;
+                        }
+                    }
+                } else {
+                    $response = 'END There is a problem with this request, please try again';
+                    echo $response;
+                    exit;
+                }
+            }
+        }else{
+            $response = 'END Invalid request';
+            echo $response;
+            exit;
+        }
     }
 
     private static function mark_contribution($request,$is_registered_customer, $is_pin_valid, $ussd = true){
@@ -672,7 +698,32 @@ class CustomerController extends BaseController{
             }
         }
     }
-}
 
-// Stuff that will get you rich, Judgement, specific knowledge, accountability, leverage, life long learning, hard work and valuing your time.
-// No one will value you more than you value yourself.
+    public static function validate_ussd_text($value){
+        if($value != null && !empty(trim($value))){
+            if(!preg_match('/^[0-9 *]+$/', $value)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function is_valid_phoneNumber($phoneNumber){
+        if(!strlen($phoneNumber) === 11){
+            return false;
+        }
+        return true;
+    }
+
+    public function format_phone($phone, $country="NGN"){
+        switch ($country){
+            case 'NGN':
+                $stripped_sign = preg_replace("/[^0-9]/", '', $phone);
+                $phone = preg_replace("/^234/", "0", $stripped_sign);
+                return $phone;
+                break;
+
+            default;
+        }
+    }
+}

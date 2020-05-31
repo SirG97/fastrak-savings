@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\classes;
+namespace App\Classes;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
