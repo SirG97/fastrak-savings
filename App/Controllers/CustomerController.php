@@ -349,7 +349,7 @@ class CustomerController extends BaseController{
 
             $level = explode("*", $text);
             header('Content-type: text/plain');
-            echo 'END ' . json_encode($request);
+            echo 'END ' . $this->format_phone($request->phoneNumber);
             exit;
             //Check if number is registered
             $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
@@ -690,6 +690,34 @@ class CustomerController extends BaseController{
                     }
                 }
             }
+        }
+    }
+
+    public static function validate_ussd_text($value){
+        if($value != null && !empty(trim($value))){
+            if(!preg_match('/^[0-9 *]+$/', $value)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function is_valid_phoneNumber($phoneNumber){
+        if(!strlen($phoneNumber) === 11){
+            return false;
+        }
+        return true;
+    }
+
+    public function format_phone($phone, $country="NGN"){
+        switch ($country){
+            case 'NGN':
+                $stripped_sign = preg_replace("/[^0-9]/", '', $phone);
+                $phone = preg_replace("/^234/", "0", $stripped_sign);
+                return $phone;
+                break;
+
+                default;
         }
     }
 }
