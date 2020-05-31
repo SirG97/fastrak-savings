@@ -137,11 +137,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             url: url,
             type: 'POST',
             data: data,
+            beforeSend: function(){
+                $('#editBtn').html('<i class="fa fa-spinner fa-spin"></i> Please wait...');
+            },
             success: function (response) {
                 let data = JSON.parse(response);
                 console.log(JSON.parse(response))
                 let message = data.success;
                 msg.innerHTML = alertMessage('success', message);
+                $('#editBtn').html('Save');
                 interval(5000);
             },
             error: function(request, error){
@@ -158,6 +162,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
 
                 msg.innerHTML = alertMessage('danger', ul);
+                $('#editBtn').html('Save');
                 interval(5000);
             }
         });
