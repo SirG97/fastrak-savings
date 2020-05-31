@@ -345,8 +345,6 @@ class CustomerController extends BaseController{
             //Run Validation and return errors
             $validation = new Validation();
             $validation->validate($_POST, $rules);
-            echo 'END here is working';
-            exit();
             if($validation->hasError()){
                 $errors = $validation->getErrorMessages();
                 $err = '';
@@ -357,7 +355,8 @@ class CustomerController extends BaseController{
                 echo $response;
                 exit;
             }
-
+            echo 'END here is working';
+            exit();
             $level = explode("*", $text);
             //Check if number is registered
             $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
