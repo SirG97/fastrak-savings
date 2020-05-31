@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\controllers;
+namespace App\Controllers;
 
 
 class UserController extends BaseController {

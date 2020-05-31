@@ -1,7 +1,7 @@
 <?php
 
-use App\classes\Session;
-use App\models\User;
+use App\Classes\Session;
+use App\Models\User;
 use Philo\Blade\Blade;
 use voku\helper\Paginator;
 use Carbon\Carbon;
