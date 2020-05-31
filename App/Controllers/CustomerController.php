@@ -344,14 +344,14 @@ class CustomerController extends BaseController{
 
             //Run Validation and return errors
             $validation = new Validation();
-            $validation->validate($_POST, $rules);
+            $validation->validate($request, $rules);
             if($validation->hasError()){
-                $errors = $validation->getErrorMessages();
-                $err = '';
-                foreach ($errors as $error){
-                    $err .= $error ."\n";
-                }
-                $response = 'END There is something wrong with this request. Make sure you are registered and pin is typed correctly';
+//                $errors = $validation->getErrorMessages();
+//                $err = '';
+//                foreach ($errors as $error){
+//                    $err .= $error ."\n";
+//                }
+                $response = 'END Request not understood. Make sure you are registered and pin is typed correctly';
                 echo $response;
                 exit;
             }
