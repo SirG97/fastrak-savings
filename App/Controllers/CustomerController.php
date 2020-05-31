@@ -328,29 +328,35 @@ class CustomerController extends BaseController{
             $request = Request::get('post');
             $sessionId = $request->sessionId;
             $serviceCode = $request->serviceCode;
-            $phoneNumber = $request->phoneNumber;
+            $phoneNumber = $this->format_phone($request->phoneNumber);
             $text = $request->text;
-
+            header('Content-type: text/plain');
 
             // time for some validation
             //Validation Rules
-//            $rules = [
-//                'phone' => ['required' => true,'maxLength' => 14, 'minLength' => 11],
-//                'pin' => ['required' => true,'minLength' => '12', 'maxLength' => '12', 'number' => true],
-//            ];
-//
-//            //Run Validation and return errors
-//            $validation = new Validation();
-//            $validation->validate($_POST, $rules);
-//            if($validation->hasError()){
-//                $errors = $validation->getErrorMessages();
-//                return view('user/contribute', ['errors' => $errors]);
-//            }
+            $rules = [
+                'phoneNumber' => ['required' => true,'maxLength' => 11, 'minLength' => 11],
+                'pin' => ['required' => true,'minLength' => 12, 'maxLength' => 20, 'number' => true],
+                'sessionId' => ['required' => true, 'mixed' => true],
+                'serviceCode' => ['required' => true],
+                'text' => ['required' => true, 'ussd_string' => true],
+            ];
+
+            //Run Validation and return errors
+            $validation = new Validation();
+            $validation->validate($_POST, $rules);
+            if($validation->hasError()){
+                $errors = $validation->getErrorMessages();
+                $err = '';
+                foreach ($errors as $error){
+                    $err .= $error ."\n";
+                }
+                $response = 'END There is something wrong with this request. Make sure you are registered and pin is typed correctly';
+                echo $response;
+                exit;
+            }
 
             $level = explode("*", $text);
-            header('Content-type: text/plain');
-            echo 'END ' . $this->format_phone($request->phoneNumber);
-            exit;
             //Check if number is registered
             $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
             if ($is_registered_customer == null) {

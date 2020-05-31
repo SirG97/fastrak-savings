@@ -20,7 +20,8 @@ class Validation{
         'email' => 'The email address is not valid',
         'unique' => 'The :attribute is already taken',
         'confirmed' => 'The password do not match',
-        'unique_edit' => ':attribute already exists'
+        'unique_edit' => ':attribute already exists',
+        'ussd_string' => 'Invalid string'
     ];
 
     private static function setErrorMessages($error, $key = null){
@@ -134,6 +135,16 @@ class Validation{
             }
         }
 
+        return true;
+    }
+
+    public static  function ussd_string($value){
+        if($value != null && !empty(trim($value))){
+            if(preg_match('/[\'^£$%&()}{@#~?><,|=_+¬-]/', $value)) {
+                // one or more of the 'special characters' found in $string
+                return false;
+            }
+        }
         return true;
     }
 
