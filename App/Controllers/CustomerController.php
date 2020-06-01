@@ -344,7 +344,7 @@ class CustomerController extends BaseController{
 
             //Run Validation and return errors
             $validation = new Validation();
-            $validation->validate($request, $rules);
+            $validation->validate($_POST, $rules);
             if($validation->hasError()){
 //                $errors = $validation->getErrorMessages();
 //                $err = '';
