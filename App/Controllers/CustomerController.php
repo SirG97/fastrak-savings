@@ -380,8 +380,8 @@ class CustomerController extends BaseController{
                 //The first item in the array should be the pin
                 $no_of_items_in_array = count($level);
                 if ($no_of_items_in_array === 1) {
-                    $request->pin = $level[0];
-                    $is_pin_valid = Pin::find($request->pin);
+                    $pin = $level[0];
+                    $is_pin_valid = Pin::find($pin);
                     if ($is_pin_valid == NULL) {
                         $fraud_count = CustomerController::update_fraud_count($phoneNumber);
                         // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
@@ -407,8 +407,8 @@ class CustomerController extends BaseController{
                     if ($confirmation === '1') {
                         //Transaction confirmed, you'll be notified
 
-                        $request->pin = prev($level);
-                        $is_pin_valid = Pin::find($request->pin);
+                        $pin = prev($level);
+                        $is_pin_valid = Pin::find($pin);
                         if ($is_pin_valid == NULL) {
                             $fraud_count = CustomerController::update_fraud_count($phoneNumber);
                             // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
@@ -440,8 +440,8 @@ class CustomerController extends BaseController{
                         exit;
                     } else {
                         // This should be another pin
-                        $request->pin = end($level);
-                        $is_pin_valid = Pin::find($request->pin);
+                        $pin = end($level);
+                        $is_pin_valid = Pin::find($pin);
                         if ($is_pin_valid == NULL) {
                             $fraud_count = CustomerController::update_fraud_count($phoneNumber);
                             // If fraud count returns true, it means this douche bag has tried an invalid pin up to 3 times
