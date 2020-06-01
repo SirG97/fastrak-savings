@@ -355,8 +355,7 @@ class CustomerController extends BaseController{
                 echo $response;
                 exit;
             }
-            echo 'END here is working';
-            exit();
+
             $level = explode("*", $text);
             //Check if number is registered
             $is_registered_customer = Customer::where('phone', '=', $phoneNumber)->first();
