@@ -476,7 +476,13 @@ class CustomerController extends BaseController{
     }
 
     private static function mark_contribution($request,$is_registered_customer, $is_pin_valid, $ussd = true){
-        $last_contribution = Contribution::where('phone', $request->phone)->latest('id')->first();
+        if($ussd === true){
+            // the Request of Africastalking is phone is phoneNumber, I need to reassign
+            $request->phone = $request->phoneNumber;
+        }
+            $last_contribution = Contribution::where('phone', $request->phone)->latest('id')->first();
+
+
         $pin_amount = (int)$is_pin_valid->amount;
         $daily_amount = (int)$is_registered_customer->amount;
 
