@@ -335,7 +335,7 @@ class CustomerController extends BaseController{
             // time for some validation
             //Validation Rules
             $rules = [
-                'phoneNumber' => ['required' => true,'maxLength' => 11, 'minLength' => 11],
+                'phoneNumber' => ['required' => true,'maxLength' => 14, 'minLength' => 11],
                 'pin' => ['required' => true,'minLength' => 12, 'maxLength' => 20, 'number' => true],
                 'sessionId' => ['required' => true, 'mixed' => true],
                 'serviceCode' => ['required' => true],
