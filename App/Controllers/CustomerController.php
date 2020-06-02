@@ -395,7 +395,7 @@ class CustomerController extends BaseController{
                             exit;
                         }
                     } else {
-                        $response = "CON You're about to deposit " . $is_pin_valid->amount . " in your savings.\n";
+                        $response = "CON You're about to deposit &#8358;" . $is_pin_valid->amount . " in your savings.\n";
                         $response .= "1. Proceed\n";
                         $response .= "2. Cancel\n";
                         echo $response;
@@ -422,15 +422,11 @@ class CustomerController extends BaseController{
                                 exit;
                             }
                         } else {
-                            $mark = CustomerController::mark_contribution($request, $is_registered_customer, $is_pin_valid);
-                            if($mark == true){
-                                $response = 'END Transaction successful, You will be credited shortly.';
-                                echo $response;
-                                exit;
-                            }
-                            $response = 'END Transaction not completed. please contact customer care';
+                            CustomerController::mark_contribution($request, $is_registered_customer, $is_pin_valid);
+                            $response = 'END Transaction successful, You will be credited shortly.';
                             echo $response;
                             exit;
+
                         }
 
                     } elseif (end($level) === '2') {
@@ -455,7 +451,7 @@ class CustomerController extends BaseController{
                                 exit;
                             }
                         } else {
-                            $response = "CON You're about to deposit " . $is_pin_valid->amount . " in your savings.\n";
+                            $response = "CON You're about to deposit &#x20a6;" . $is_pin_valid->amount . " in your savings.\n";
                             $response .= "1. Proceed\n";
                             $response .= "2. Cancel\n";
                             echo $response;
@@ -475,13 +471,13 @@ class CustomerController extends BaseController{
         }
     }
 
-    private static function mark_contribution($request,$is_registered_customer, $is_pin_valid, $ussd = true){
+    private function mark_contribution($request,$is_registered_customer, $is_pin_valid, $ussd = true){
         if($ussd === true){
             // the Request of Africas talking is phone is phoneNumber, I need to reassign
-            $request->phone = $request->phoneNumber;
+            $request->phone = CustomerController::format_phone($request->phoneNumber);
             $request->pin = $is_pin_valid->pin;
         }
-            $last_contribution = Contribution::where('phone', $request->phone)->latest('id')->first();
+        $last_contribution = Contribution::where('phone', $request->phone)->latest('id')->first();
 
         $pin_amount = (int)$is_pin_valid->amount;
         $daily_amount = (int)$is_registered_customer->amount;
@@ -576,7 +572,6 @@ class CustomerController extends BaseController{
                 $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
 
                 if($rem_points_to_complete_last_contribution == 0 ){
-
                     if($points <= 31.0){
                         Contribution::create([
                             'contribution_id' => Random::generateId(16),
@@ -618,7 +613,6 @@ class CustomerController extends BaseController{
                                 $points = 0;
                             }
                         }
-
                         Contribution::insert($first_store);
                     }
                     if($ussd === false) {
@@ -626,7 +620,6 @@ class CustomerController extends BaseController{
                         return view('user/contribute');
                     }
                 }elseif($rem_points_to_complete_last_contribution > 0  and $points <= 31.0){
-
                     $remainder_to_store = array();
                     $remainder_to_store[] = array(
                         'contribution_id' => Random::generateId(16),
