@@ -10,7 +10,7 @@ class Database{
         $db = new Capsule();
         $db->addConnection([
             'driver' => 'mysql',
-            'host' => 'ononiru.com',
+            'host' => 'ec2-52-87-242-220.compute-1.amazonaws.com',
             'database' =>'ononixi1_char',
             'username' => 'ononixi1_giga',
             'password' => 'rrwcscrz1',
