@@ -534,12 +534,10 @@ class CustomerController extends BaseController{
             }
             //Send info to bank await confirmation
 
-
             if($ussd === false){
                 Session::add('success', 'Contribution logged successfully');
                 return view('user/contribute');
             }
-
         }else{
             $accumulator = $points + $last_contribution->points;
             if($accumulator < 31.0){
@@ -667,9 +665,7 @@ class CustomerController extends BaseController{
 
                     $remainder_to_store = array();
                     while($remaining_points > 0){
-
                         if($remaining_points > 31.0){
-
                             $ledger_bal = 31 * $daily_amount;
                             $available_bal = (31 * $daily_amount) - $daily_amount;
                             $cid = Random::generateId(16);
@@ -682,9 +678,7 @@ class CustomerController extends BaseController{
                                 'points' => 31.0,
                             );
                             $remaining_points = $remaining_points - 31.0;
-
                         }else{
-
                             $remaining_bal = $remaining_points * $daily_amount;
                             $cid = Random::generateId(16);
                             $remainder_to_store[] = array(

@@ -10,10 +10,10 @@ class Database{
         $db = new Capsule();
         $db->addConnection([
             'driver' => 'mysql',
-            'host' => 'db4free.net',
-            'database' =>'cls_charity',
-            'username' => 'sarge_charity',
-            'password' => 'rrwcscrz1_charity',
+            'host' => 'ononiru.com',
+            'database' =>'ononixi1_char',
+            'username' => 'ononixi1_giga',
+            'password' => 'rrwcscrz1',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => ''
