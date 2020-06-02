@@ -571,7 +571,7 @@ class CustomerController extends BaseController{
                 $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
 
                 if($rem_points_to_complete_last_contribution == 0 ){
-
+                    die('Let us start from here');
                     if($points <= 31.0){
                         Contribution::create([
                             'contribution_id' => Random::generateId(16),
