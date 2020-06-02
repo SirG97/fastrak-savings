@@ -488,6 +488,7 @@ class CustomerController extends BaseController{
 
         $points = $pin_amount / $daily_amount;
         if($last_contribution ==  null){
+            die("Let's go higher");
             if($points <= 31.0){
                 Contribution::create([
                     'contribution_id' => Random::generateId(16),
@@ -539,6 +540,7 @@ class CustomerController extends BaseController{
                 return view('user/contribute');
             }
         }else{
+            die("Maybe it is in the else stmt");
             $accumulator = $points + $last_contribution->points;
             if($accumulator < 31.0){
                 Contribution::create([
