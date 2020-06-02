@@ -574,7 +574,7 @@ class CustomerController extends BaseController{
 
                 $rem_points_to_complete_last_contribution = 31.0 - $last_contribution->points;
                 $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
-                die("Hello dude");
+
                 if($rem_points_to_complete_last_contribution == 0 ){
 
                     if($points <= 31.0){
