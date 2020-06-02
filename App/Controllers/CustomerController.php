@@ -626,6 +626,7 @@ class CustomerController extends BaseController{
                         return view('user/contribute');
                     }
                 }elseif($rem_points_to_complete_last_contribution > 0  and $points <= 31.0){
+                    die("Hello dude");
                     $remainder_to_store = array();
                     $remainder_to_store[] = array(
                         'contribution_id' => Random::generateId(16),
