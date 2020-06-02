@@ -557,7 +557,7 @@ class CustomerController extends BaseController{
                 }
 
             }elseif($accumulator == 31.0){
-                die("Maybe it acc is = 31.0");
+
                 Contribution::create([
                     'contribution_id' => Random::generateId(16),
                     'phone' => $request->phone,
@@ -571,12 +571,12 @@ class CustomerController extends BaseController{
                     return view('user/contribute');
                 }
             }elseif($accumulator > 31.0){
-                die("Maybe it acc is > 31.0");
+
                 $rem_points_to_complete_last_contribution = 31.0 - $last_contribution->points;
                 $rem_to_complete_last_amount = $rem_points_to_complete_last_contribution * $daily_amount;
 
                 if($rem_points_to_complete_last_contribution == 0 ){
-                    die('Let us start from here');
+
                     if($points <= 31.0){
                         Contribution::create([
                             'contribution_id' => Random::generateId(16),
