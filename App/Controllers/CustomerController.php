@@ -542,7 +542,7 @@ class CustomerController extends BaseController{
         }else{
             $accumulator = $points + $last_contribution->points;
             if($accumulator < 31.0){
-                die("Maybe it acc is < 31.0");
+
                 Contribution::create([
                     'contribution_id' => Random::generateId(16),
                     'phone' => $request->phone,
@@ -555,6 +555,7 @@ class CustomerController extends BaseController{
                     Session::add('success', 'Contribution logged successfully');
                     return view('user/contribute');
                 }
+
             }elseif($accumulator == 31.0){
                 die("Maybe it acc is = 31.0");
                 Contribution::create([
