@@ -271,6 +271,15 @@ class CustomerController extends BaseController{
                         Session::add('error', $error_msg);
                         return view('user/contribute');
                     }
+                }elseif ($is_pin_valid->status === 'used'){
+                    $error_msg = 'This pin has already been used';
+                    Session::add('error', $error_msg);
+                    return view('user/contribute');
+
+                } elseif ($is_pin_valid->status === 'pending') {
+                    $error_msg = 'This transaction with this pin is yet to be resolved';
+                    Session::add('error', $error_msg);
+                    return view('user/contribute');
                 }else{
                     // Log information and make API call to the bank to fulfill the request
                     CustomerController::mark_contribution($request, $is_registered_customer, $is_pin_valid, false);
@@ -394,8 +403,16 @@ class CustomerController extends BaseController{
                             echo $response;
                             exit;
                         }
-                    } else {
-                        $response = "CON You're about to deposit &#8358;" . $is_pin_valid->amount . " in your savings.\n";
+                    } elseif ($is_pin_valid->status === 'used'){
+                        $response = 'END This pin has already been used';
+                        echo $response;
+                        exit;
+                    } elseif ($is_pin_valid->status === 'pending'){
+                        $response = 'END This transaction with this pin is yet to be resolved';
+                        echo $response;
+                        exit;
+                    }else {
+                        $response = "CON You're about to deposit &#8358" . $is_pin_valid->amount . " in your savings.\n";
                         $response .= "1. Proceed\n";
                         $response .= "2. Cancel\n";
                         echo $response;
@@ -421,7 +438,15 @@ class CustomerController extends BaseController{
                                 echo $response;
                                 exit;
                             }
-                        } else {
+                        }elseif ($is_pin_valid->status === 'used'){
+                            $response = 'END This pin has already been used';
+                            echo $response;
+                            exit;
+                        } elseif ($is_pin_valid->status === 'pending'){
+                            $response = 'END This transaction with this pin is yet to be resolved';
+                            echo $response;
+                            exit;
+                        }else {
                             CustomerController::mark_contribution($request, $is_registered_customer, $is_pin_valid);
                             $response = 'END Transaction successful, You will be credited shortly.';
                             echo $response;
@@ -451,7 +476,7 @@ class CustomerController extends BaseController{
                                 exit;
                             }
                         } else {
-                            $response = "CON You're about to deposit &#x20a6;" . $is_pin_valid->amount . " in your savings.\n";
+                            $response = "CON You're about to deposit ₦" . $is_pin_valid->amount . " in your savings.\n";
                             $response .= "1. Proceed\n";
                             $response .= "2. Cancel\n";
                             echo $response;
@@ -494,6 +519,8 @@ class CustomerController extends BaseController{
                     'available_bal' => $pin_amount,
                     'points' => $points,
                 ]);
+                $is_pin_valid->status = 'used';
+                $is_pin_valid->save();
             }else {
                 $first_store = array();
                 while($points > 0){
@@ -528,6 +555,8 @@ class CustomerController extends BaseController{
                     }
                 }
                 Contribution::insert($first_store);
+                $is_pin_valid->status = 'used';
+                $is_pin_valid->save();
             }
             //Send info to bank await confirmation
 
@@ -547,6 +576,8 @@ class CustomerController extends BaseController{
                     'available_bal' => $pin_amount,
                     'points' => $accumulator,
                 ]);
+                $is_pin_valid->status = 'used';
+                $is_pin_valid->save();
                 if($ussd === false) {
                     Session::add('success', 'Contribution logged successfully');
                     return view('user/contribute');
@@ -562,6 +593,8 @@ class CustomerController extends BaseController{
                     'available_bal' => $pin_amount - $daily_amount,
                     'points' => $accumulator,
                 ]);
+                $is_pin_valid->status = 'used';
+                $is_pin_valid->save();
                 if($ussd === false) {
                     Session::add('success', 'Contribution logged successfully. Cycle completed');
                     return view('user/contribute');
@@ -581,6 +614,8 @@ class CustomerController extends BaseController{
                             'available_bal' => $pin_amount,
                             'points' => $points,
                         ]);
+                        $is_pin_valid->status = 'used';
+                        $is_pin_valid->save();
                     }else {
                         $first_store = array();
                         while($points > 0){
@@ -614,6 +649,8 @@ class CustomerController extends BaseController{
                             }
                         }
                         Contribution::insert($first_store);
+                        $is_pin_valid->status = 'used';
+                        $is_pin_valid->save();
                     }
                     if($ussd === false) {
                         Session::add('success', 'Contribution logged successfully.');
@@ -645,6 +682,8 @@ class CustomerController extends BaseController{
                     );
 
                     Contribution::insert($remainder_to_store);
+                    $is_pin_valid->status = 'used';
+                    $is_pin_valid->save();
                     if($ussd === false) {
                         Session::add('success', 'Contribution logged successfully.');
                         return view('user/contribute');
@@ -695,6 +734,8 @@ class CustomerController extends BaseController{
                     }
 
                     Contribution::insert($remainder_to_store);
+                    $is_pin_valid->status = 'used';
+                    $is_pin_valid->save();
                     if($ussd === false) {
                         Session::add('success', 'Contribution logged successfully.');
                         return view('user/contribute');
