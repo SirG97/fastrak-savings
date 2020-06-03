@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 </li>`;
                     });
                 });
-                ul += '</ul>'
+                ul += '</ul>';
                 $('.search-result').html(ul);
             },
             error: function(request, error){
@@ -72,14 +72,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $('#search').removeClass('no-bottom-borders');
         $('.search-result').css('display','none');
 
-    })
-
-
+    });
 
 
     // Show the edit modal and populate the fields for customer edit
     $('#editModal').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget) // Button that triggered the modal
+        let button = $(event.relatedTarget); // Button that triggered the modal
         let customer_id = button.data('customer_id'); // Extract info from data-* attributes
         let firstname = button.data('firstname'); // Extract info from data-* attributes
         let surname = button.data('surname'); // Extract info from data-* attributes
@@ -91,7 +89,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let amount = button.data('amount'); // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        let modal = $(this)
+        let modal = $(this);
 
         modal.find('#customer_id').val(customer_id);
         modal.find('#firstname').val(firstname);
