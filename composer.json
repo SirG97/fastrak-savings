@@ -12,7 +12,8 @@
         "illuminate/pagination": "5.8.36",
         "voku/pagination": "^4.0",
         "nesbot/carbon": "^2.33",
-        "paragonie/random-lib": "^2.0"
+        "paragonie/random-lib": "^2.0",
+      "ext-mcrypt": "*"
     },
     "autoload":{
         "psr-4":{

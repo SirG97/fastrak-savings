@@ -8,6 +8,7 @@ use App\Classes\Redirect;
 use App\Classes\Request;
 use App\Classes\Session;
 use App\Classes\Validation;
+use App\Classes\Encryption;
 use App\Models\Pin;
 use RandomLib;
 use SecurityLib;
@@ -46,6 +47,7 @@ class PinController extends BaseController{
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token)){
+                $encryption = new Encryption();
                 $factory = new RandomLib\Factory;
                 $generator = $factory->getGenerator(new SecurityLib\Strength(SecurityLib\Strength::MEDIUM));
 
@@ -75,7 +77,7 @@ class PinController extends BaseController{
                 for($i = 0; $i < $qty5H; $i++){
                     $dataToInsert[] = array(
                         'serial' => $this->appendSerialPrefix($lastInserted),
-                        'pin' => $generator->generateString(12, '1234567890'),
+                        'pin' => $encryption->encrypt($generator->generateString(12, '1234567890')),
                         'amount' => $amt5H,
                         'batch_no' => $batchNo
 
@@ -86,7 +88,7 @@ class PinController extends BaseController{
                 for($i = 0; $i < $qty1k; $i++){
                     $dataToInsert[] = array(
                         'serial' => $this->appendSerialPrefix($lastInserted),
-                        'pin' => $generator->generateString(12, '0123456789'),
+                        'pin' => $encryption->encrypt($generator->generateString(12, '1234567890')),
                         'amount' => $amt1k,
                         'batch_no' => $batchNo
 
@@ -98,7 +100,7 @@ class PinController extends BaseController{
                 for($i = 0; $i < $qty2k; $i++){
                     $dataToInsert[] = array(
                         'serial' => $this->appendSerialPrefix($lastInserted),
-                        'pin' => $generator->generateString(12, '0123456789'),
+                        'pin' => $encryption->encrypt($generator->generateString(12, '1234567890')),
                         'amount' => $amt2k,
                         'batch_no' => $batchNo
 
@@ -110,7 +112,7 @@ class PinController extends BaseController{
                 for($i = 0; $i < $qty3k; $i++){
                     $dataToInsert[] = array(
                         'serial' => $this->appendSerialPrefix($lastInserted),
-                        'pin' => $generator->generateString(12, '0123456789'),
+                        'pin' => $encryption->encrypt($generator->generateString(12, '1234567890')),
                         'amount' => $amt3k,
                         'batch_no' => $batchNo
 
@@ -122,14 +124,13 @@ class PinController extends BaseController{
                 for($i = 0; $i < $qty5k; $i++){
                     $dataToInsert[] = array(
                         'serial' => $this->appendSerialPrefix($lastInserted),
-                        'pin' => $generator->generateString(12, '0123456789'),
+                        'pin' => $encryption->encrypt($generator->generateString(12, '1234567890')),
                         'amount' => $amt5k,
                         'batch_no' => $batchNo
 
                     );
                     $lastInserted++;
                 }
-
 
                 Pin::insert($dataToInsert);
 
