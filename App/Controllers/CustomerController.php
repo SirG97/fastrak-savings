@@ -385,7 +385,7 @@ class CustomerController extends BaseController{
                 $response = 'CON Please enter your Fastrak pin';
                 echo $response;
                 exit;
-            } else {
+            } elseif(isset($text) && $text != '') {
                 //The first item in the array should be the pin
                 $no_of_items_in_array = count($level);
                 if ($no_of_items_in_array === 1) {
@@ -412,7 +412,7 @@ class CustomerController extends BaseController{
                         echo $response;
                         exit;
                     }else {
-                        $response = "CON You're about to deposit &#8358" . $is_pin_valid->amount . " in your savings.\n";
+                        $response = "CON You're about to deposit ₦" . $is_pin_valid->amount . " in your savings.\n";
                         $response .= "1. Proceed\n";
                         $response .= "2. Cancel\n";
                         echo $response;
