@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Classes\Encryption;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Classes\CSRFToken;
 use App\Classes\Random;
@@ -258,8 +259,9 @@ class CustomerController extends BaseController{
                     Session::add('error', 'This number has been banned from using this service');
                     return view('user/contribute');
                 }
-
-                $is_pin_valid = Pin::find($request->pin);
+                $encryption = new Encryption();
+//              // Encrypt pin and check for match in databasr
+                $is_pin_valid = Pin::find($encryption->encrypt($request->pin));
                 if($is_pin_valid == NULL){
                     //Update Fraud table
                     $fraud_count = CustomerController::update_fraud_count($request->phone);
@@ -380,7 +382,7 @@ class CustomerController extends BaseController{
                 echo $response;
                 exit;
             }
-
+            $encryption = new Encryption();
             if (isset($text) && $text == '') {
                 $response = 'CON Please enter your Fastrak pin';
                 echo $response;
@@ -389,7 +391,10 @@ class CustomerController extends BaseController{
                 //The first item in the array should be the pin
                 $no_of_items_in_array = count($level);
                 if ($no_of_items_in_array === 1) {
+
                     $pin = $level[0];
+                    $pin = $encryption->encrypt($pin);
+
                     $is_pin_valid = Pin::find($pin);
                     if ($is_pin_valid == NULL) {
                         $fraud_count = CustomerController::update_fraud_count($phoneNumber);
@@ -425,6 +430,7 @@ class CustomerController extends BaseController{
                         //Transaction confirmed, you'll be notified
 
                         $pin = prev($level);
+                        $pin = $encryption->encrypt($pin);
                         $is_pin_valid = Pin::find($pin);
                         if ($is_pin_valid == NULL) {
                             $fraud_count = CustomerController::update_fraud_count($phoneNumber);

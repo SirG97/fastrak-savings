@@ -80,7 +80,6 @@
                                            data-customer_id="<?php echo e($customer['customer_id']); ?>"></i>
                                     </td>
 
-
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 
@@ -206,7 +205,7 @@
                                     </div>
                                 </div>
                             <?php else: ?>
-                                <tr>
+                                <tr scope="row" col="5">
                                    No customers yet
 
                                 </tr>

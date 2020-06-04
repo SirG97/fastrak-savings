@@ -32,20 +32,29 @@ class Encryption{
         }
     }
 
-    public function encrypt($data){
-        $iv = openssl_random_pseudo_bytes($this->iv_bytes());
-        return bin2hex($iv) . openssl_encrypt($data, $this->method, $this->key, 0, $iv);
-    }
+//    public function encrypt($data){
+//        $iv = openssl_random_pseudo_bytes($this->iv_bytes());
+//        return bin2hex($iv) . openssl_encrypt($data, $this->method, $this->key, 0, $iv);
+//    }
 
     // decrypt encrypted string
+//    public function decrypt($data){
+//        $iv_strlen = 2  * $this->iv_bytes();
+//        if(preg_match("/^(.{" . $iv_strlen . "})(.+)$/", $data, $regs)) {
+//            list(, $iv, $crypted_string) = $regs;
+//            if(ctype_xdigit($iv) && strlen($iv) % 2 == 0) {
+//                return openssl_decrypt($crypted_string, $this->method, $this->key, 0, hex2bin($iv));
+//            }
+//        }
+//        return false;  // failed to decrypt
+//    }
+
+    public function encrypt($data){
+        $iv = 'qwertyuiopasdfgh';
+        return openssl_encrypt($data, $this->method, $this->key, 0, $iv);
+    }
     public function decrypt($data){
-        $iv_strlen = 2  * $this->iv_bytes();
-        if(preg_match("/^(.{" . $iv_strlen . "})(.+)$/", $data, $regs)) {
-            list(, $iv, $crypted_string) = $regs;
-            if(ctype_xdigit($iv) && strlen($iv) % 2 == 0) {
-                return openssl_decrypt($crypted_string, $this->method, $this->key, 0, hex2bin($iv));
-            }
-        }
-    return false;  // failed to decrypt
+        $iv = 'qwertyuiopasdfgh';
+        return openssl_decrypt($data, $this->method, $this->key, 0, $iv);
     }
 }

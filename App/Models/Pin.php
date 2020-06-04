@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\Encryption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,7 +24,7 @@ class Pin extends Model
             array_push($pins,[
                 'serial' => $item->serial,
                 'batch_no' => $item->batch_no,
-                'pin' => $item->pin,
+                'pin' => $this->decryptPins($item->pin),
                 'amount' => $item->amount,
                 'user_id' => $item->user_id,
                 'bank' => $item->bank,
@@ -36,6 +37,12 @@ class Pin extends Model
 
         }
         return $pins;
+    }
+
+    private function decryptPins($pin){
+        $encryption = new Encryption();
+        $pin = $encryption->decrypt($pin);
+        return $pin;
     }
 
 }

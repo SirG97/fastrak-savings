@@ -33,6 +33,7 @@ class PinController extends BaseController{
         $object = new Pin();
 
         list($pins, $links) = paginate(10, $total, $this->table_name, $object);
+        $pins = $this->decryptPins($pins);
         return view('user/generated', ['pins' => $pins, 'links' => $links]);
     }
 
@@ -41,6 +42,14 @@ class PinController extends BaseController{
      */
     public function generate_form(){
         return view('user/generate');
+    }
+
+    private function decryptPins($pins){
+        $encryption = new Encryption();
+        foreach ($pins as $pin){
+            $pin['pin'] = $encryption->decrypt($pin['pin']);
+        }
+        return $pins;
     }
 
     public function generate(){
@@ -143,7 +152,6 @@ class PinController extends BaseController{
             die('token error');
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -186,102 +194,6 @@ class PinController extends BaseController{
     }
 
     public function store(){
-        //
-
-
-//        $amt5H = $request->get('amt500');
-//        $qty5H = $request->get('qty500');
-//
-//        $amt1k = $request->get('amt1000');
-//        $qty1k = $request->get('qty1000');
-//
-//        $amt2k = $request->get('amt2000');
-//        $qty2k = $request->get('qty2000');
-//
-//        $amt3k = $request->get('amt3000');
-//        $qty3k = $request->get('qty3000');
-//
-//        $amt5k = $request->get('amt5000');
-//        $qty5k = $request->get('qty5000');
-//
-//
-//        $dataToInsert = array();
-//        $batchNo = Random::generateString(8, 'FASTRAK0123456789');
-//        $lastInserted = $this->getLastInserted();
-//        $lastInserted += 1;
-//
-//
-//        //Random::generateString(10, 'FASTRAK0123456789')
-//        //for #500
-//        for($i = 0; $i < $qty5H; $i++){
-//            $dataToInsert[] = array(
-//                'serial' => $this->appendSerialPrefix($lastInserted),
-//                'pin' => Random::generateString(12, '0123456789'),
-//                'amount' => $amt5H,
-//                'batch_no' => $batchNo
-//
-//            );
-//            $lastInserted++;
-//        }
-//        // for #1000
-//        for($i = 0; $i < $qty1k; $i++){
-//            $dataToInsert[] = array(
-//                'serial' => $this->appendSerialPrefix($lastInserted),
-//                'pin' => Random::generateString(12, '0123456789'),
-//                'amount' => $amt1k,
-//                'batch_no' => $batchNo,
-//                'created_at' => $now,
-//                'updated_at' => $now
-//
-//            );
-//            $lastInserted++;
-//        }
-//
-//        // for #1000
-//        for($i = 0; $i < $qty2k; $i++){
-//            $dataToInsert[] = array(
-//                'serial' => $this->appendSerialPrefix($lastInserted),
-//                'pin' => Random::generateString(12, '0123456789'),
-//                'amount' => $amt2k,
-//                'batch_no' => $batchNo,
-//                'created_at' => $now,
-//                'updated_at' => $now
-//
-//            );
-//            $lastInserted++;
-//        }
-//
-//        // for #1000
-//        for($i = 0; $i < $qty3k; $i++){
-//            $dataToInsert[] = array(
-//                'serial' => $this->appendSerialPrefix($lastInserted),
-//                'pin' => Random::generateString(12, '0123456789'),
-//                'amount' => $amt3k,
-//                'batch_no' => $batchNo,
-//                'created_at' => $now,
-//                'updated_at' => $now
-//
-//            );
-//            $lastInserted++;
-//        }
-//
-//        // for #1000
-//        for($i = 0; $i < $qty5k; $i++){
-//            $dataToInsert[] = array(
-//                'serial' => $this->appendSerialPrefix($lastInserted),
-//                'pin' => Random::generateString(12, '0123456789'),
-//                'amount' => $amt5k,
-//                'batch_no' => $batchNo,
-//                'created_at' => $now,
-//                'updated_at' => $now
-//
-//            );
-//            $lastInserted++;
-//        }
-//
-//
-//        DB::table('pins')->insert($dataToInsert);
-//        return redirect('home')->with('success', 'Pins Generated Successfully');
 
     }
 

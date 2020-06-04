@@ -81,7 +81,6 @@
                                            data-customer_id="{{ $customer['customer_id'] }}"></i>
                                     </td>
 
-
                                 </tr>
                                 @endforeach
                                 {{-- Edit Modal--}}
@@ -207,7 +206,7 @@
                                     </div>
                                 </div>
                             @else
-                                <tr>
+                                <tr scope="row" col="5">
                                    No customers yet
 
                                 </tr>
