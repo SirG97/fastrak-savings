@@ -14,7 +14,7 @@ class Database{
             'host' => 'db4free.net',
             'database' => 'cls_charity',
             'username' =>  'sarge_charity',
-            'password' => 'DB_PASSWORD', 'rrwcscrz1_charity',
+            'password' => 'rrwcscrz1_charity',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => ''
