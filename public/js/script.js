@@ -71,7 +71,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
     search.on('blur', ()=>{
         $('#search').removeClass('no-bottom-borders');
         $('.search-result').css('display','none');
+    });
 
+    const search_contribution = $('#search-contribution');
+    const search_contribution_result = $('.search-contribution-result');
+    search_contribution.on('input', ()=>{
+        search_contribution.addClass('no-bottom-borders');
+        $('.search-result').css('display','block');
+        let terms = search_contribution.val();
+        const url = `/contributions/${terms}/search`;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            beforeSend: function(){
+                search_result.html('<div class="d-flex justify-content-center pt-1 pb-1"><i class="fa fa-spinner fa-spin"></i> &nbsp; Searching...</div>');
+            },
+            success: function (response) {
+                let data = JSON.parse(response);
+                console.log(JSON.parse(response))
+                let ul = '<ul class="list-group list-group-flush">';
+
+                if(data !== undefined){
+                    $.each(data, (key, value) => {
+                        $.each(value, (index, item)=>{
+                            ul += `<li class="list-group list-group-item">
+                         
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6>${item.phone} </h6>
+                                        <small>${item.updated_at}</small>
+                                    </div>
+                                    <p class="mb-1">${item.pin}</p> 
+                                    
+                                </li>`;
+                        });
+                    });
+                    ul += '</ul>';
+                }else{
+                    ul += `<li class="list-group list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                                <p>No result found</p>
+                        </div>
+                    </li>`;
+                    ul += '</ul>';
+                }
+
+                $('.search-result').html(ul);
+            },
+            error: function(request, error){
+                let errors = JSON.parse(request.responseText);
+                $('#search-result-list').html('No result for this query');
+            }
+        });
+    });
+    // ul += '<li class="list-group list-group-item"><div class="d-flex w-100 justify-content-between"><h6>' + item.firstname + ' ' + item.surname + '</h6><small>'+ item.phone +'</small></div><p class="mb-1">'+ item.email +'</p></li>';
+    search_contribution.on('blur', ()=>{
+        $('#search_contribution').removeClass('no-bottom-borders');
+        $('.search-result').css('display','none');
     });
 
 
@@ -127,9 +182,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             city : $('#city').val(),
             state : $('#state').val(),
             amount : $('#amount').val(),
-        }
-
-
+        };
 
         $.ajax({
             url: url,
@@ -200,6 +253,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
             $(".alert").alert('close');
         }, duration);
     }
-
 
 });

@@ -7,7 +7,12 @@
                 <div class="searchbox mt-0 mr-0">
                     <div class="form-group has-search">
                         <span class="fa fa-search form-control-feedback"></span>
-                        <input type="text" class="form-control" id="search" placeholder="Search" style="border:0;">
+                        <input type="text" class="form-control" id="search-contribution" placeholder="Search Contributions" style="border:0;">
+                    </div>
+                    <div class="search-result">
+                        <ul class="list-group list-group-flush" id="search-result-list">
+
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -22,50 +27,34 @@
                         <table class="table table-hover ">
                             <thead class="trx-bg-head text-secondary py-3 px-3">
                             <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
+                                <th scope="col">Pin</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Ledger balance</th>
+                                <th scope="col">Available balance</th>
+                                <th scope="col">Cycle</th>
                                 <th scope="col">Date</th>
                             </tr>
                             </thead>
                             <tbody>
+                                <?php if(!empty($contributions) && count($contributions) > 0): ?>
+                                    <?php $__currentLoopData = $contributions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contribution): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td scope="row"><?php echo e($contribution['pin']); ?></td>
+                                        <td><?php echo e($contribution['phone']); ?></td>
+                                        <td><?php echo e($contribution['ledger_bal']); ?></td>
+                                        <td><?php echo e($contribution['available_bal']); ?></td>
+                                        <td><?php echo e($contribution['points']); ?></td>
+                                        <td><?php echo e($contribution['created_at']); ?></td>
+                                    </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="d-flex justify-content-center">No Contributions yet</div>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
 
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-times-circle text-danger"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

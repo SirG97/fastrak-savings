@@ -13,7 +13,11 @@
                                         Customers
                                     </div>
                                     <div class="mb-0 font-weight-bold card-sub-text text-secondary">
-                                        29
+                                        @if(!empty($total_customer) || $total_customer !== null)
+
+                                            @else
+
+                                        @end
                                     </div>
                                 </div>
                                 <div class="col-3">

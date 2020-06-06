@@ -39,10 +39,11 @@ $router->map('GET', '/pins/pending', '\App\Controllers\PinController@pending', '
 //$router->addMatchTypes(array('cId' => '[a-zA-Z]{2}[0-9](?:_[0-9]++)?'));
 
 //Contributions
-$router->map('GET', '/contributions', '\App\Controllers\CustomerController@contributions', 'contributions');
-$router->map('GET', '/contribute', '\App\Controllers\CustomerController@contribute_form', 'contribute_form');
-$router->map('POST', '/contribute', '\App\Controllers\CustomerController@contribute', 'contribute');
-$router->map('POST', '/ussd', '\App\Controllers\CustomerController@ussd', 'ussd');
+$router->map('GET', '/contributions', '\App\Controllers\ContributionController@get_all', 'contributions');
+$router->map('GET', '/contribute', '\App\Controllers\ContributionController@contribute_form', 'contribute_form');
+$router->map('POST', '/contribute', '\App\Controllers\ContributionController@contribute', 'contribute');
+$router->map('GET', '/contributions/[:terms]/search', '\App\Controllers\ContributionController@search_contribution', 'search_contribution');
+$router->map('POST', '/ussd', '\App\Controllers\ContributionController@ussd', 'ussd');
 
 // Settings
 $router->map('GET', '/settings', '\App\Controllers\SettingsController@showSettings', 'show_settings');

@@ -5,12 +5,51 @@ namespace App\Controllers;
 
 use App\Classes\CSRFToken;
 use App\Classes\Request;
-use App\Classes\Validation;
+use App\Classes\Random;
+use App\Classes\Redirect;
+use App\Models\Customer;
+use App\Models\Pin;
+use App\Models\Contribution;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class DashboardController extends BaseController{
     public function show(){
+        // TODO: Total customer
+        $total_customer = Customer::all()->count();
 
-        return view('user/dashboard');
+        // Total saved
+        $total_saved_ledger = "SELECT SUM(ledger_bal) total_saved FROM contributions";
+        $total_ledger = Capsule::select($total_saved_ledger);
+        // Total revenue generated
+
+        $total_saved_available = "SELECT SUM(available_bal) total FROM contributions";
+        $total_available = Capsule::select($total_saved_available);
+        $total_revenue = $total_ledger[0]->total_saved - $total_available[0]->total;
+
+        //  Total Total number of pins
+        $total_pins = Pin::all()->count();
+
+        //  Number generated vs used for 10 days period -bar or line chart
+        $live_pins = "SELECT created_at, count(pin) as generated_pin 
+                            FROM pins 
+                            WHERE status = 'live' 
+                            AND created_at >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)
+                            GROUP BY created_at;";
+        $get_live_pins = Capsule::select($live_pins);
+        $used_pins = "SELECT created_at, count(pin) as generated_pin 
+                            FROM pins 
+                            WHERE status = 'used' 
+                            AND created_at >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)
+                            GROUP BY created_at;";
+        $get_used_pins = Capsule::select($used_pins);
+
+        // TODO: Doughnut pie of channel used
+        return view('user/dashboard',['total_customer' => $total_customer,
+                                            'total_saved' => $total_ledger,
+                                            'total_revenue' => $total_revenue,
+                                            'total_pins' => $total_pins,
+                                            'live_pins' => $get_live_pins,
+                                            'used_pins' => $get_used_pins]);
     }
 
 

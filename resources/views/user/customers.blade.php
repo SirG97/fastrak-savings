@@ -206,9 +206,10 @@
                                     </div>
                                 </div>
                             @else
-                                <tr scope="row" col="5">
-                                   No customers yet
-
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="d-flex justify-content-center">No pins generated</div>
+                                    </td>
                                 </tr>
                             @endif
                             </tbody>
