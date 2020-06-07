@@ -219,7 +219,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 
-
     // show the delete confirmation modal
     $('#deleteModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget) // Button that triggered the modal
@@ -252,6 +251,140 @@ document.addEventListener('DOMContentLoaded', (event) => {
         setTimeout(()=>{
             $(".alert").alert('close');
         }, duration);
+    }
+
+    // Daily contribution chart
+    let ctx = $('#contribution-canvas');
+    function contribution_chart(){
+        let pin_data = [30, 12, 20, 287, 50, 25, 33, 22, 14, 41];
+        let pin_data2 = [1, 9, 12, 4, 10, 30, 3, 22, 8, 7];
+
+        let pin_usage = new Chart(ctx, {
+            type: 'line',
+            data:{
+                labels: ['Red', 'green', 'blue', 'yellow', 'orange', 'Purple','blue', 'yellow', 'orange', 'Purple'],
+                datasets: [{
+                    label: 'Daily Contributions',
+                    data: pin_data,
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#007bff',
+                    borderColor: [
+                        '#4361EE',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: Math.max.apply(this, pin_data) + 100
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    if(ctx.length){
+        contribution_chart();
+    }
+
+    function pin_analysis_chart(){
+        let ctx = $('#canvas');
+        let pin_data = [300, 124, 200, 287, 500, 250, 330, 222, 140, 413];
+        let pin_data2 = [1, 9, 12, 4, 10, 30, 3, 22, 8, 7];
+
+        let pin_usage = new Chart(ctx, {
+            type: 'line',
+            data:{
+                labels: ['Red', 'green', 'blue', 'yellow', 'orange', 'Purple','blue', 'yellow', 'orange', 'Purple'],
+                datasets: [{
+                    label: 'Daily Contributions',
+                    data: pin_data,
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#007bff',
+                    borderColor: [
+                        '#4361EE',
+                    ],
+                    borderWidth: 2
+                },
+                    {
+                        label: 'Pin used',
+                        data: pin_data2,
+                        backgroundColor: 'transparent',
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#f72585',
+                        borderColor: [
+                            '#f72585',
+                        ],
+                        borderWidth: 2
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: Math.max.apply(this, pin_data) + 2
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    function channel_usage_chart(){
+        let ctx = $('#canvas');
+        let pin_data = [4, 5, 3, 7, 2, 20, 3, 32, 10, 13];
+        let pin_data2 = [1, 9, 12, 4, 10, 30, 3, 22, 8, 7];
+
+        let pin_usage = new Chart(ctx, {
+            type: 'line',
+            data:{
+                labels: ['Red', 'green', 'blue', 'yellow', 'orange', 'Purple','blue', 'yellow', 'orange', 'Purple'],
+                datasets: [{
+                    label: 'Daily Contributions',
+                    data: pin_data,
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#007bff',
+                    borderColor: [
+                        '#4361EE',
+                    ],
+                    borderWidth: 2
+                },
+                    {
+                        label: 'Pin used',
+                        data: pin_data2,
+                        backgroundColor: 'transparent',
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#f72585',
+                        borderColor: [
+                            '#f72585',
+                        ],
+                        borderWidth: 2
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: Math.max.apply(this, pin_data) + 2
+                        }
+                    }]
+                }
+            }
+        });
     }
 
 });

@@ -6,7 +6,9 @@
     <title>Admin :: @yield('title')</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/Chart.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/Chart.bundle.min.js"></script>
 </head>
 <body>
 <div class="">
@@ -152,6 +154,7 @@
 
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
+
 <script src="/js/script.js"></script>
 </body>
 </html>

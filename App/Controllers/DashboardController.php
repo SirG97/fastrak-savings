@@ -20,6 +20,8 @@ class DashboardController extends BaseController{
         // Total saved
         $total_saved_ledger = "SELECT SUM(ledger_bal) total_saved FROM contributions";
         $total_ledger = Capsule::select($total_saved_ledger);
+        $total_saved = $total_ledger[0]->total_saved;
+
         // Total revenue generated
 
         $total_saved_available = "SELECT SUM(available_bal) total FROM contributions";
@@ -43,13 +45,20 @@ class DashboardController extends BaseController{
                             GROUP BY created_at;";
         $get_used_pins = Capsule::select($used_pins);
 
+        $get_daily_contribution = "SELECT updated_at, count(*) as daily_contribution 
+                            FROM contributions 
+                            WHERE updated_at >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)
+                            GROUP BY updated_at;";
+        $daily_contribution = Capsule::select($get_daily_contribution);
+
         // TODO: Doughnut pie of channel used
         return view('user/dashboard',['total_customer' => $total_customer,
-                                            'total_saved' => $total_ledger,
-                                            'total_revenue' => $total_revenue,
+                                            'total_saved' => number_format($total_saved, 2,'.', ','),
+                                            'total_revenue' => number_format($total_revenue, 2,'.', ','),
                                             'total_pins' => $total_pins,
                                             'live_pins' => $get_live_pins,
-                                            'used_pins' => $get_used_pins]);
+                                            'used_pins' => $get_used_pins,
+                                            'daily_contribution' => $daily_contribution ]);
     }
 
 
