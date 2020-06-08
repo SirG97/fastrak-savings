@@ -92,100 +92,63 @@
                 </div>
             </div>
 
+{{--        Latest transaction and channedl used section--}}
             <div class="row">
-            <div class="col-md-8">
-                <div class="custom-panel card py-2">
-                    <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                        Latest Transactions
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <thead class="trx-bg-head text-secondary py-3 px-3">
-                            <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-times-circle text-danger"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                <td>Payments from adaku@mail.com</td>
-                                <td>USD3000</td>
-                                <td>4 days ago</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="custom-panel card py-2">
-                    <div class="font-weight-bold text-primary mb-1 py-3 px-3">
-                        Messages
-                    </div>
-                    <table class="table">
-
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-0">Subject</h6>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-0">Donec id elit non mi....</p>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-0">Subject</h6>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-0">Donec id elit non mi....</p>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-0">Subject</h6>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-0">Donec id elit non mi....</p>
-                            </a>
+                <div class="col-md-8">
+                    <div class="custom-panel card py-2">
+                        <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
+                            Latest Transactions
                         </div>
-                    </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead class="trx-bg-head text-secondary py-3 px-3">
+                                <tr>
+                                    <th scope="col">Pin</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Point</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(!empty($latest_contributions) && count($latest_contributions) > 0)
+                                    @foreach($latest_contributions as $contribution)
+                                        <tr>
+                                            <td scope="row">{{ $contribution['pin'] }}</td>
+                                            <td>{{ $contribution['phone'] }}</td>
+                                            <td>{{ $contribution['available_bal'] }}</td>
+                                            <td>{{ $contribution['points'] }}</td>
+                                            <td>{{ $contribution['created_at']->diffForHumans() }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="d-flex justify-content-center">No Contributions yet</div>
+                                        </td>
+                                    </tr>
+                                @endif
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="custom-panel card py-2">
+                        <div class="font-weight-bold text-primary mb-1 py-3 px-3">
+                            Used Channel
+                        </div>
+                        <div id="channel-container" class="cool-border px-2">
+                            <canvas id="channel-canvas"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
     </div>
+{{--    <script>--}}
+{{--        var app = <?php echo json_encode($contribution_count); ?>;--}}
+{{--        console.log(app);--}}
+{{--    </script>--}}
 @endsection()

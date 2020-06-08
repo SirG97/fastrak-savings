@@ -5,12 +5,11 @@ namespace App\Controllers;
 
 use App\Classes\CSRFToken;
 use App\Classes\Request;
-use App\Classes\Random;
-use App\Classes\Redirect;
 use App\Models\Customer;
 use App\Models\Pin;
 use App\Models\Contribution;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Carbon\Carbon;
 
 class DashboardController extends BaseController{
     public function show(){
@@ -45,22 +44,26 @@ class DashboardController extends BaseController{
                             GROUP BY created_at;";
         $get_used_pins = Capsule::select($used_pins);
 
-        $get_daily_contribution = "SELECT updated_at, count(*) as daily_contribution 
-                            FROM contributions 
-                            WHERE updated_at >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)
-                            GROUP BY updated_at;";
-        $daily_contribution = Capsule::select($get_daily_contribution);
+        $get_contribution_count = "SELECT count(*) daily_total
+                                    FROM contributions 
+                                    WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                                    GROUP BY DATE(created_at)";
+
+        $contribution_count = Capsule::select($get_contribution_count);
+        // TODO: Extract the data from the query
+
+        $latest_contributions = Contribution::orderBy('id', 'desc')->take(10)->get();
 
         // TODO: Doughnut pie of channel used
         return view('user/dashboard',['total_customer' => $total_customer,
                                             'total_saved' => number_format($total_saved, 2,'.', ','),
                                             'total_revenue' => number_format($total_revenue, 2,'.', ','),
+                                            'latest_contributions' => $latest_contributions,
                                             'total_pins' => $total_pins,
                                             'live_pins' => $get_live_pins,
                                             'used_pins' => $get_used_pins,
-                                            'daily_contribution' => $daily_contribution ]);
+                                            'contribution_count' => $contribution_count ]);
     }
-
 
     public function get(){
         $data = Request::old('post', 'name');

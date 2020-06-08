@@ -452,7 +452,7 @@ header{
     border: 1px solid #ddd;
 }
 
-#canvas-container{
+#canvas-container, #channel-container{
     height: 400px;
 }
 
