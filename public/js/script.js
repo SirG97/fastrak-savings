@@ -304,9 +304,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 legend: {
                     display: false
                 },
-                animation: {
-                    duration: 0,
-                },
                 hover: {
                     animationDuration: 0,
                 },

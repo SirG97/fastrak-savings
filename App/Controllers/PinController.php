@@ -18,7 +18,12 @@ class PinController extends BaseController{
     public $table_name = 'pins';
     public $pins;
     public $links;
-
+    public function __construct()
+    {
+        if(!isAuthenticated()){
+            Redirect::to('/login');
+        }
+    }
 //    public function __construct(){
 //        $total = Pin::all()->count();
 //        $object = new Pin();

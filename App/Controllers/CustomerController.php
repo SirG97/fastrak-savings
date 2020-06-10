@@ -21,6 +21,13 @@ class CustomerController extends BaseController{
     public $customers;
     public $links;
 
+    public function __construct()
+    {
+        if(!isAuthenticated()){
+            Redirect::to('/login');
+        }
+    }
+
 //    public function __construct(){
 //        $total = Customer::all()->count();
 ////        $customers = Customer::all();

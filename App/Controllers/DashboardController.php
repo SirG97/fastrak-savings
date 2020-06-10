@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Classes\CSRFToken;
+use App\Classes\Redirect;
 use App\Classes\Request;
 use App\Classes\Validation;
 use App\Models\Customer;
@@ -13,6 +14,12 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Carbon\Carbon;
 
 class DashboardController extends BaseController{
+    public function __construct()
+    {
+        if(!isAuthenticated()){
+            Redirect::to('/login');
+        }
+    }
     public function show(){
         // TODO: Total customer
         $total_customer = Customer::all()->count();

@@ -21,6 +21,13 @@ class ContributionController extends BaseController {
     public $customers;
     public $links;
 
+    public function __construct()
+    {
+        if(!isAuthenticated()){
+            Redirect::to('/login');
+        }
+    }
+
     public function get_all(){
         $total = Contribution::all()->count();
         $object = new Contribution();
