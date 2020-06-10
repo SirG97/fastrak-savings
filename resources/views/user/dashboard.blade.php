@@ -83,9 +83,9 @@
                 <div class="col-md-12">
                     <div class="custom-panel card py-2">
                         <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                            Daily contribution
+                            Daily contributions
                         </div>
-                        <div id="canvas-container" class="cool-border">
+                        <div id="canvas-container" class="">
                             <canvas id="contribution-canvas"></canvas>
                         </div>
                     </div>
@@ -151,4 +151,5 @@
 {{--        var app = <?php echo json_encode($contribution_count); ?>;--}}
 {{--        console.log(app);--}}
 {{--    </script>--}}
+
 @endsection()

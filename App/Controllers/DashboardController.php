@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Classes\CSRFToken;
 use App\Classes\Request;
+use App\Classes\Validation;
 use App\Models\Customer;
 use App\Models\Pin;
 use App\Models\Contribution;
@@ -61,8 +62,24 @@ class DashboardController extends BaseController{
                                             'latest_contributions' => $latest_contributions,
                                             'total_pins' => $total_pins,
                                             'live_pins' => $get_live_pins,
-                                            'used_pins' => $get_used_pins,
-                                            'contribution_count' => $contribution_count ]);
+                                            'used_pins' => $get_used_pins ]);
+    }
+
+    public function chart_info(){
+            $get_contribution_count = "SELECT count(*) daily_total, created_at
+                                    FROM contributions 
+                                    WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                                    GROUP BY DATE(created_at)";
+
+            $contribution_count = Capsule::select($get_contribution_count);
+            if($contribution_count){
+                echo json_encode(['success' => 'Chart data retrieved successfully', 'contribution_count' => $contribution_count]);
+                exit();
+            }
+
+            echo json_encode(['error' => 'Could not get chart data']);
+            exit();
+
     }
 
     public function get(){

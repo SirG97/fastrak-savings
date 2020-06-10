@@ -231,13 +231,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     $('#deleteCustomerBtn').on('click', (e)=>{
         e.preventDefault();
-        // const data = {
-        //     token : $('#token').val(),
-        //
-        // }
-
         $("#customerDeleteForm").submit();
-
     });
 
 
@@ -255,16 +249,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Daily contribution chart
     let ctx = $('#contribution-canvas');
-    function contribution_chart(){
-        let pin_data = [30, 12, 20, 27, 50, 25, 33, 42, 22, 61];
-
-        let pin_usage = new Chart(ctx, {
+    function contribution_chart(chart_data){
+        let label_list = [];
+        let data_list = [];
+        for(let i = 0; i < chart_data.length; i++){
+            label_list.push(new Date(chart_data[i].created_at).toLocaleDateString());
+            data_list.push(chart_data[i].daily_total);
+        }
+        console.log(label_list, data_list);
+        new Chart(ctx, {
             type: 'line',
-            data:{
-                // labels: ['Red', 'green', 'blue', 'yellow', 'orange', 'Purple','blue', 'yellow', 'orange', 'Purple'],
+            data: {
+                labels: label_list,
                 datasets: [{
-                    label: 'Daily Contributions',
-                    data: pin_data,
+                    data: data_list,
+                    label: "",
                     backgroundColor: 'rgba(0, 92, 230, .5)',
                     pointBackgroundColor: '#ffffff',
                     pointBorderColor: '#007bff',
@@ -272,12 +271,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         '#4361EE',
                     ],
                     borderWidth: 2,
-                    // data: [{
-                    //     t: new Date(),
-                    //     x: 10
-                    // }]
-                }]
 
+                }]
             },
             options: {
                 responsive: true,
@@ -289,25 +284,133 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             // max: Math.max.apply(this, pin_data) + 100
                         }
                     }],
-                    xAxes: [{
-                        type: 'time',
-                        distribution: 'series',
-                        time: {
-                            unit: 'day',
+                    // xAxes: [{
+                    //     type: 'time',
+                    //     time: {
+                    //         parser: 'YYYY-MM-DD HH:mm:ss',
+                    //         unit: 'day',
+                    //         displayFormats: {
+                    //             quarter: 'MMM D'
+                    //         },
+                    //         max: d,
+                    //         min: i7,
+                    //
+                    //     },
+                    //     ticks: {
+                    //         source: 'data'
+                    //     }
+                    // }]
+                },
+                legend: {
+                    display: false
+                },
+                animation: {
+                    duration: 0,
+                },
+                hover: {
+                    animationDuration: 0,
+                },
+                responsiveAnimationDuration: 0
+            },
+            // plugins: [{
+            //     beforeInit: function(chart) {
+            //         var time = chart.options.scales.xAxes[0].time, // 'time' object reference
+            //             timeDiff = moment(time.max).diff(moment(time.min), 'd'); // difference (in days) between min and max date
+            //         // populate 'labels' array
+            //         // (create a date string for each date between min and max, inclusive)
+            //         for (i = 0; i <= timeDiff; i++) {
+            //             var _label = moment(time.min).add(i, 'd').format('YYYY-MM-DD HH:mm:ss');
+            //             chart.data.labels.push(_label);
+            //         }
+            //     }
+            // }]
+        });
+        // let pin_data = [30, 12, 20, 27, 50, 25, 33, 42, 22, 61];
 
-                            displayFormats: {
-                                quarter: 'MMM D'
-                            }
-                        }
-                    }]
-                }
+        // let pin_usage = new Chart(ctx, {
+        //     type: 'line',
+        //     data:{
+        //         // labels: ['Red', 'green', 'blue', 'yellow', 'orange', 'Purple','blue', 'yellow', 'orange', 'Purple'],
+        //         datasets: [{
+        //             label: '',
+        //             data: pin_data,
+        //             backgroundColor: 'rgba(0, 92, 230, .5)',
+        //             pointBackgroundColor: '#ffffff',
+        //             pointBorderColor: '#007bff',
+        //             borderColor: [
+        //                 '#4361EE',
+        //             ],
+        //             borderWidth: 2,
+        //             // data: [{
+        //             //     t: new Date(),
+        //             //     x: 10
+        //             // }]
+        //         }]
+        //
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         scales: {
+        //             yAxes: [{
+        //                 ticks: {
+        //                     beginAtZero: true,
+        //                     // max: Math.max.apply(this, pin_data) + 100
+        //                 }
+        //             }],
+        //             xAxes: [{
+        //                 type: 'time',
+        //                 time: {
+        //                     unit: 'day',
+        //                     displayFormats: {
+        //                         quarter: 'MMM D'
+        //                     },
+        //
+        //                 },
+        //                 ticks: {
+        //                     source: 'data',
+        //                     min: d,
+        //                     max: moment(d).subtract(7 , 'day'),
+        //                 }
+        //             }]
+        //         }
+        //     },
+        //     plugins: [{
+        //         beforeInit: function(chart) {
+        //             let time = chart.options.scales.xAxes[0].ticks, // 'time' object reference
+        //                 timeDiff = moment(time.max).diff(moment(time.min), 'd'); // difference (in days) between min and max date
+        //             // populate 'labels' array
+        //             // (create a date string for each date between min and max, inclusive)
+        //             for (let i = 0; i <= timeDiff; i++) {
+        //                 let _label = moment(time.min).add(i, 'd').format('YYYY-MM-DD HH:mm:ss');
+        //                 chart.data.labels.push(_label);
+        //             }
+        //         }
+        //     }]
+        // });
+    }
+    if(ctx.length){console.log('The ajax call should go');
+        const url = `/dashboard/chart`;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            beforeSend: function(){
+
+            },
+            success: function (response) {
+                let chart_data = JSON.parse(response);
+                console.log(chart_data.contribution_count);
+                contribution_chart(chart_data.contribution_count);
+            },
+            error: function(request, error){
+                let errors = JSON.parse(request.responseText);
+                console.log(errors);
             }
         });
+
+
     }
-    console.log('fuckl');
-    if(ctx.length){
-        contribution_chart();
-    }
+
     let channel_ctx = $('#channel-canvas');
     function channel_usage_chart(){
 

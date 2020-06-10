@@ -16,6 +16,7 @@ $router->map('GET', '/logout', '\App\Controllers\AuthController@logout', 'logout
 
 $router->map('GET', '/dashboard', '\App\Controllers\DashboardController@show', 'dashboard');
 $router->map('POST', '/dashboard', '\App\Controllers\DashboardController@store', 'dt');
+$router->map('GET', '/dashboard/chart', '\App\Controllers\DashboardController@chart_info', 'chart');
 
 //Customer Routes
 $router->map('GET', '/customers', '\App\Controllers\CustomerController@show', 'customers');
