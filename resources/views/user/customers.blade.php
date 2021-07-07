@@ -81,7 +81,6 @@
                                            data-customer_id="{{ $customer['customer_id'] }}"></i>
                                     </td>
 
-
                                 </tr>
                                 @endforeach
                                 {{-- Edit Modal--}}
@@ -208,8 +207,9 @@
                                 </div>
                             @else
                                 <tr>
-                                   No customers yet
-
+                                    <td colspan="7">
+                                        <div class="d-flex justify-content-center">No pins generated</div>
+                                    </td>
                                 </tr>
                             @endif
                             </tbody>

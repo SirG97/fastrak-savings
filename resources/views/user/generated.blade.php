@@ -47,8 +47,9 @@
                             @endforeach
                         @else
                             <tr>
-                                No pins generated
-
+                                <td colspan="5">
+                                    <div class="d-flex justify-content-center">No pins generated</div>
+                                </td>
                             </tr>
                         @endif
                         </tbody>

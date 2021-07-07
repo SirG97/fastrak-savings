@@ -452,13 +452,38 @@ header{
     border: 1px solid #ddd;
 }
 
+#canvas-container, #channel-container{
+    height: 400px;
+}
+
+/*Dashboard card redesign*/
+
+
+.order-card{
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-c-blue{
+    border-top: 2px solid #007bff;
+}
+
+.card-body{
+    padding: 20px;
+}
 
 
 /*STYLES FOR LOGIN PAGE ENDS*/
 
 @media screen and (min-width: 768px){
     .main{
-        padding: 80px 40px 124px 0px;
+        padding: 80px 40px 124px 7px;
         width: calc(100% - 60px);
     }
 
@@ -492,7 +517,7 @@ header{
 @media screen and (min-width: 1200px){
     .main{
         width: calc(100% - 250px);
-        padding: 80px 44px 124px 0px;
+        padding: 80px 44px 124px 7px;
     }
 
     .nav-sidebar {

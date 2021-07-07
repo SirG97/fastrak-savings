@@ -164,7 +164,11 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="table-style">
-                                                        <td colspan="5" class="text-center">No data </td>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <div class="d-flex justify-content-center">No cotributions yet</div>
+                                                            </td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                             @endif

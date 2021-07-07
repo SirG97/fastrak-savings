@@ -1,7 +1,6 @@
-@extends('user.layout.base')
-@section('title', 'Contributions')
-@section('icon', 'fa-coins')
-@section('content')
+<?php $__env->startSection('title', 'Contributions'); ?>
+<?php $__env->startSection('icon', 'fa-coins'); ?>
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-6">
@@ -37,24 +36,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($contributions) && count($contributions) > 0)
-                                    @foreach($contributions as $contribution)
+                                <?php if(!empty($contributions) && count($contributions) > 0): ?>
+                                    <?php $__currentLoopData = $contributions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contribution): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td scope="row">{{ $contribution['pin'] }}</td>
-                                        <td>{{ $contribution['phone'] }}</td>
-                                        <td>{{ $contribution['ledger_bal'] }}</td>
-                                        <td>{{ $contribution['available_bal'] }}</td>
-                                        <td>{{ $contribution['points'] }}</td>
-                                        <td>{{ $contribution['created_at'] }}</td>
+                                        <td scope="row"><?php echo e($contribution['pin']); ?></td>
+                                        <td><?php echo e($contribution['phone']); ?></td>
+                                        <td><?php echo e($contribution['ledger_bal']); ?></td>
+                                        <td><?php echo e($contribution['available_bal']); ?></td>
+                                        <td><?php echo e($contribution['points']); ?></td>
+                                        <td><?php echo e($contribution['created_at']); ?></td>
                                     </tr>
-                                    @endforeach
-                                @else
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
                                     <tr>
                                         <td colspan="5">
                                             <div class="d-flex justify-content-center">No Contributions yet</div>
                                         </td>
                                     </tr>
-                                @endif
+                                <?php endif; ?>
 
                             </tbody>
                         </table>
@@ -65,4 +64,5 @@
 
         </div>
     </div>
-@endsection()
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('user.layout.base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\noble\resources\views/user/contributions.blade.php ENDPATH**/ ?>

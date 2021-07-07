@@ -3,92 +3,96 @@
 @section('icon', 'fa-tachometer-alt')
 @section('content')
     <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="custom-panel card py-2">
-                        <div class="card-body">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-9">
-                                    <div class="font-weight-bold text-primary mb-1">
-                                        Customers
-                                    </div>
-                                    <div class="mb-0 font-weight-bold card-sub-text text-secondary">
-                                        29
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <i class="fas fa-calendar fa-2x text-secondary"></i>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="custom-panel card py-2">
-                        <div class="card-body">
-                            <div class="row d-flex align-items-center">
-                                <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary mb-1">
-                                        Total Revenue
-                                    </div>
-                                    <div class="mb-0 font-weight-bold card-sub-text text-secondary">
-                                        16B
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-money-bill-alt fa-2x text-secondary"></i>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="custom-panel card py-2">
-                        <div class="card-body">
-                            <div class="row d-flex align-items-center">
-                                <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary mb-1">
-                                        Daily Visits
-                                    </div>
-                                    <div class="mb-0 font-weight-bold card-sub-text text-secondary">
-                                        161
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-chart-line fa-2x text-secondary"></i>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="custom-panel card py-2">
-                        <div class="card-body">
-                            <div class="row d-flex align-items-center">
-                                <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary mb-1">
-                                        Tickets
-                                    </div>
-                                    <div class="mb-0 font-weight-bold card-sub-text text-secondary">
-                                        14
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-ticket-alt fa-2x text-secondary"></i>
-                                </div>
-                            </div>
-
-                        </div>
-
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-c-blue order-card text-secondary">
+                    <div class="card-body">
+                        <h6 class="text-primary">Total Customers</h6>
+                        <h5 class="text-right">
+                            <i class="fas fa-user  float-left"></i>
+                            <span>
+                                @if(!empty($total_customer) || $total_customer !== null)
+                                    {{$total_customer}}
+                                @else
+                                    N/A
+                                @endif
+                            </span>
+                        </h5>
+                        <p class="mb-0">New customers<span class="float-right">n/a</span></p>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-c-blue order-card text-secondary">
+                    <div class="card-body">
+                        <h6 class="text-primary">Total Saved</h6>
+                        <h5 class="text-right">
+                            <i class="fas fa-award  float-left"></i>
+                            <span>
+                                 @if(!empty($total_saved) || $total_saved !== null)
+                                    {{$total_saved}}
+                                @else
+                                    N/A
+                                @endif
+                            </span>
+                        </h5>
+                        <p class="mb-0">This week<span class="float-right">n/a</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-c-blue order-card text-secondary">
+                    <div class="card-body">
+                        <h6 class="text-primary">Total Revenue</h6>
+                        <h5 class="text-right">
+                            <i class="fas fa-coins  float-left"></i>
+                            <span>
+                                @if(!empty($total_revenue) || $total_revenue !== null)
+                                    {{$total_revenue}}
+                                @else
+                                    N/A
+                                @endif
+                            </span>
+                        </h5>
+                        <p class="mb-0">This week<span class="float-right">n/a</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-c-blue order-card text-secondary">
+                    <div class="card-body">
+                        <h6 class="text-primary">Total Pins</h6>
+                        <h5 class="text-right">
+                            <i class="fas fa-key  float-left"></i>
+                            <span>
+                                @if(!empty($total_pins) || $total_pins !== null)
+                                    {{$total_pins}}
+                                @else
+                                    N/A
+                                @endif
+                            </span>
+                        </h5>
+                        <p class="mb-0">This week<span class="float-right">n/a</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+{{--        Daily contribution chart--}}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="custom-panel card py-2">
+                        <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
+                            Daily contributions
+                        </div>
+                        <div id="canvas-container" class="">
+                            <canvas id="contribution-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{{--        Latest transaction and channedl used section--}}
             <div class="row">
                 <div class="col-md-8">
                     <div class="custom-panel card py-2">
@@ -99,50 +103,32 @@
                             <table class="table table-hover ">
                                 <thead class="trx-bg-head text-secondary py-3 px-3">
                                 <tr>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Amount</th>
+                                    <th scope="col">Pin</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Point</th>
                                     <th scope="col">Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @if(!empty($latest_contributions) && count($latest_contributions) > 0)
+                                    @foreach($latest_contributions as $contribution)
+                                        <tr>
+                                            <td scope="row">{{ $contribution['pin'] }}</td>
+                                            <td>{{ $contribution['phone'] }}</td>
+                                            <td>{{ $contribution['available_bal'] }}</td>
+                                            <td>{{ $contribution['points'] }}</td>
+                                            <td>{{ $contribution['created_at']->diffForHumans() }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="d-flex justify-content-center">No Contributions yet</div>
+                                        </td>
+                                    </tr>
+                                @endif
 
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-times-circle text-danger"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><i class="fas fa-fw fa-check-circle text-success"></i></th>
-                                    <td>Payments from adaku@mail.com</td>
-                                    <td>USD3000</td>
-                                    <td>4 days ago</td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -152,36 +138,18 @@
                 <div class="col-md-4">
                     <div class="custom-panel card py-2">
                         <div class="font-weight-bold text-primary mb-1 py-3 px-3">
-                            Messages
+                            Used Channel
                         </div>
-                        <table class="table">
-
-                            <div class="list-group list-group-flush">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Subject</h6>
-                                        <small class="text-muted">3 days ago</small>
-                                    </div>
-                                    <p class="mb-0">Donec id elit non mi....</p>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Subject</h6>
-                                        <small class="text-muted">3 days ago</small>
-                                    </div>
-                                    <p class="mb-0">Donec id elit non mi....</p>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Subject</h6>
-                                        <small class="text-muted">3 days ago</small>
-                                    </div>
-                                    <p class="mb-0">Donec id elit non mi....</p>
-                                </a>
-                            </div>
-                        </table>
+                        <div id="channel-container" class="cool-border px-2">
+                            <canvas id="channel-canvas"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
+{{--    <script>--}}
+{{--        var app = <?php echo json_encode($contribution_count); ?>;--}}
+{{--        console.log(app);--}}
+{{--    </script>--}}
+
 @endsection()
